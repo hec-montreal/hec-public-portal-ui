@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>HEC Montréal - Zone Cours 2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+   
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    
+    <link href="bootstrap/css/JEJhAemzp3w4kmQngJFVp.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="css/animate-custom.css" rel="stylesheet">
+    
+
+    <link href="css/zc2-2.css" rel="stylesheet">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+ 	
+ 	
+ 	
+    <script src="twitter-bootstrap-59503e7/docs/assets/js/jquery.js"></script>
+
+    <link href="plugins/tablesorter/themes/blue/style.css" rel="stylesheet">
+ 	
+  </head>
+
+<body id="archives">
+<div id="wrap">
+	<!-- Header -->
+	<div id="HEC-header" class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+        	
+			<a class="btn btn-navbar" data-toggle="collapse" data-target="nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</a>
+			
+			<a class="brand" href="#" style="padding: 4px 12px 4px 18px">
+				<img src="images/HECMontreal_blanc-med.png" alt="HECMontreal_blanc-med" width="189" height="24" />
+			</a>
+			
+			<!--.nav-collapse -->
+			<div class="nav-collapse">
+				<ul class="nav">
+					<li class="divider-vertical"></li>
+					<li class=""><a href="#">Archives de cours</a></li>
+					<li class="divider-vertical"></li>
+				
+					<li class="dropdown" id="menu1">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
+							<span class="icon-flag icon-white "></span> Langue du portail
+							<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="#" class="active">Français</a></li>
+							<li><a href="#">English</a></li>
+							<li><a href="#">Espanol</a></li>
+						</ul>
+					</li>
+				    <li class="divider-vertical"></li>
+				</ul>
+				<ul class="nav pull-right">
+					<li class="active">
+						<a  class="">
+							<span class="icon-search icon-white " style="padding-right: 6px"></span>Recherche
+						</a>
+					</li>
+					<li>
+					    <a  data-toggle="modal" href="#loginModal" class="">
+					    	<span class="icon-user icon-white "></span>
+					    	Login
+					    </a>
+				    </li>
+				</ul>
+			</div>
+			<!--/.nav-collapse -->
+          
+        </div>
+      </div>
+    </div>
+	<!-- /Header -->
+	
+	<!-- Main -->
+	<div id="main" class="container clear-top">
+		
+		<ul class="breadcrumb">
+			<li>
+				<a href="http://www.hec.ca/">HEC</a> <span class="divider">/</span>
+			</li>
+			<li>
+				<a href="#">HEC accès libre</a> <span class="divider">/</span>
+			</li>
+			<li class=""><a href="index16.html">Cours HEC</a></li><span class="divider">/</span>
+			<li class="active">Cours archivés</li>
+		</ul>
+		<!-- Row  -->
+		<div class="row"> 
+			<div class="span12">
+			<div class="tabbable">
+				<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+				    <li class="active"><a href="#1" data-toggle="tab">Recherche</a></li>
+			        <li><a href="#par-selection" data-toggle="tab">...</a></li>
+			    </ul>
+			  <div class="tab-content">
+			    
+			    <div class="tab-pane active" id="1">
+						
+						<form id="searchpan" class="well form-search form-horizontal" style="">
+							<input type="text" class="search-query input-xlarge span2 pull-left" placeholder="# de cours">
+							<button type="submit" class="btn">Recherche</button>
+						</form>
+					
+						<!-- Navbar 2 -->
+						<div class="navbar search-toolbar">
+							<div class="navbar-inner"   style="border-bottom-left-radius: 0;border-bottom-right-radius: 0;">
+								<div class="container">
+								
+								<a class="brand" href="#" style="color: white; font-weight: normal; font-size: 16px; line-height: 20px;">Filtres de recherche</a>
+								
+									<ul class="nav">
+										<li class="divider-vertical"></li>
+									  <li class="dropdown">
+									    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									          Programme d'étude
+									          <b class="caret"></b>
+									    </a>
+									    <ul class="dropdown-menu">
+										    <li><a href="#dropdown1" data-toggle="tab">Certificats</a></li>
+										    <li><a href="#dropdown1" data-toggle="tab">Maîtrise en administration des affaires</a></li>
+										    <li><a href="#dropdown1" data-toggle="tab">Maîtrise ès sciences en gestion</a></li>
+										    <li><a href="#dropdown1" data-toggle="tab">Diplômes d'études supérieures spécialisées</a></li>
+										    <li><a href="#dropdown1" data-toggle="tab">Doctorat en administration</a></li>
+										    <li><a href="#dropdown1" data-toggle="tab">Tous</a></li>
+									    </ul>
+									  </li>
+									</ul>
+									<ul class="nav">
+									  <li class="dropdown">
+									    <a href="#"
+									          class="dropdown-toggle"
+									          data-toggle="dropdown">
+									          Disciplines
+									          <b class="caret"></b>
+									    </a>
+									    <ul class="dropdown-menu">
+										    <li><a href="#dropdown1" data-toggle="tab">Institut d'économie appliquée (IEA)</a></li>
+										    <li><a href="#dropdown1" data-toggle="tab">Service de l'enseignement de la finance</a></li>
+										    <li><a href="#dropdown1" data-toggle="tab">Service de l'enseignement de la gestion des opérations et de la logistique (GOL) </a></li>
+										    
+										    <li><a href="#dropdown1" data-toggle="tab">Service de l'enseignement de la gestion des ressources humaines (GRH)</a></li>
+										    <li><a href="#dropdown1" data-toggle="tab">Service de l'enseignement des affaires internationales </a></li>
+										    <li><a href="#dropdown1" data-toggle="tab">Service de l'enseignement des méthodes quantitatives de gestion (MQG)</a></li>
+										    <li><a href="#dropdown1" data-toggle="tab">Service de l'enseignement des sciences comptables</a></li>
+										    <li><a href="#dropdown1" data-toggle="tab">Service de l'enseignement des technologies de l'information (TI)</a></li>
+										    <li><a href="#dropdown1" data-toggle="tab">Service de l'enseignement du marketing</a></li>
+										    <li><a href="#dropdown1" data-toggle="tab">Service de l'enseignement du management</a></li>
+										    <li><a href="#dropdown1" data-toggle="tab">Toutes</a></li>
+									    </ul>
+									  </li>
+									</ul>
+									<ul class="nav">
+									  <li class="dropdown">
+									    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								          Langues de cours
+								          <b class="caret"></b>
+									    </a>
+									    <ul class="dropdown-menu">
+										    <li><a href="#dropdown1" data-toggle="tab">En français</a></li>
+										    <li><a href="#dropdown1" data-toggle="tab">En anglais</a></li>
+										    <li><a href="#dropdown1" data-toggle="tab">En espagnol</a></li>
+										    <li><a href="#dropdown1" data-toggle="tab">Toutes</a></li>
+									    </ul>
+									  </li>
+									</ul>
+								
+								</div>
+
+							</div>
+							<form class="well form-search form-horizontal" style="border-top-left-radius: 0;border-top-right-radius: 0;">
+								<input type="text" class="search-query input-medium span2 pull-left" placeholder="# de cours">
+								<input type="text" class="search-query input-medium span3 pull-left" placeholder="Titre du cours">
+								<button type="submit" class="btn">Filtrer</button>
+							</form>
+						</div>
+						<!-- /Navbar 2 -->
+						
+						<!-- Results -->
+						<div>
+							<h3>Resultats d'archives</h3>
+							<table class="table table-striped tablesorter row"  id="sortTableExample">
+								<thead>
+									<tr>
+							            <th class="col-sigle">
+									        <span>Sigle</span>
+							            </th>
+							            <th class="col-nom">
+									        <span>Nom de cours</span>							        
+									    </th>
+									    <th class="col-dispo">
+											<span>Trimestre</span>
+									    </th>
+							            <th class="col-prog">
+									        <span>Programme d'études</span>
+									    </th>
+							            <th class="col-dis">
+									        <span>Disciplines</span>
+									    </th>
+							            <th class="col-pdf">
+									        <span>Plan de cours</span>
+									    </th>
+							            <!--<th class="col-save">
+									        <span>Signet</span>
+									    </th>
+							            <th class="col-arch">
+									        <span>Cours archivé</span>
+									    </th>-->
+							        </tr>
+							    </thead>
+						        <tbody>
+						          <tr>
+						            <td class="col-sigle">
+						            	<a data-toggle="modal" href="#myModal">1-404-96.H2012.X24</a>
+						            </td>
+						            <td><a data-toggle="modal" href="#myModal">Sociologie de l'entreprise</a></td>
+						            <td>
+										<b class="trimester"   rel="tooltip" title="disponible à l'hiver 2012">H12</b>
+						            </td>
+						            <td>B.A.A.</td>
+						            <td>Management</td>
+						            <td class="col-pdf">
+						            	<a href="Ressources/1-404-96.H2012.00_public.pdf"  target="_blank" class="button-microapp"><i class="icon-file-pdf"></i></a>
+						            </td>
+						          </tr>
+						          <tr>
+						            <td class="col-sigle">
+						            	<a data-toggle="modal" href="#myModal">1-404-96.H2012.Y25</a>
+						            </td>
+						            <td><a data-toggle="modal" href="#myModal">Sociologie de l'entreprise</a></td>
+						            <td>
+										<b class="trimester"   rel="tooltip" title="disponible à l'hiver 2012">H12</b>
+						            </td>
+						            <td>B.A.A.</td>
+						            <td>Management</td>
+						            <td class="col-pdf">
+						            	<a href="Ressources/1-404-96.H2012.00_public.pdf"  target="_blank" class="button-microapp"><i class="icon-file-pdf"></i></a>
+						            </td>
+						          </tr>
+						          <tr>
+						            <td class="col-sigle">
+						            	<a data-toggle="modal" href="#myModal">1-404-96.H2012.Z26</a>
+						            </td>
+						            <td><a data-toggle="modal" href="#myModal">Sociologie de l'entreprise</a></td>
+						            <td>
+										<b class="trimester"   rel="tooltip" title="disponible à l'hiver 2012">H12</b>
+						            </td>
+						            <td>B.A.A.</td>
+						            <td>Management</td>
+						            <td class="col-pdf">
+						            	<a href="Ressources/1-404-96.H2012.00_public.pdf"  target="_blank" class="button-microapp"><i class="icon-file-pdf"></i></a>
+						            </td>
+						          </tr>
+						          <tr>
+						            <td class="col-sigle">
+						            	<a data-toggle="modal" href="#myModal">1-404-96.A2011.A01</a>
+						            </td>
+						            <td><a data-toggle="modal" href="#myModal">Sociologie de l'entreprise</a></td>
+						            <td>
+										<b class="trimester"   rel="tooltip" title="disponible à l'automne 2011">A11</b>
+						            </td>
+						            <td>B.A.A.</td>
+						            <td>Management</td>
+						            <td class="col-pdf">
+						            	<a href="Ressources/1-404-96.H2012.00_public.pdf"  target="_blank" class="button-microapp"><i class="icon-file-pdf"></i></a>
+						            </td>
+						          </tr>
+						          <tr>
+						            <td class="col-sigle">
+						            	<a data-toggle="modal" href="#myModal">1-404-96.A2011.B02</a>
+						            </td>
+						            <td><a data-toggle="modal" href="#myModal">Sociologie de l'entreprise</a></td>
+						            <td>
+										<b class="trimester"   rel="tooltip" title="disponible à l'automne 2011">A11</b>
+						            </td>
+						            <td>B.A.A.</td>
+						            <td>Management</td>
+						            <td class="col-pdf">
+						            	<a href="Ressources/1-404-96.H2012.00_public.pdf"  target="_blank" class="button-microapp"><i class="icon-file-pdf"></i></a>
+						            </td>
+						          </tr>
+						          <tr>
+						            <td class="col-sigle">
+						            	<a data-toggle="modal" href="#myModal">1-404-96.A2011.C03</a>
+						            </td>
+						            <td><a data-toggle="modal" href="#myModal">Sociologie de l'entreprise</a></td>
+						            <td>
+										<b class="trimester"   rel="tooltip" title="disponible à l'automne 2011">A11</b>
+						            </td>
+						            <td>B.A.A.</td>
+						            <td>Management</td>
+						            <td class="col-pdf">
+						            	<a href="Ressources/1-404-96.H2012.00_public.pdf"  target="_blank" class="button-microapp"><i class="icon-file-pdf"></i></a>
+						            </td>
+						          </tr>
+						          <tr>
+						            <td class="col-sigle">
+						            	<a data-toggle="modal" href="#myModal">1-404-96.A2011.D04</a>
+						            </td>
+						            <td><a data-toggle="modal" href="#myModal">Sociologie de l'entreprise</a></td>
+						            <td>
+										<b class="trimester"   rel="tooltip" title="disponible à l'automne 2011">A11</b>
+						            </td>
+						            <td>B.A.A.</td>
+						            <td>Management</td>
+						            <td class="col-pdf">
+						            	<a href="Ressources/1-404-96.H2012.00_public.pdf"  target="_blank" class="button-microapp"><i class="icon-file-pdf"></i></a>
+						            </td>
+						          </tr>
+						          <tr>
+						            <td class="col-sigle">
+						            	<a data-toggle="modal" href="#myModal">1-404-96.A2011.E05</a>
+						            </td>
+						            <td><a data-toggle="modal" href="#myModal">Sociologie de l'entreprise</a></td>
+						            <td>
+										<b class="trimester"   rel="tooltip" title="disponible à l'automne 2011">A11</b>
+						            </td>
+						            <td>B.A.A.</td>
+						            <td>Management</td>
+						            <td class="col-pdf">
+						            	<a href="Ressources/1-404-96.H2012.00_public.pdf"  target="_blank" class="button-microapp"><i class="icon-file-pdf"></i></a>
+						            </td>
+						          </tr>
+						          <tr>
+						            <td class="col-sigle">
+						            	<a data-toggle="modal" href="#myModal">1-404-96.A2011.F06</a>
+						            </td>
+						            <td><a data-toggle="modal" href="#myModal">Sociologie de l'entreprise</a></td>
+						            <td>
+										<b class="trimester"   rel="tooltip" title="disponible à l'automne 2011">A11</b>
+						            </td>
+						            <td>B.A.A.</td>
+						            <td>Management</td>
+						            <td class="col-pdf">
+						            	<a href="Ressources/1-404-96.H2012.00_public.pdf"  target="_blank" class="button-microapp"><i class="icon-file-pdf"></i></a>
+						            </td>
+						          </tr>
+						          <tr>
+						            <td class="col-sigle">
+						            	<a data-toggle="modal" href="#myModal">1-404-96.A2011.G07</a>
+						            </td>
+						            <td><a data-toggle="modal" href="#myModal">Sociologie de l'entreprise</a></td>
+						            <td>
+										<b class="trimester"   rel="tooltip" title="disponible à l'automne 2011">A11</b>
+						            </td>
+						            <td>B.A.A.</td>
+						            <td>Management</td>
+						            <td class="col-pdf">
+						            	<a href="Ressources/1-404-96.H2012.00_public.pdf"  target="_blank" class="button-microapp"><i class="icon-file-pdf"></i></a>
+						            </td>
+						          </tr>
+						        </tbody>
+							</table>
+						</div>
+						<!-- /Results -->
+			      
+						<div class=" pagination btn-group">
+						  <ul>
+						    <li><a href="#">Prev</a></li>
+						    <li class="active ">
+						      <a href="#">1</a>
+						    </li>
+						    <li class="disabled"><a href="#">Next</a></li>
+						  </ul>
+						</div>
+			    </div>
+			   
+			<!-- tab 2 -->
+	        <div id="par-selection" class="tab-pane" >
+	        	<div class=" span12">
+	        		<h3>Sélection de cours</h3>
+	        	</div>
+		        <div id="" class="span8 last" >	
+					<div class="accordion accordionCourseSelected" id="accordionCourseSelect2">
+						<div id="animateTest" class="accordion-group ">
+							<div class="accordion-heading row">
+								<div class="span7">
+									<a class="accordion-toggle" data-toggle="collapse" href="#collapseCourse11">
+									1-404-96 - Sociologie de l'entreprise
+									</a>
+									<b class="trimester"   rel="tooltip" title="disponible à l'été 2012">É12</b>
+								</div>
+								<div class="toolsWrapper">
+									<a class="dropdown-toggle icon-button-right button-microapp" title="éliminer" data-toggle="modal" href="#loginModal">
+										<i class="icon-remove"></i>
+									</a>
+								</div>
+								
+							</div>
+							<div id="collapseCourse11" class="accordion-body collapse">
+								<div class="accordion-inner">
+								   <h4>Description</h4>
+								  <p>Trois volets principaux dans ce cours: 
+								  <ul class="unstyled">
+								    <li>1. montrer aux étudiants la dimension sociologique de toute organisation en les initiant aux principaux concepts de la sociologie de l'organisation;</li>
+								    <li>2. présenter un portrait sociologique des principaux types d'organisations oeuvrant dans la sphère économique québécoise ainsi que les principaux problèmes auxquels elles sont confrontées;</li>
+								    <li>3. aborder enfin quelques problèmes qui touchent les organisations contemporaines.</li>
+								  </ul>
+								  
+								  Le principal objectif de ce cours est de sensibiliser le futur gestionnaire, comptable, entrepreneur ou spécialiste du marketing aux dimensions sociales et culturelles de l'entreprise. Pour ce faire, il s'agit:
+								  - de lui présenter les principaux changements socio-culturels qui touchent actuellement les entreprises;
+								  - de l'initier à la dynamique sociale et culturelle de l'entreprise;
+								  - de lui donner des instruments (grille d'analyse, méthode comparative) lui permettant de mieux appréhender ces dimensions de l'entreprise. 
+								  </p>
+								  
+								  <table class="table">
+								    <thead>
+								      <tr>
+									<th>Responsable:</th>
+									<th>Programme d'études:</th>
+									<th>Crédit(s):</th>
+									<th>Exigences:</th>
+									<th>Horaire:</th>
+								      </tr>
+								      </thead>
+								    <tbody>
+								      <tr>
+									<td><a href="#">Management</a></td>
+									<td><a href="#">B.A.A.</a></td>
+									<td>3</td>
+									<td>Cours réservé aux étudiants du B.A.A. trilingue / Version espagnole du cours 1-404-96</td>
+									<td>Outil de recherche d'horaire
+									  (via HEC en ligne)</td>
+									</tr>
+								      </tbody>
+								    </table>
+	
+								</div>
+							</div>
+						</div>
+						
+						<div class="accordion-group">
+					  <div class="accordion-heading row">
+					    <div class="span7">
+					    	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionCourseSelect2" href="#collapseCourse12">
+						      1-611-09	Modélisation et optimisation (offered in French) (Management Sciences)
+						    </a>
+							<b class="trimester"   rel="tooltip" title="disponible à l'automne 2012">A12</b>
+						</div>
+						<div class="toolsWrapper">
+							<a class="dropdown-toggle icon-button-right button-microapp" title="éliminer" data-toggle="modal" href="#loginModal">
+								<i class="icon-remove"></i>
+							</a>
+						</div>
+						
+					</div>
+		              <div id="collapseCourse12" class="accordion-body collapse">
+		                <div class="accordion-inner">
+		                  <ul class="unstyled">
+							                  
+							   <li>Description</li>
+		                  </ul>
+		                </div>
+		              </div>
+					  
+					</div>
+					<!-- Cours 3 -->
+					<div id="item3" class="accordion-group">
+					  <div class="accordion-heading row">
+					    <div class="span7">
+					    	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionCourseSelect" href="#collapseCourse13">
+						      1-612-96 Mathématiques financières
+						    </a>
+						    <b class="trimester"   rel="tooltip" title="disponible à l'hiver 2012">H13</b>
+						</div>
+						
+						<div class="toolsWrapper">
+							<a id="removeItem3" class="icon-button-right button-microapp " title="éliminer" data-toggle="modal" href="#loginModal">
+								<i class="icon-remove"></i>
+							</a>
+						</div>
+						
+					</div>
+		              <div id="collapseCourse13" class="accordion-body collapse">
+		                <div class="accordion-inner">
+		                  <ul class="unstyled">
+							                  
+							   <li>Description</li>
+		                  </ul>
+		                </div>
+		              </div>
+					  
+					</div>
+				<!-- /Cours 3 -->
+					
+					</div>
+					 
+					<div class="">
+						<button id="printSelection" class="btn" onClick="window.print()" value="Print This Page">Imprimer</button>
+					</div>
+					       
+				</div>
+			
+			</div>
+			<!-- /tab 2 --> 
+			  </div>
+			</div>
+		</div>
+				
+		</div>
+		<!-- /Row  -->
+					
+					
+				</div>
+			
+			</div>
+			
+		</div>
+		
+	</div>
+	<!-- /Main -->
+	
+</div>
+<footer class="footer navbar">
+	<ul id="footerLinks" class="nav">
+		<li class=""><a href="#">Bureau du régistraire</a></li>
+		<!--<li class="divider-vertical"></li>-->
+		<li class=""><a href="#">À propos du site web</a></li>
+		<!--<li class="divider-vertical"></li>-->
+		<li class=""><a href="#">Règlements et politiques</a></li>
+		<!--<li class="divider-vertical"></li>-->
+	</ul>  
+	<ul id="copyright" class="nav pull-right">
+		<li class="copyright">© HEC Montréal, 2012    Tous droits réservés</li>
+	</ul>
+</footer>
+
+<!--   Modal Windows  -->
+
+<!--   Modal Login  -->
+<div class="modal fade" id="loginModal" style="display: none">
+	<!-- Modal Header -->
+	<div class="modal-header">
+	  <a class="close" data-dismiss="modal">×</a>
+	  <h3>Authentification</h3>
+	</div>
+	<!-- /Modal Header -->
+	<!-- Modal Body -->
+	<div class="modal-body">
+		<form class="well">
+			<label>Pour accéder au contenu des archives, vous devez vous identifier</label>
+				<input type="text" class="span3" placeholder="Identifiant">
+				<span class="help-inline">votre numéro d'identifiant HEC</span>
+				<input type="text" class="span3" placeholder="mot de passe">
+				<span class="help-inline">votre mot de passe</span>
+				<label class="checkbox">
+				<input type="checkbox"> conserver mes informations
+			</label>
+			<button type="submit" class="btn">Accès anonyme</button>
+			<button type="submit" class="btn">Soumettre</button>
+		</form>
+	</div>
+	<!-- Modal Footer -->
+	<div class="modal-footer">
+	  <a id="closeButton" href="#" class="btn" data-dismiss="modal">Fermer</a> 
+	</div>
+	  <!-- /Modal Footer -->
+</div>
+<!--  /Modal Login  -->
+
+<!--  Modal Course  -->
+<div class="modal fade" id="myModal" style="display: none">
+	<!-- Modal Header -->
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal">×</a>
+		<h3>1-404-96 - Sociologie de l'entreprise</h3>
+	</div>
+	<!-- /Modal Header -->
+	<!-- Modal Body -->
+	<div class="modal-body">
+		<h4>Description</h4>
+		<p>Trois volets principaux dans ce cours: 
+			<ul class="unstyled">
+			<li>1. montrer aux étudiants la dimension sociologique de toute organisation en les initiant aux principaux concepts de la sociologie de l'organisation;</li>
+			<li>2. présenter un portrait sociologique des principaux types d'organisations oeuvrant dans la sphère économique québécoise ainsi que les principaux problèmes auxquels elles sont confrontées;</li>
+			<li>3. aborder enfin quelques problèmes qui touchent les organisations contemporaines.</li>
+			</ul>
+		
+		Le principal objectif de ce cours est de sensibiliser le futur gestionnaire, comptable, entrepreneur ou spécialiste du marketing aux dimensions sociales et culturelles de l'entreprise. Pour ce faire, il s'agit:
+		- de lui présenter les principaux changements socio-culturels qui touchent actuellement les entreprises;
+		- de l'initier à la dynamique sociale et culturelle de l'entreprise;
+		- de lui donner des instruments (grille d'analyse, méthode comparative) lui permettant de mieux appréhender ces dimensions de l'entreprise. 
+		</p>
+	
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Responsable:</th>
+					<th>Programme d'études:</th>
+					<th>Crédit(s):</th>
+					<th>Exigences:</th>
+					<th>Horaire:</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><a href="http://www.hec.ca/management/">Management</a></td>
+					<td><a href="http://www.hec.ca/programmes/baa">B.A.A.</a></td>
+					<td>3</td>
+					<td>Cours réservé aux étudiants du B.A.A. trilingue / Version espagnole du cours 1-404-96</td>
+					<td>Outil de recherche d'horaire
+					(via HEC en ligne)</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- /Modal Body -->
+	<!-- Modal Footer -->
+	<div class="modal-footer">
+		<ul class="pager">
+		  <li><a href="#" class="disabled">Précédent</a></li>
+		  <li><a href="#">Suivant</a></li>
+		  <li><a id="closeButton" href="#" class="btn" data-dismiss="modal">Fermer</a></li>
+		</ul>  
+	</div>
+	<!-- /Modal Footer -->
+</div>
+<!--  /Modal Course -->
+
+<!--  /Modal Windows  -->
+
+   <!--<script type="text/javascript">
+	    jQuery(document).ready(function ($) {
+	        $("#mytabs").tabs();
+	    });
+	</script>
+     Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!--<script src="bootstrap/js/bootstrap.js"></script>-->
+    <script src="twitter-bootstrap-59503e7/docs/assets/js/bootstrap-transition.js"></script>
+    <script src="twitter-bootstrap-59503e7/docs/assets/js/bootstrap-alert.js"></script>
+    <script src="twitter-bootstrap-59503e7/docs/assets/js/bootstrap-modal.js"></script>
+    <script src="twitter-bootstrap-59503e7/docs/assets/js/bootstrap-dropdown.js"></script>
+    <script src="twitter-bootstrap-59503e7/docs/assets/js/bootstrap-scrollspy.js"></script>
+    <script src="twitter-bootstrap-59503e7/docs/assets/js/bootstrap-tab.js"></script>
+    <script src="twitter-bootstrap-59503e7/docs/assets/js/bootstrap-tooltip.js"></script>
+    <script src="twitter-bootstrap-59503e7/docs/assets/js/bootstrap-popover.js"></script>
+    <script src="twitter-bootstrap-59503e7/docs/assets/js/bootstrap-button.js"></script>
+    <script src="twitter-bootstrap-59503e7/docs/assets/js/bootstrap-collapse.js"></script>
+    <script src="twitter-bootstrap-59503e7/docs/assets/js/bootstrap-carousel.js"></script>
+    <script src="twitter-bootstrap-59503e7/docs/assets/js/bootstrap-typeahead.js"></script>
+    
+    <script src="plugins/tablesorter/jquery.tablesorter.js"></script>
+
+<script type="text/javascript">
+	$(function(){
+          $('.typeahead').typeahead()
+	});
+</script>
+<script type="text/javascript">
+	$(function () {
+  		$('#loginModal').modal('hide');
+	});
+  </script>
+<!--<script type="text/javascript">
+  jQuery(document).ready(function ($) {
+  	$('#loginModal').modal(
+  		backdrop: "static"
+  	);
+  });
+</script>-->
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $(".collapse").collapse({
+		  toggle: false
+		})
+    });
+</script>
+
+<script type="text/javascript">
+	$(function () {
+  		$('.dropdown-toggle2').dropdown()
+	});
+  </script>
+<!--<script type="text/javascript">
+	$('.collapse').collapse('toggle');
+</script>-->
+
+<script type="text/javascript">
+	jQuery(document).ready(function ($) {
+		$('#popit').popover('show');
+		$('#popit').popover('hide');
+	});
+</script>
+<script type="text/javascript">
+	jQuery(document).ready(function ($) {
+		$('#myModal').modal('hide');
+		$('#modalBAA').modal('hide');
+	
+	});
+</script>
+
+<script type="text/javascript">
+	jQuery(document).ready(function ($) {
+		$('#tabs').tab();
+	});
+</script>
+<!--<script type="text/javascript">
+	$(function(){
+          $('#slick-show').click(function() {
+            //$('#main').toggle(400);
+            $('#courseListing').toggle(800);
+	          return false;
+           });
+	});
+</script> -->
+
+<script>
+	function testAnim(x) {
+    	$('#animateTest').removeClass().addClass(x);
+    	var wait = window.setTimeout( function(){
+    		$('#animateTest').removeClass()},
+    		1300
+    	);
+    }
+
+    //$(function(){
+	//	$pos = $('.sandbox').offset().top - 0;
+    //
+	//	$(window).on('scroll', function(){
+	//		if($(window).scrollTop() >= $pos) {
+	//			$('.sandbox').addClass('fixed');
+	//		} else {
+	//			$('.sandbox').removeClass('fixed');
+	//		}
+	//	});
+	//});
+
+	$(document).ready(function(){
+		$('a[data-test]').click(function(){
+			var anim = $(this).attr('data-test');
+			testAnim(anim);
+		});
+	});
+
+	</script>
+	
+	<script>
+	  $(function() {
+	    $("table#sortTableExample").tablesorter({ sortList: [[1,0]] });
+	  });
+	</script>
+<!--<script>
+	$(document).ready(function() { 
+    $("table").tablesorter({ 
+        // pass the headers argument and assing a object 
+        headers: { 
+            // assign the secound column (we start counting zero) 
+            4: { 
+                // disable it by setting the property sorter to false 
+                sorter: false 
+            }, 
+            // assign the third column (we start counting zero) 
+           5: { 
+                // disable it by setting the property sorter to false 
+                sorter: false 
+            } 
+           6: { 
+                // disable it by setting the property sorter to false 
+                sorter: false 
+            } 
+        } 
+    }); 
+});
+</script>-->
+
+	
+</body>
