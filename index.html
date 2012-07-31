@@ -810,11 +810,11 @@
 		url : serviceList,
 		datatype : 'json',
 		success : function(listItems) {
-			for(var i = 0; i < listItems.catalogDescription_collection.length; i++)
+			for(var i = 0; i < listItems.portalManager_collection.length; i++)
 			{
-			var item = listItems.catalogDescription_collection[i].data;
+			var item = listItems.portalManager_collection[i].id;
 			var id = itemName + "_" + i;
-			var div = "<dd class=\"\"><a id=\"" + id + "\"data-toggle=\"collapse\" data-target=\"" + selectorIdDatatarget + "\" href=\"#\" class=\"ui-link-inherit\">" + listItems.catalogDescription_collection[i].data + "</a></dd>";			     
+			var div = "<dd class=\"\"><a id=\"" + id + "\"data-toggle=\"collapse\" data-target=\"" + selectorIdDatatarget + "\" href=\"#\" class=\"ui-link-inherit\">" + listItems.portalManager_collection[i].description + "</a></dd>";			     
 			$(selectorIdTabDiv).append(div);
 			var idDiv= '#' + id;
 			
@@ -822,7 +822,7 @@
 			
 			var div = "<div id=\"" + idListingDiv + "\" class=\"btn-toolbar well\" style=\"display: none; \"><div class=\"btn-group\" style=\"\"><div class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle btn\" data-toggle=\"dropdown\">Trier <b class=\"caret\"></b></a><ul class=\"dropdown-menu\"><li><a href=\"#dropdown1\" data-toggle=\"tab\">Par ordre alphabétique</a></li><li><a href=\"#dropdown2\" data-toggle=\"tab\">Par numéro de cours</a></li><li><a href=\"#dropdown2\" data-toggle=\"tab\">Par ordre de sigle</a></li></ul></div></div><div class=\"btn-group\"><a href=\"#\" class=\"btn active\">Tous les cours</a><a href=\"#\" class=\"btn\">En français</a><a href=\"#\" class=\"btn\">En anglais</a><a href=\"#\" class=\"btn\">En espagnol</a></div><div class=\"accordion\" id=\"accordionCourseSelect\"></div></div>";			
 			$(selectorIdMainDiv).html(div);	
-	bindItem(idDiv,item,selectorIdListingDiv,serviceGet);
+	bindItem(idDiv,item,i,selectorIdListingDiv,serviceGet);
 	  
 	  
 	  
@@ -833,10 +833,11 @@
 	attributes:
 		-idDiv: id of the div to bind
 		-item: item associated to the div
+		-item_number : id of the item in the loop (used to create unique ids)
 		-selectorIdListingDiv:  selector of the div that we will populate with the associated catalog descriptions
 		-serviceGet: service that get the catalog descriptions for a specific deparment/career the departments/carrer 
 		*/
-	function bindItem(idDiv,item,selectorIdListingDiv,serviceGet) {
+	function bindItem(idDiv,item,item_number,selectorIdListingDiv,serviceGet) {
 $(idDiv).click(function() {
 	  
 	  $.ajax({
@@ -848,9 +849,9 @@ $(idDiv).click(function() {
 		for(var i = 0; i < listCourses.catalogDescription_collection.length; i++)
 			{
 			
-			var div = "<div id=\"\" class=\"accordion-group \"><div class=\"accordion-heading row\"><div class=\"span5\"><a class=\"accordion-toggle\" data-toggle=\"collapse\" href=\"#collapseCourse" + item + i + "\"data-parent=\"#accordionCourseSelect\">" 
+			var div = "<div id=\"\" class=\"accordion-group \"><div class=\"accordion-heading row\"><div class=\"span5\"><a class=\"accordion-toggle\" data-toggle=\"collapse\" href=\"#collapseCourse" + item_number + "_" +  i + "\"data-parent=\"#accordionCourseSelect\">" 
 			+ listCourses.catalogDescription_collection[i].courseId + " - " + listCourses.catalogDescription_collection[i].title
-			+ "</a><div class=\"toolsWrapper\"><div class=\"dropdown\" id=\"menu" + item + i + "\"><a class=\"dropdown-toggle icon-button-right button-microapp\"  rel=\"tooltip\" data-toggle=\"dropdown\" href=\"#menu" + item + i + "\" data-original-title=\"ajouter à ma sélection\"><i class=\"icon-bookmark\"></i></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header\">Ajouter à ma sélection</h5></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok disabled\" style=\"\"></i> Été 2012</a></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok\" style=\"\"></i> Automne 2012</a></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok\" style=\"\"></i> Hiver 2013</a></li></ul></div><a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" href=\"#\"><i class=\"icon-star\"></i></a><a class=\"icon-button-right button-microapp\" data-original-title=\"cours archivé\" data-toggle=\"\" href=\"archive.html\"></a></div></div><div class=\"accordionToolsWrapper3\"><div class=\"accordionTools3 pull-right\"><div class=\"trimesterWrapper\"><span>cours disponible : </span><b class=\"trimester\"   rel=\"tooltip\" title=\"disponible à l'été 2012\">É12</b><b class=\"trimester\"   rel=\"tooltip\" title=\"disponible à l'été 2012\">A12</b><b class=\"trimester\"   rel=\"tooltip\" title=\"disponible à l'été 2012\">H13</b></div></div></div></div><div id=\"collapseCourse" + item + i + "\"class=\"accordion-body collapse\"><div class=\"accordion-inner\"><h4>Description</h4>"
+			+ "</a><div class=\"toolsWrapper\"><div class=\"dropdown\" id=\"menu" + item_number + "_" + i + "\"><a class=\"dropdown-toggle icon-button-right button-microapp\"  rel=\"tooltip\" data-toggle=\"dropdown\" href=\"#menu" + item_number + "_" + i + "\" data-original-title=\"ajouter à ma sélection\"><i class=\"icon-bookmark\"></i></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header\">Ajouter à ma sélection</h5></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok disabled\" style=\"\"></i> Été 2012</a></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok\" style=\"\"></i> Automne 2012</a></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok\" style=\"\"></i> Hiver 2013</a></li></ul></div><a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" href=\"#\"><i class=\"icon-star\"></i></a><a class=\"icon-button-right button-microapp\" data-original-title=\"cours archivé\" data-toggle=\"\" href=\"archive.html\"></a></div></div><div class=\"accordionToolsWrapper3\"><div class=\"accordionTools3 pull-right\"><div class=\"trimesterWrapper\"><span>cours disponible : </span><b class=\"trimester\"   rel=\"tooltip\" title=\"disponible à l'été 2012\">É12</b><b class=\"trimester\"   rel=\"tooltip\" title=\"disponible à l'été 2012\">A12</b><b class=\"trimester\"   rel=\"tooltip\" title=\"disponible à l'été 2012\">H13</b></div></div></div></div><div id=\"collapseCourse" + item_number + "_" + i + "\"class=\"accordion-body collapse\"><div class=\"accordion-inner\"><h4>Description</h4>"
 			+ listCourses.catalogDescription_collection[i].description						
 			+ "<div class=\"btn-toolbar\"><div class=\"btn-group\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"><span class=\"icon-bookmark\"></span> Sélectionner</a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header\">Ajouter à ma sélection</h5></li><li><a href=\"#\" class=\"button-option\">Été 2012</a></li><li><a href=\"#\" class=\"button-option\">Automne 2012</a></li><li><a href=\"#\" class=\"button-option\">Hiver 2013</a></li></ul></div><a class=\"btn\" href=\"#\"><i class=\"icon-star\"></i> Plan de cours enrichi</a><a class=\"btn\" href=\"Ressources/1-404-96.H2012.00_public.pdf\"><i class=\"icon-file-pdf\"></i> Plan de cours</a></div><table class=\"table\"><thead><tr><th>Responsable:</th><th>Programme d'études:</th><th>Crédit(s):</th><th>Exigences:</th><th>Horaire:</th></tr></thead><tbody><tr><td><a href=\"#\">"
 			+ listCourses.catalogDescription_collection[i].career					
@@ -874,8 +875,8 @@ $(idDiv).click(function() {
 		}
 
 	
-	initCourseListing('career','/direct/catalogDescription/getCareers.json','/direct/catalogDescription/getCatalogDescriptionsByCareer/');
-	initCourseListing('department','/direct/catalogDescription/getDepartments.json','/direct/catalogDescription/getCatalogDescriptionsByDepartment/');
+	initCourseListing('career','/direct/portalManager/getCareers.json','/direct/catalogDescription/getCatalogDescriptionsByCareer/');
+	initCourseListing('department','/direct/portalManager/getDepartments.json','/direct/catalogDescription/getCatalogDescriptionsByDepartment/');
 		
 		
 	</script>
