@@ -877,17 +877,25 @@ function expandListCatalogDescriptions(item,selectorIdListingDiv,serviceGet){
 		var div = "<div class=\"btn-toolbar well\"><div class=\"btn-group \" style=\"\"><div class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle btn\" data-toggle=\"dropdown\">Trier <b class=\"caret\"></b></a><ul class=\"dropdown-menu\"><li><a href=\"#dropdown1\" data-toggle=\"tab\">Par ordre alphabétique</a></li><li><a href=\"#dropdown2\" data-toggle=\"tab\">Par numéro de cours</a></li></ul></div></div><div class=\"btn-group\"><a href=\"#\" class=\"btn active filter_all\">Tous les cours</a><a href=\"#\" class=\"btn filter_fr\">En français</a><a href=\"#\" class=\"btn filter_en\">En anglais</a><a href=\"#\" class=\"btn filter_es\">En espagnol</a></div></div><!--  courses --><div class=\"accordion \" id=\"accordionCourseSelect\">";
 		
 		for(var i = 0; i < listCourses.catalogDescription_collection.length; i++)
-			{
-			
-			
-			
+		{
 			div += "<div id=\"\" class=\"accordion-group " + listCourses.catalogDescription_collection[i].lang + "\"><div class=\"accordion-heading row\"><div class=\"span5\"><a class=\"accordion-toggle\" data-toggle=\"collapse\" href=\"#collapseCourse" + "_" + itemCleaned + "_" +  i + "\"data-parent=\"#accordionCourseSelect\">" 
 			+ listCourses.catalogDescription_collection[i].courseId + " - " + listCourses.catalogDescription_collection[i].title
-			+ "</a><div class=\"toolsWrapper\"><div class=\"dropdown\" id=\"menu" + "_" + itemCleaned + "_" + i + "\"><a class=\"dropdown-toggle icon-button-right button-microapp\"  rel=\"tooltip\" data-toggle=\"dropdown\" href=\"#menu" + "_" + itemCleaned + "_" + i + "\" data-original-title=\"ajouter à ma sélection\"><i class=\"icon-bookmark\"></i></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header\">Ajouter à ma sélection</h5></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok disabled\" style=\"\"></i> Été 2012</a></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok\" style=\"\"></i> Automne 2012</a></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok\" style=\"\"></i> Hiver 2013</a></li></ul></div><a href=\"Ressources/1-404-96.H2012.00_public.pdf\" data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf\"></i></a><a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" href=\"#\"><i class=\"icon-star\"></i></a></div></div><div class=\"accordionToolsWrapper3\"><div class=\"accordionTools3 pull-right\"><div class=\"trimesterWrapper\"><span>cours disponible : </span><b class=\"trimester\"   rel=\"tooltip\" title=\"disponible à l'été 2012\">É12</b><b class=\"trimester\"   rel=\"tooltip\" title=\"disponible à l'été 2012\">A12</b><b class=\"trimester\"   rel=\"tooltip\" title=\"disponible à l'été 2012\">H13</b></div></div></div></div><div id=\"collapseCourse" + "_" + itemCleaned + "_" + i + "\"class=\"accordion-body collapse\"><div class=\"accordion-inner\"><h4>Description</h4>"
+			+ "</a><div class=\"toolsWrapper\"><div class=\"dropdown\" id=\"menu" + "_" + itemCleaned + "_" + i + "\"><a class=\"dropdown-toggle icon-button-right button-microapp\"  rel=\"tooltip\" data-toggle=\"dropdown\" href=\"#menu" + "_" + itemCleaned + "_" + i + "\" data-original-title=\"ajouter à ma sélection\"><i class=\"icon-bookmark\"></i></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header\">Ajouter à ma sélection</h5></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok disabled\" style=\"\"></i> Été 2012</a></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok\" style=\"\"></i> Automne 2012</a></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok\" style=\"\"></i> Hiver 2013</a></li></ul></div>";
+			
+			if (listCourses.catalogDescription_collection[i].specificCourse !== "")
+				+ "<a href=\"../sdata/c/attachment/" + listCourses.catalogDescription_collection[i].specificCourse + "/OpenSyllabus/" + listCourses.catalogDescription_collection[i].specificCourse + "_public.pdf\" data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf\"></i></a>";
+			
+			div += "<a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" href=\"#\">"
+			+ "<i class=\"icon-star\"></i></a></div></div><div class=\"accordionToolsWrapper3\"><div class=\"accordionTools3 pull-right\">"
+			+ "<div class=\"trimesterWrapper\"><span>cours disponible : </span><b class=\"trimester\"   rel=\"tooltip\" title=\"disponible à l'été 2012\">É12</b><b class=\"trimester\"   rel=\"tooltip\" title=\"disponible à l'été 2012\">A12</b><b class=\"trimester\"   rel=\"tooltip\" title=\"disponible à l'été 2012\">H13</b></div></div></div></div><div id=\"collapseCourse" + "_" + itemCleaned + "_" + i + "\"class=\"accordion-body collapse\"><div class=\"accordion-inner\"><h4>Description</h4>"
 			+ listCourses.catalogDescription_collection[i].description						
-			+ "<div class=\"btn-toolbar\"><div class=\"btn-group\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"><span class=\"icon-bookmark\"></span> Sélectionner</a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header\">Ajouter à ma sélection</h5></li><li><a href=\"#\" class=\"button-option\">Été 2012</a></li><li><a href=\"#\" class=\"button-option\">Automne 2012</a></li><li><a href=\"#\" class=\"button-option\">Hiver 2013</a></li></ul></div><a class=\"btn\" href=\"#\"><i class=\"icon-star\"></i> Plan de cours enrichi</a>"
-			+ "<a class=\"btn\" href=\"sdata/c/attachment/" + listCourses.catalogDescription_collection[i].specificCourse + "/OpenSyllabus/" + listCourses.catalogDescription_collection[i].specificCourse + "_public.pdf\"><i class=\"icon-file-pdf\"></i> Plan de cours</a></div><table class=\"table\"><thead><tr><th>Responsable:</th><th>Programme d'études:</th><th>Crédit(s):</th><th>Exigences:</th><th>Horaire:</th></tr></thead><tbody><tr><td><a href=\"#\">"
-			+ listCourses.catalogDescription_collection[i].career					
+			+ "<div class=\"btn-toolbar\"><div class=\"btn-group\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"><span class=\"icon-bookmark\"></span> Sélectionner</a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header\">Ajouter à ma sélection</h5></li><li><a href=\"#\" class=\"button-option\">Été 2012</a></li><li><a href=\"#\" class=\"button-option\">Automne 2012</a></li><li><a href=\"#\" class=\"button-option\">Hiver 2013</a></li></ul></div><a class=\"btn\" href=\"#\"><i class=\"icon-star\"></i> Plan de cours enrichi</a>";
+		
+			if (listCourses.catalogDescription_collection[i].specificCourse !== "")
+				div += "<a class=\"btn\" href=\"../sdata/c/attachment/" + listCourses.catalogDescription_collection[i].specificCourse + "/OpenSyllabus/" + listCourses.catalogDescription_collection[i].specificCourse + "_public.pdf\"><i class=\"icon-file-pdf\"></i> Plan de cours</a>";
+				
+			div += "</div><table class=\"table\"><thead><tr><th>Responsable:</th><th>Programme d'études:</th><th>Crédit(s):</th><th>Exigences:</th><th>Horaire:</th></tr></thead><tbody><tr><td><a href=\"#\">"
+			listCourses.catalogDescription_collection[i].career					
 			+"</a></td><td><a href=\"#\">"
 			+ listCourses.catalogDescription_collection[i].department
 			+ "</a></td><td>"
@@ -895,16 +903,15 @@ function expandListCatalogDescriptions(item,selectorIdListingDiv,serviceGet){
 			+ "</td><td>"
 			+ listCourses.catalogDescription_collection[i].requirements
 			+ "</td><td>Outil de recherche d'horaire (via HEC en ligne)</td></tr></tbody></table></div></div></div>";
-						
-			};
+		};
 			
-			div +="</div>";
+		div +="</div>";
 			
-			$(selectorIdListingDiv).append(div);
+		$(selectorIdListingDiv).append(div);
 		
 		
-		  $(selectorIdListingDiv).fadeIn('slow');		  
-			bindFilters();
+		$(selectorIdListingDiv).fadeIn('slow');		  
+		bindFilters();
 	    return false;
 
 		}});
@@ -921,9 +928,19 @@ function expandListCatalogDescriptions(item,selectorIdListingDiv,serviceGet){
 			
 			var div = "<div id=\"\" class=\"accordion-group \"><div class=\"accordion-heading row\"><div class=\"span5\"><a class=\"accordion-toggle\" data-toggle=\"collapse\" href=\"#collapseCourse\"data-parent=\"#accordionCourseSelect\">" 
 			+ course.courseId + " - " + course.title
-			+ "</a><div class=\"toolsWrapper\"><div class=\"dropdown\" id=\"menu\"><a class=\"dropdown-toggle icon-button-right button-microapp\"  rel=\"tooltip\" data-toggle=\"dropdown\" href=\"#menu\" data-original-title=\"ajouter à ma sélection\"><i class=\"icon-bookmark\"></i></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header\">Ajouter à ma sélection</h5></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok disabled\" style=\"\"></i> Été 2012</a></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok\" style=\"\"></i> Automne 2012</a></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok\" style=\"\"></i> Hiver 2013</a></li></ul></div><a href=\"Ressources/1-404-96.H2012.00_public.pdf\" title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf\"></i></a><a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" href=\"#\"><i class=\"icon-star\"></i></a><a class=\"icon-button-right button-microapp\" data-original-title=\"cours archivé\" data-toggle=\"\" href=\"archive.html\"></a></div></div><div class=\"accordionToolsWrapper3\"><div class=\"accordionTools3 pull-right\"><div class=\"trimesterWrapper\"><span>cours disponible : </span><b class=\"trimester\"   rel=\"tooltip\" title=\"disponible à l'été 2012\">É12</b><b class=\"trimester\"   rel=\"tooltip\" title=\"disponible à l'été 2012\">A12</b><b class=\"trimester\"   rel=\"tooltip\" title=\"disponible à l'été 2012\">H13</b></div></div></div></div><div id=\"collapseCourse\"class=\"accordion-body in collapse\"><div class=\"accordion-inner\"><h4>Description</h4>"
+			+ "</a><div class=\"toolsWrapper\"><div class=\"dropdown\" id=\"menu\"><a class=\"dropdown-toggle icon-button-right button-microapp\"  rel=\"tooltip\" data-toggle=\"dropdown\" href=\"#menu\" data-original-title=\"ajouter à ma sélection\"><i class=\"icon-bookmark\"></i></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header\">Ajouter à ma sélection</h5></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok disabled\" style=\"\"></i> Été 2012</a></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok\" style=\"\"></i> Automne 2012</a></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok\" style=\"\"></i> Hiver 2013</a></li></ul></div>";
+
+			if (listCourses.catalogDescription_collection[i].specificCourse !== "")
+				div += "<a href=\"../sdata/c/attachment/" + listCourses.catalogDescription_collection[i].specificCourse + "/OpenSyllabus/" + listCourses.catalogDescription_collection[i].specificCourse + "_public.pdf\" title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf\"></i></a>"
+				
+			div += "<a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" href=\"#\"><i class=\"icon-star\"></i></a><a class=\"icon-button-right button-microapp\" data-original-title=\"cours archivé\" data-toggle=\"\" href=\"archive.html\"></a></div></div><div class=\"accordionToolsWrapper3\"><div class=\"accordionTools3 pull-right\"><div class=\"trimesterWrapper\"><span>cours disponible : </span><b class=\"trimester\"   rel=\"tooltip\" title=\"disponible à l'été 2012\">É12</b><b class=\"trimester\"   rel=\"tooltip\" title=\"disponible à l'été 2012\">A12</b><b class=\"trimester\"   rel=\"tooltip\" title=\"disponible à l'été 2012\">H13</b></div></div></div></div><div id=\"collapseCourse\"class=\"accordion-body in collapse\"><div class=\"accordion-inner\"><h4>Description</h4>"
 			+ course.description						
-			+ "<div class=\"btn-toolbar\"><div class=\"btn-group\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"><span class=\"icon-bookmark\"></span> Sélectionner</a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header\">Ajouter à ma sélection</h5></li><li><a href=\"#\" class=\"button-option\">Été 2012</a></li><li><a href=\"#\" class=\"button-option\">Automne 2012</a></li><li><a href=\"#\" class=\"button-option\">Hiver 2013</a></li></ul></div><a class=\"btn\" href=\"#\"><i class=\"icon-star\"></i> Plan de cours enrichi</a><a class=\"btn\" href=\"Ressources/1-404-96.H2012.00_public.pdf\"><i class=\"icon-file-pdf\"></i> Plan de cours</a></div><table class=\"table\"><thead><tr><th>Responsable:</th><th>Programme d'études:</th><th>Crédit(s):</th><th>Exigences:</th><th>Horaire:</th></tr></thead><tbody><tr><td><a href=\"#\">"
+			+ "<div class=\"btn-toolbar\"><div class=\"btn-group\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"><span class=\"icon-bookmark\"></span> Sélectionner</a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header\">Ajouter à ma sélection</h5></li><li><a href=\"#\" class=\"button-option\">Été 2012</a></li><li><a href=\"#\" class=\"button-option\">Automne 2012</a></li><li><a href=\"#\" class=\"button-option\">Hiver 2013</a></li></ul></div><a class=\"btn\" href=\"#\"><i class=\"icon-star\"></i> Plan de cours enrichi</a>"
+			
+			if (listCourses.catalogDescription_collection[i].specificCourse !== "")
+				div += "<a class=\"btn\" href=\"../sdata/c/attachment/" + listCourses.catalogDescription_collection[i].specificCourse + "/OpenSyllabus/" + listCourses.catalogDescription_collection[i].specificCourse + "_public.pdf\"><i class=\"icon-file-pdf\"></i> Plan de cours</a>"
+				
+			div += "</div><table class=\"table\"><thead><tr><th>Responsable:</th><th>Programme d'études:</th><th>Crédit(s):</th><th>Exigences:</th><th>Horaire:</th></tr></thead><tbody><tr><td><a href=\"#\">"
 			+ course.career					
 			+"</a></td><td><a href=\"#\">"
 			+ course.department
