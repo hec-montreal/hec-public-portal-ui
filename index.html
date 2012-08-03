@@ -822,13 +822,34 @@
 			
 			var div = "<div id=\"" + idListingDiv + "\" class=\" in \" style=\"display: none; \"><div class=\"btn-group\" style=\"\"><div class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle btn\" data-toggle=\"dropdown\">Trier <b class=\"caret\"></b></a><ul class=\"dropdown-menu\"><li><a href=\"#dropdown1\" data-toggle=\"tab\">Par ordre alphabétique</a></li><li><a href=\"#dropdown2\" data-toggle=\"tab\">Par numéro de cours</a></li><li><a href=\"#dropdown2\" data-toggle=\"tab\">Par ordre de sigle</a></li></ul></div></div><div class=\"btn-group\"><a href=\"#\" class=\"btn active\">Tous les cours</a><a href=\"#\" class=\"btn\">En français</a><a href=\"#\" class=\"btn\">En anglais</a><a href=\"#\" class=\"btn\">En espagnol</a></div><div class=\"accordion\" id=\"accordionCourseSelect\"></div></div>";			
 			$(selectorIdMainDiv).html(div);	
-	bindItem(idDiv,item,selectorIdListingDiv,serviceGet);
+	bindItem(itemName,idDiv,item,selectorIdListingDiv,serviceGet);
 	  
 	  
 	  
 		}}});
 }
 
+function bindSort(selectorAccordionCourseDiv) {
+		$('.sort_course_id').click(function(){
+			$(this).addClass('active');
+			$('.sort_title').removeClass('active');
+			
+			var listCoursesSorted = $('.accordion-group').sort(function(a, b){
+				return $(a).attr('courseId') > $(b).attr('courseId') ? 1 : -1;				
+			});
+			$(selectorAccordionCourseDiv).html(listCoursesSorted);
+		});
+		
+		$('.sort_title').click(function(){
+			$(this).addClass('active');
+			$('.sort_course_id').removeClass('active');
+			
+			var listCoursesSorted = $('.accordion-group').sort(function(a, b){
+				return $(a).attr('title') > $(b).attr('title') ? 1 : -1;				
+			});
+			$(selectorAccordionCourseDiv).html(listCoursesSorted);
+		});
+		}
 function bindFilters() {
 		$('.filter_fr').click(function(){
 			$('.accordion-group').hide();
@@ -860,13 +881,15 @@ function bindFilters() {
 
 /* Expand the catalog descriptions that match the folowing criteria 
 	attributes:
+		-itemName: carrer or department
 		-item: item (department/career) catalog descriptions belong to
 		-selectorIdListingDiv:  selector of the div that we will populate with the associated catalog descriptions
 		-serviceGet: service that get the catalog descriptions for a specific deparment/career the departments/carrer 
 		*/
-function expandListCatalogDescriptions(item,selectorIdListingDiv,serviceGet){
+function expandListCatalogDescriptions(itemName,item,selectorIdListingDiv,serviceGet){
 	  
 	  var itemCleaned = item.replace(/[^a-z0-9\s]/gi, '');
+	  var selectorAccordionCourseDiv = '#accordionCourseSelect_' + itemName;
 	  
 	  $.ajax({
 		url : serviceGet  + item + '.json',
@@ -874,16 +897,17 @@ function expandListCatalogDescriptions(item,selectorIdListingDiv,serviceGet){
 		success : function(listCourses) {
 		$(selectorIdListingDiv).html("");
 		
-		var div = "<div class=\"btn-toolbar well\"><div class=\"btn-group \" style=\"\"><div class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle btn\" data-toggle=\"dropdown\">Trier <b class=\"caret\"></b></a><ul class=\"dropdown-menu\"><li><a href=\"#dropdown1\" data-toggle=\"tab\">Par ordre alphabétique</a></li><li><a href=\"#dropdown2\" data-toggle=\"tab\">Par numéro de cours</a></li></ul></div></div><div class=\"btn-group\"><a href=\"#\" class=\"btn active filter_all\">Tous les cours</a><a href=\"#\" class=\"btn filter_fr\">En français</a><a href=\"#\" class=\"btn filter_en\">En anglais</a><a href=\"#\" class=\"btn filter_es\">En espagnol</a></div></div><!--  courses --><div class=\"accordion \" id=\"accordionCourseSelect\">";
+		var div = "<div class=\"btn-toolbar well\"><div class=\"btn-group \" style=\"\"><div class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle btn\" data-toggle=\"dropdown\">Trier <b class=\"caret\"></b></a><ul class=\"dropdown-menu\"><li class=\"sort_title\"><a href=\"#dropdown1\" data-toggle=\"tab\">Par ordre alphabétique</a></li><li class=\"sort_course_id\"><a href=\"#dropdown2\" data-toggle=\"tab\">Par numéro de cours</a></li></ul></div></div><div class=\"btn-group\"><a href=\"#\" class=\"btn active filter_all\">Tous les cours</a><a href=\"#\" class=\"btn filter_fr\">En français</a><a href=\"#\" class=\"btn filter_en\">En anglais</a><a href=\"#\" class=\"btn filter_es\">En espagnol</a></div></div><!--  courses --><div class=\"accordion \" id=\"accordionCourseSelect_" + itemName + "\">";
 		
 		for(var i = 0; i < listCourses.catalogDescription_collection.length; i++)
 		{
-			div += "<div id=\"\" class=\"accordion-group " + listCourses.catalogDescription_collection[i].lang + "\"><div class=\"accordion-heading row\"><div class=\"span5\"><a class=\"accordion-toggle\" data-toggle=\"collapse\" href=\"#collapseCourse" + "_" + itemCleaned + "_" +  i + "\"data-parent=\"#accordionCourseSelect\">" 
+			div += "<div id=\"\" courseId=\"" + listCourses.catalogDescription_collection[i].courseId + "\" title=\"" + listCourses.catalogDescription_collection[i].title +"\" class=\"accordion-group " + listCourses.catalogDescription_collection[i].lang + "\"><div class=\"accordion-heading row\"><div class=\"span5\"><a class=\"accordion-toggle\" data-toggle=\"collapse\" href=\"#collapseCourse" + "_" + itemCleaned + "_" +  i + "\"data-parent=\"#accordionCourseSelect_" + itemName + "\">" 
 			+ listCourses.catalogDescription_collection[i].courseId + " - " + listCourses.catalogDescription_collection[i].title
 			+ "</a><div class=\"toolsWrapper\"><div class=\"dropdown\" id=\"menu" + "_" + itemCleaned + "_" + i + "\"><a class=\"dropdown-toggle icon-button-right button-microapp\"  rel=\"tooltip\" data-toggle=\"dropdown\" href=\"#menu" + "_" + itemCleaned + "_" + i + "\" data-original-title=\"ajouter à ma sélection\"><i class=\"icon-bookmark\"></i></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header\">Ajouter à ma sélection</h5></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok disabled\" style=\"\"></i> Été 2012</a></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok\" style=\"\"></i> Automne 2012</a></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok\" style=\"\"></i> Hiver 2013</a></li></ul></div>";
 			
-			if (listCourses.catalogDescription_collection[i].specificCourse !== "")
-				+ "<a href=\"../sdata/c/attachment/" + listCourses.catalogDescription_collection[i].specificCourse + "/OpenSyllabus/" + listCourses.catalogDescription_collection[i].specificCourse + "_public.pdf\" data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf\"></i></a>";
+			if (listCourses.catalogDescription_collection[i].specificCourse !== ""){
+				div += "<a href=\"../sdata/c/attachment/" + listCourses.catalogDescription_collection[i].specificCourse + "/OpenSyllabus/" + listCourses.catalogDescription_collection[i].specificCourse + "_public.pdf\" data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf\"></i></a>";
+				}
 			
 			div += "<a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" href=\"#\">"
 			+ "<i class=\"icon-star\"></i></a></div></div><div class=\"accordionToolsWrapper3\"><div class=\"accordionTools3 pull-right\">"
@@ -891,11 +915,12 @@ function expandListCatalogDescriptions(item,selectorIdListingDiv,serviceGet){
 			+ listCourses.catalogDescription_collection[i].description						
 			+ "<div class=\"btn-toolbar\"><div class=\"btn-group\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"><span class=\"icon-bookmark\"></span> Sélectionner</a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header\">Ajouter à ma sélection</h5></li><li><a href=\"#\" class=\"button-option\">Été 2012</a></li><li><a href=\"#\" class=\"button-option\">Automne 2012</a></li><li><a href=\"#\" class=\"button-option\">Hiver 2013</a></li></ul></div><a class=\"btn\" href=\"#\"><i class=\"icon-star\"></i> Plan de cours enrichi</a>";
 		
-			if (listCourses.catalogDescription_collection[i].specificCourse !== "")
+			if (listCourses.catalogDescription_collection[i].specificCourse !== ""){
 				div += "<a class=\"btn\" href=\"../sdata/c/attachment/" + listCourses.catalogDescription_collection[i].specificCourse + "/OpenSyllabus/" + listCourses.catalogDescription_collection[i].specificCourse + "_public.pdf\"><i class=\"icon-file-pdf\"></i> Plan de cours</a>";
+				}
 				
 			div += "</div><table class=\"table\"><thead><tr><th>Responsable:</th><th>Programme d'études:</th><th>Crédit(s):</th><th>Exigences:</th><th>Horaire:</th></tr></thead><tbody><tr><td><a href=\"#\">"
-			listCourses.catalogDescription_collection[i].career					
+			+ listCourses.catalogDescription_collection[i].career					
 			+"</a></td><td><a href=\"#\">"
 			+ listCourses.catalogDescription_collection[i].department
 			+ "</a></td><td>"
@@ -912,6 +937,7 @@ function expandListCatalogDescriptions(item,selectorIdListingDiv,serviceGet){
 		
 		$(selectorIdListingDiv).fadeIn('slow');		  
 		bindFilters();
+		bindSort(selectorAccordionCourseDiv);
 	    return false;
 
 		}});
@@ -958,13 +984,14 @@ function expandListCatalogDescriptions(item,selectorIdListingDiv,serviceGet){
 
 /* Bind the clik event on an item (career/department) to the function that list associated catalog descriptions  
 	attributes:
+		-itemName: carrer or department
 		-idDiv: id of the div to bind
 		-item: item associated to the div
 		-selectorIdListingDiv:  selector of the div that we will populate with the associated catalog descriptions
 		-serviceGet: service that get the catalog descriptions for a specific deparment/career the departments/carrer 
 		*/
-	function bindItem(idDiv,item,selectorIdListingDiv,serviceGet) {
-$(idDiv).click(function(){expandListCatalogDescriptions(item,selectorIdListingDiv,serviceGet)});
+	function bindItem(itemName, idDiv,item,selectorIdListingDiv,serviceGet) {
+$(idDiv).click(function(){expandListCatalogDescriptions(itemName,item,selectorIdListingDiv,serviceGet)});
 		}
 		
 		
