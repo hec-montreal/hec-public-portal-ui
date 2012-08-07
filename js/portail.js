@@ -204,13 +204,8 @@ function expandListCatalogDescriptions(itemName, item, selectorIdListingDiv,
 								+ i
 								+ "\" data-original-title=\"ajouter à ma sélection\"><i class=\"icon-bookmark\"></i></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header\">Ajouter à ma sélection</h5></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok disabled\" style=\"\"></i> Été 2012</a></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok\" style=\"\"></i> Automne 2012</a></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok\" style=\"\"></i> Hiver 2013</a></li></ul></div>";
 
-						if (listCourses.catalogDescription_collection[i].specificCourse !== "") {
-							div += "<a href=\"../sdata/c/attachment/"
-									+ listCourses.catalogDescription_collection[i].specificCourse
-									+ "/OpenSyllabus/"
-									+ listCourses.catalogDescription_collection[i].specificCourse
-									+ "_public.pdf\" data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf\"></i></a>";
-						}
+						div += "<a href=\"#\" onMouseDown=\"return openCouseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\" "
+								+ "data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf\"></i></a>";
 
 						div += "<a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" href=\"#\">"
 								+ "<i class=\"icon-star\"></i></a></div></div><div class=\"accordionToolsWrapper3\"><div class=\"accordionTools3 pull-right\">"
@@ -223,13 +218,8 @@ function expandListCatalogDescriptions(itemName, item, selectorIdListingDiv,
 								+ listCourses.catalogDescription_collection[i].description
 								+ "<div class=\"btn-toolbar\"><div class=\"btn-group\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"><span class=\"icon-bookmark\"></span> Sélectionner</a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header\">Ajouter à ma sélection</h5></li><li><a href=\"#\" class=\"button-option\">Été 2012</a></li><li><a href=\"#\" class=\"button-option\">Automne 2012</a></li><li><a href=\"#\" class=\"button-option\">Hiver 2013</a></li></ul></div><a class=\"btn\" href=\"#\"><i class=\"icon-star\"></i> Plan de cours enrichi</a>";
 
-						if (listCourses.catalogDescription_collection[i].specificCourse !== "") {
-							div += "<a class=\"btn\" href=\"../sdata/c/attachment/"
-									+ listCourses.catalogDescription_collection[i].specificCourse
-									+ "/OpenSyllabus/"
-									+ listCourses.catalogDescription_collection[i].specificCourse
-									+ "_public.pdf\"><i class=\"icon-file-pdf\"></i> Plan de cours</a>";
-						}
+						div += "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCouseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\">"
+								+ "<i class=\"icon-file-pdf\"></i> Plan de cours</a>";
 
 						div += "</div><table class=\"table\"><thead><tr><th>Responsable:</th><th>Programme d'études:</th><th>Crédit(s):</th><th>Exigences:</th><th>Horaire:</th></tr></thead><tbody><tr><td><a href=\"#\">"
 								+ listCourses.catalogDescription_collection[i].career
@@ -275,24 +265,15 @@ function expandCatalogDescription(course) {
 							+ course.title
 							+ "</a><div class=\"toolsWrapper\"><div class=\"dropdown\" id=\"menu\"><a class=\"dropdown-toggle icon-button-right button-microapp\"  rel=\"tooltip\" data-toggle=\"dropdown\" href=\"#menu\" data-original-title=\"ajouter à ma sélection\"><i class=\"icon-bookmark\"></i></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header\">Ajouter à ma sélection</h5></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok disabled\" style=\"\"></i> Été 2012</a></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok\" style=\"\"></i> Automne 2012</a></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok\" style=\"\"></i> Hiver 2013</a></li></ul></div>";
 
-					if (listCourses.catalogDescription_collection[i].specificCourse !== "") {
-						div += "<a href=\"../sdata/c/attachment/"
-								+ listCourses.catalogDescription_collection[i].specificCourse
-								+ "/OpenSyllabus/"
-								+ listCourses.catalogDescription_collection[i].specificCourse
-								+ "_public.pdf\" title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf\"></i></a>";
-					}
+					div += "<a href=\"#\" onMouseDown=\"return openCouseOutlinePDF(\'" + course.courseId + "\')\" "
+							+ "data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf\"></i></a>";
 
 					div += "<a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" href=\"#\"><i class=\"icon-star\"></i></a><a class=\"icon-button-right button-microapp\" data-original-title=\"cours archivé\" data-toggle=\"\" href=\"archive.html\"></a></div></div><div class=\"accordionToolsWrapper3\"><div class=\"accordionTools3 pull-right\"><div class=\"trimesterWrapper\"><span>cours disponible : </span><b class=\"trimester\"   rel=\"tooltip\" title=\"disponible à l'été 2012\">É12</b><b class=\"trimester\"   rel=\"tooltip\" title=\"disponible à l'été 2012\">A12</b><b class=\"trimester\"   rel=\"tooltip\" title=\"disponible à l'été 2012\">H13</b></div></div></div></div><div id=\"collapseCourse\"class=\"accordion-body in collapse\"><div class=\"accordion-inner\"><h4>Description</h4>"
 							+ course.description
 							+ "<div class=\"btn-toolbar\"><div class=\"btn-group\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"><span class=\"icon-bookmark\"></span> Sélectionner</a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header\">Ajouter à ma sélection</h5></li><li><a href=\"#\" class=\"button-option\">Été 2012</a></li><li><a href=\"#\" class=\"button-option\">Automne 2012</a></li><li><a href=\"#\" class=\"button-option\">Hiver 2013</a></li></ul></div><a class=\"btn\" href=\"#\"><i class=\"icon-star\"></i> Plan de cours enrichi</a>"
 
-					if (listCourses.catalogDescription_collection[i].specificCourse !== "")
-						div += "<a class=\"btn\" href=\"../sdata/c/attachment/"
-								+ listCourses.catalogDescription_collection[i].specificCourse
-								+ "/OpenSyllabus/"
-								+ listCourses.catalogDescription_collection[i].specificCourse
-								+ "_public.pdf\"><i class=\"icon-file-pdf\"></i> Plan de cours</a>"
+					div += "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCouseOutlinePDF(\'" + course.courseId + "\')\">"
+							+ "<i class=\"icon-file-pdf\"></i> Plan de cours</a>";
 
 					div += "</div><table class=\"table\"><thead><tr><th>Responsable:</th><th>Programme d'études:</th><th>Crédit(s):</th><th>Exigences:</th><th>Horaire:</th></tr></thead><tbody><tr><td><a href=\"#\">"
 							+ course.career
@@ -370,6 +351,28 @@ function filterCatalogDescriptions() {
 		$('#tab_programme').removeClass('active');
 		expandCatalogDescription(course);
 	}
+}
+
+/**
+ * open the pdf for the course outline of the course associated with this catalog description
+ */
+function openCouseOutlinePDF(courseId) {
+	//TODO eventually a course id could be included in the database (for the manager tool)
+	$.ajax({
+				url : '/direct/catalogDescription/' + courseId + '/specific-course',
+				success : function(course) {
+					if (course !== "") {
+						window.location = '/sdata/c/attachment/' + course + '/OpenSyllabus/' + course + '_public.pdf';
+					}
+					else {
+						window.alert("Il n'y a aucune version publié du Plan de Cours");
+					}
+					return true;
+				},
+				error : function(jqXHR, textStatus, errorThrown) {
+					window.alert(errorThrown);
+				}
+			});
 }
 
 /**
