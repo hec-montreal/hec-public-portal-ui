@@ -357,9 +357,8 @@ function filterCatalogDescriptions() {
  * open the pdf for the course outline of the course associated with this catalog description
  */
 function openCouseOutlinePDF(courseId) {
-	//TODO eventually a course id could be included in the database (for the manager tool)
 	$.ajax({
-				url : '/direct/catalogDescription/' + courseId + '/specific-course',
+				url : '/direct/portalManager/' + courseId + '/specific-course',
 				success : function(course) {
 					if (course !== "") {
 						window.location = '/sdata/c/attachment/' + course + '/OpenSyllabus/' + course + '_public.pdf';
