@@ -339,11 +339,11 @@ function filterCatalogDescriptions() {
 		$('#par-programme').removeClass('active');
 		$('#tab_responsable').addClass('active');
 		$('#tab_programme').removeClass('active');
-		expandListCatalogDescriptions(getUrlVars()["department"],
+		expandListCatalogDescriptions('department',getUrlVars()["department"],
 				'#listing_department',
 				'/direct/catalogDescription/getCatalogDescriptionsByDepartment/');
 	} else if (typeof (career) !== 'undefined') {
-		expandListCatalogDescriptions(getUrlVars()["career"],
+		expandListCatalogDescriptions('career',getUrlVars()["career"],
 				'#listing_career',
 				'/direct/catalogDescription/getCatalogDescriptionsByCareer/');
 	} else if (typeof (course) !== 'undefined') {
