@@ -2,8 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<name>portail-public</name>
-	<description>Portail Public</description>
+	<name>hec-public-portal-ui</name>
+	<description>Interface du portail public</description>
 	<packaging>pom</packaging>
 
   <parent>
@@ -12,10 +12,10 @@
     <version>2.8.1</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
-  <artifactId>portail-public</artifactId>
+  <artifactId>hec-public-portal-ui</artifactId>
 	<profiles>
 		<profile>
-			<id>portail-public</id>
+			<id>hec-public-portal-ui</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
