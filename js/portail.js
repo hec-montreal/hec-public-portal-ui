@@ -358,23 +358,21 @@ function filterCatalogDescriptions() {
  */
 function openCouseOutlinePDF(courseId) {
 	$.ajax({
-				url : '/direct/portalManager/' + courseId + '/specific-course',
-				success : function(course) {
-					// true if this is a shareable course site (ie, not a section)
-					shareable = (course.indexOf('.') == course.lastIndexOf('.'));
-					
-					if (course !== "") {
-						window.location = '/sdata/c/attachment/' + course + '/OpenSyllabus/' + course + (shareable ? '.00' : '') + '_public.pdf';
-					}
-					else {
-						window.alert("Il n'y a aucun PDF disponible pour ce Plan de Cours");
-					}
-					return true;
-				},
-				error : function(jqXHR, textStatus, errorThrown) {
-					window.alert(errorThrown);
-				}
-			});
+		url : '/direct/portalManager/' + courseId + '/public_syllabus_info.json',
+		datatype : 'json',
+		success : function(syllabus_info) {		
+			if (syllabus_info.data["pdf_url"] !== "") {
+				window.open(syllabus_info.data["pdf_url"], '_blank');
+			}
+			else {
+				window.alert("Il n'y a aucun PDF disponible pour ce Plan de Cours");
+			}
+			return true;
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			window.alert(errorThrown);
+		}
+	});
 }
 
 /**
