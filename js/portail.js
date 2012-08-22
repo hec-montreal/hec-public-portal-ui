@@ -5,7 +5,7 @@
  * that get the catalog descriptions for a specific deparment/career the
  * departments/carrer
  */
-function initCourseListing(itemName, serviceList, serviceGet) {
+function initCourseListing(itemName, serviceList) {
 
 	var selectorIdTabDiv = '#div_' + itemName;
 	var selectorIdDatatarget = '#courseListing_' + itemName;
@@ -35,8 +35,7 @@ function initCourseListing(itemName, serviceList, serviceGet) {
 								+ idListingDiv
 								+ "\" class=\" in \" style=\"display: none; \"><div class=\"btn-group\" style=\"\"><div class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle btn\" data-toggle=\"dropdown\">Trier <b class=\"caret\"></b></a><ul class=\"dropdown-menu\"><li><a href=\"#dropdown1\" data-toggle=\"tab\">Par ordre alphabétique</a></li><li><a href=\"#dropdown2\" data-toggle=\"tab\">Par numéro de cours</a></li><li><a href=\"#dropdown2\" data-toggle=\"tab\">Par ordre de sigle</a></li></ul></div></div><div class=\"btn-group\"><a href=\"#\" class=\"btn active\">Tous les cours</a><a href=\"#\" class=\"btn\">En français</a><a href=\"#\" class=\"btn\">En anglais</a><a href=\"#\" class=\"btn\">En espagnol</a></div><div class=\"accordion\" id=\"accordionCourseSelect\"></div></div>";
 						$(selectorIdMainDiv).html(div);
-						bindItem(itemName, idDiv, item, selectorIdListingDiv,
-								serviceGet);
+						bindItem(itemName, idDiv, item, selectorIdListingDiv);
 
 					}
 				}
@@ -158,15 +157,14 @@ function bindFilters() {
  * that get the catalog descriptions for a specific deparment/career the
  * departments/carrer
  */
-function expandListCatalogDescriptions(itemName, item, selectorIdListingDiv,
-		serviceGet) {
+function expandListCatalogDescriptions(itemName, item, selectorIdListingDiv) {
 
 	var itemCleaned = item.replace(/[^a-z0-9\s]/gi, '');
 	var selectorAccordionCourseDiv = '#accordionCourseSelect_' + itemName;
 
 	$
 			.ajax({
-				url : serviceGet + item + '.json',
+				url : '/direct/catalogDescription.json?' + itemName + '=' + item,
 				datatype : 'json',
 				success : function(listCourses) {
 					$(selectorIdListingDiv).html("");
@@ -300,11 +298,10 @@ function expandCatalogDescription(course) {
  * associated catalog descriptions -serviceGet: service that get the catalog
  * descriptions for a specific deparment/career the departments/carrer
  */
-function bindItem(itemName, idDiv, item, selectorIdListingDiv, serviceGet) {
+function bindItem(itemName, idDiv, item, selectorIdListingDiv) {
 	$(idDiv).click(
 			function() {
-				expandListCatalogDescriptions(itemName, item,
-						selectorIdListingDiv, serviceGet)
+				expandListCatalogDescriptions(itemName, item, selectorIdListingDiv)
 			});
 }
 
@@ -339,13 +336,9 @@ function filterCatalogDescriptions() {
 		$('#par-programme').removeClass('active');
 		$('#tab_responsable').addClass('active');
 		$('#tab_programme').removeClass('active');
-		expandListCatalogDescriptions('department',getUrlVars()["department"],
-				'#listing_department',
-				'/direct/catalogDescription/getCatalogDescriptionsByDepartment/');
+		expandListCatalogDescriptions('department',getUrlVars()["department"], '#listing_department');
 	} else if (typeof (career) !== 'undefined') {
-		expandListCatalogDescriptions('career',getUrlVars()["career"],
-				'#listing_career',
-				'/direct/catalogDescription/getCatalogDescriptionsByCareer/');
+		expandListCatalogDescriptions('career',getUrlVars()["career"], '#listing_career');
 	} else if (typeof (course) !== 'undefined') {
 		$('#par-programme').removeClass('active');
 		$('#tab_programme').removeClass('active');
@@ -403,11 +396,9 @@ $(document)
 					$('.dropdown-toggle').dropdown();
 
 					initCourseListing('career',
-							'/direct/portalManager/getCareers.json',
-							'/direct/catalogDescription/getCatalogDescriptionsByCareer/');
+							'/direct/portalManager/getCareers.json');
 					initCourseListing('department',
-							'/direct/portalManager/getDepartments.json',
-							'/direct/catalogDescription/getCatalogDescriptionsByDepartment/');
+							'/direct/portalManager/getDepartments.json');
 					filterCatalogDescriptions();
 					bindChangeLanguage();
 					getBundle('FR');
