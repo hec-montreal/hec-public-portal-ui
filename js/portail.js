@@ -343,6 +343,7 @@ function filterCatalogDescriptions() {
 		$('#par-programme').removeClass('active');
 		$('#tab_programme').removeClass('active');
 		expandCatalogDescription(course);
+		$('#tabs').hide();
 	}
 }
 
