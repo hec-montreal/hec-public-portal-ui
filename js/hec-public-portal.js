@@ -82,7 +82,7 @@ function getBundle(locale) {
 			$('.bundle-attribute').each(function(index, value){
 				var key = $(this).attr('data-bundle-key');
 				var text = msgsBundle.data[key];
-				$(this).text(text);
+				$(this).append(text);
 		});
 		}
 	});
@@ -216,7 +216,7 @@ function expandListCatalogDescriptions(itemName, item, selectorIdListingDiv) {
 
 						div += "<a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" href=\"#\">"
 								+ "<i class=\"icon-star\"></i></a></div></div><div class=\"accordionToolsWrapper3\"><div class=\"accordionTools3 pull-right\">"
-								+ "<div class=\"trimesterWrapper\"><span class=\"bundle-attribute\" data-bundle-key=\"label_available_course\"></span><b class=\"trimester\"   rel=\"tooltip\" class=\"bundle-attribute\" data-bundle-key=\"label_summer\"></b><b class=\"trimester\"   rel=\"tooltip\" class=\"bundle-attribute\" data-bundle-key=\"label_autumn\"></b><b class=\"trimester\"   rel=\"tooltip\" class=\"bundle-attribute\" data-bundle-key=\"label_winter\"></b></div></div></div></div><div id=\"collapseCourse"
+								+ "<div class=\"trimesterWrapper\"><span class=\"bundle-attribute\" data-bundle-key=\"label_available_course\"></span><b class=\"trimester bundle-attribute\"   rel=\"tooltip\" data-bundle-key=\"label_summer\"></b><b class=\"trimester bundle-attribute\"   rel=\"tooltip\" data-bundle-key=\"label_autumn\"></b><b class=\"trimester bundle-attribute\"   rel=\"tooltip\" data-bundle-key=\"label_winter\"></b></div></div></div></div><div id=\"collapseCourse"
 								+ "_"
 								+ itemCleaned
 								+ "_"
@@ -225,7 +225,7 @@ function expandListCatalogDescriptions(itemName, item, selectorIdListingDiv) {
 								+ "<br>"
 								+ listCourses.catalogDescription_collection[i].description
 								+ "<br><br>"
-								+ "<div class=\"btn-toolbar\"><div class=\"btn-group\"><a class=\"dropdown-toggle bundle-attribute\" data-toggle=\"dropdown\" href=\"#\" data-bundle-key=\"label_select\"><span class=\"icon-bookmark\"></span></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header bundle-attribute\" data-bundle-key=\"label_add_selection\"></h5></li></ul></div><a class=\"btn\" href=\"#\"><i class=\"icon-star bundle-attribute\" data-bundle-key=\"label_html_course_outline\"></i></a>";
+								+ "<div class=\"btn-toolbar\"><div class=\"btn-group\"><a class=\"dropdown-toggle bundle-attribute\" data-toggle=\"dropdown\" href=\"#\" data-bundle-key=\"label_select\"><span class=\"icon-bookmark\"></span></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header bundle-attribute\" data-bundle-key=\"label_add_selection\"></h5></li></ul></div><a class=\"btn bundle-attribute\" data-bundle-key=\"label_html_course_outline\" href=\"#\"><i class=\"icon-star\"></i></a>";
 
 						div += "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCouseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\">"
 								+ "<i class=\"icon-file-pdf\"></i> Plan de cours</a>";
