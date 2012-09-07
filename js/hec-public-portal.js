@@ -104,25 +104,44 @@ function updateLabelsFromBundle() {
  * sorted (accordionCourseSelect_department/accordionCourseSelect_career)
  */
 function bindSort(selectorAccordionCourseDiv) {
+	
 	$('.sort_course_id').click(function() {
-		$(this).addClass('active');
-		$('.sort_title').removeClass('active');
-
-		var listCoursesSorted = $('.accordion-group').sort(function(a, b) {
-			return $(a).attr('data-courseId') > $(b).attr('data-courseId') ? 1 : -1;
+		sortByCourseId(selectorAccordionCourseDiv);
 		});
-		$(selectorAccordionCourseDiv).html(listCoursesSorted);
-	});
 
 	$('.sort_title').click(function() {
-		$(this).addClass('active');
+		sortByTitle(selectorAccordionCourseDiv);
+		});
+}
+
+/**
+ * Sort catalog descriptions by title (= alphabetic order) 
+ * attributes: -selectorAccordionCourseDiv: selector of the div that is being
+  * sorted (accordionCourseSelect_department/accordionCourseSelect_career)
+ */
+function sortByTitle(selectorAccordionCourseDiv) {
+		$('.sort_title').addClass('active');
 		$('.sort_course_id').removeClass('active');
 
 		var listCoursesSorted = $('.accordion-group').sort(function(a, b) {
 			return $(a).attr('data-title') > $(b).attr('data-title') ? 1 : -1;
 		});
 		$(selectorAccordionCourseDiv).html(listCoursesSorted);
-	});
+}
+
+/**
+ * Sort catalog descriptions by course id (= course number) 
+ * attributes: -selectorAccordionCourseDiv: selector of the div that is being
+  * sorted (accordionCourseSelect_department/accordionCourseSelect_career)
+ */
+function sortByCourseId(selectorAccordionCourseDiv) {
+		$('.sort_course_id').addClass('active');
+		$('.sort_title').removeClass('active');
+
+		var listCoursesSorted = $('.accordion-group').sort(function(a, b) {
+			return $(a).attr('data-courseId') > $(b).attr('data-courseId') ? 1 : -1;
+		});
+		$(selectorAccordionCourseDiv).html(listCoursesSorted);
 }
 
 /**
@@ -257,6 +276,7 @@ function expandListCatalogDescriptions(itemName, item, selectorIdListingDiv) {
 					$(selectorIdListingDiv).fadeIn('slow');
 					bindFilters();
 					bindSort(selectorAccordionCourseDiv);
+					sortByCourseId(selectorAccordionCourseDiv);
 					updateLabelsFromBundle();
 					return false;
 
