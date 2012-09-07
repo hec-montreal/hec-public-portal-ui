@@ -1011,6 +1011,10 @@ border-bottom: 1px solid #C4B382;
 	font-style:italic;
 }
 
+.accordion-inner p{
+	font-size: 13px;
+}
+
 /*Override Bootstrap  css*/
 .btn {
   display: inline-block;
