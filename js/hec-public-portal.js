@@ -79,11 +79,28 @@ function getBundle(locale) {
 		url : '/direct/portalManager/getBundles/' + locale + '.json',
 		datatype : 'json',
 		success : function(msgsBundle) {
-			$('.bundle-attribute').each(function(index, value){
+			$('[data-bundle-key]').each(function(index, value){
 				var key = $(this).attr('data-bundle-key');
 				var text = msgsBundle.data[key];
-				$(this).append(text);
-		});
+				$(this).text(text);
+			});
+			$('#bundle_value').val(locale);
+		}		
+	});
+}
+
+/**
+ * Alert the message associated with the locale(french/english/espagnol) and the key passed in parameter
+ * attributes: -locale: the locale selected by the user / -key: the key associated with the message
+ */
+function alertMessage(locale, key) {
+
+	$.ajax({
+		url : '/direct/portalManager/getBundles/' + locale + '.json',
+		datatype : 'json',
+		success : function(msgsBundle) {
+			var text = msgsBundle.data[key];
+			window.alert(text);
 		}
 	});
 }
@@ -169,18 +186,17 @@ function expandListCatalogDescriptions(itemName, item, selectorIdListingDiv) {
 				success : function(listCourses) {
 					$(selectorIdListingDiv).html("");
 
-					var div = "<div class=\"btn-toolbar well\"><div class=\"btn-group \" style=\"\"><div class=\"dropdown\"><a href=\"#\"  data-toggle=\"dropdown\" class=\"dropdown-toggle btn bundle-attribute\" data-bundle-key=\"button_sort\"><b class=\"caret\"></b></a><ul class=\"dropdown-menu\"><li class=\"sort_title\"><a href=\"#dropdown1\" data-toggle=\"tab\" class=\"bundle-attribute\" data-bundle-key=\"button_sort_alphabetic\"></a></li><li class=\"sort_course_id\"><a href=\"#dropdown2\" data-toggle=\"tab\" class=\"bundle-attribute\" data-bundle-key=\"button_sort_numeric\"></a></li></ul></div></div><div class=\"btn-group\"><a href=\"#\" class=\"btn active filter_all bundle-attribute\" data-bundle-key=\"button_filter_all\"></a><a href=\"#\" class=\"btn filter_fr bundle-attribute\" data-bundle-key=\"button_filter_fr\"></a><a href=\"#\" class=\"btn filter_en bundle-attribute\" data-bundle-key=\"button_filter_en\"></a><a href=\"#\" class=\"btn filter_es bundle-attribute\" data-bundle-key=\"button_filter_es\"></a></div></div><!--  courses --><div class=\"accordion \" id=\"accordionCourseSelect_"
+					var div = "<div class=\"btn-toolbar well\"><div class=\"btn-group \" style=\"\"><div class=\"dropdown\"><a href=\"#\"  data-toggle=\"dropdown\" class=\"dropdown-toggle btn \" data-bundle-key=\"button_sort\"><b class=\"caret\"></b></a><ul class=\"dropdown-menu\"><li class=\"sort_title\"><a href=\"#dropdown1\" data-toggle=\"tab\"  data-bundle-key=\"button_sort_alphabetic\"></a></li><li class=\"sort_course_id\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"button_sort_numeric\"></a></li></ul></div></div><div class=\"btn-group\"><a href=\"#\" class=\"btn active filter_all \" data-bundle-key=\"button_filter_all\"></a><a href=\"#\" class=\"btn filter_fr \" data-bundle-key=\"button_filter_fr\"></a><a href=\"#\" class=\"btn filter_en \" data-bundle-key=\"button_filter_en\"></a><a href=\"#\" class=\"btn filter_es \" data-bundle-key=\"button_filter_es\"></a></div></div><!--  courses --><div class=\"accordion \" id=\"accordionCourseSelect_"
 							+ itemName + "\">";
 
 					for ( var i = 0; i < listCourses.catalogDescription_collection.length; i++) {
 						
 						if(listCourses.catalogDescription_collection[i].description==null){
-							listCourses.catalogDescription_collection[i].description="Il n'y a pas de description disponible pour ce cours.";
+							listCourses.catalogDescription_collection[i].description="<span data-bundle-key=\"label_no_description\"/>";
 						}
 						if(listCourses.catalogDescription_collection[i].requirements==null){
-							listCourses.catalogDescription_collection[i].requirements="Aucune";
+							listCourses.catalogDescription_collection[i].requirements="<span data-bundle-key=\"label_no_requirement\"/>";
 						}
-
 											
 						div += "<div id=\"\" data-courseId=\""
 								+ listCourses.catalogDescription_collection[i].courseId
@@ -209,28 +225,28 @@ function expandListCatalogDescriptions(itemName, item, selectorIdListingDiv) {
 								+ itemCleaned
 								+ "_"
 								+ i
-								+ "\" data-original-title=\"ajouter à ma sélection\"><i class=\"icon-bookmark\"></i></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header bundle-attribute\" data-bundle-key=\"label_add_selection\"></h5></li></ul></div>";
+								+ "\" data-original-title=\"ajouter à ma sélection\"><i class=\"icon-bookmark\"></i></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header \" data-bundle-key=\"label_add_selection\"></h5></li></ul></div>";
 
 						div += "<a href=\"#\" onMouseDown=\"return openCouseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\" "
 								+ "data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf\"></i></a>";
 
 						div += "<a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" href=\"#\">"
 								+ "<i class=\"icon-star\"></i></a></div></div><div class=\"accordionToolsWrapper3\"><div class=\"accordionTools3 pull-right\">"
-								+ "<div class=\"trimesterWrapper\"><span class=\"bundle-attribute\" data-bundle-key=\"label_available_course\"></span><b class=\"trimester bundle-attribute\"   rel=\"tooltip\" data-bundle-key=\"label_summer\"></b><b class=\"trimester bundle-attribute\"   rel=\"tooltip\" data-bundle-key=\"label_autumn\"></b><b class=\"trimester bundle-attribute\"   rel=\"tooltip\" data-bundle-key=\"label_winter\"></b></div></div></div></div><div id=\"collapseCourse"
+								+ "<div class=\"trimesterWrapper\"><span  data-bundle-key=\"label_available_course\"></span><b class=\"trimester \"   rel=\"tooltip\" data-bundle-key=\"label_summer\"></b><b class=\"trimester \"   rel=\"tooltip\" data-bundle-key=\"label_autumn\"></b><b class=\"trimester \"   rel=\"tooltip\" data-bundle-key=\"label_winter\"></b></div></div></div></div><div id=\"collapseCourse"
 								+ "_"
 								+ itemCleaned
 								+ "_"
 								+ i
-								+ "\"class=\"accordion-body collapse\"><div class=\"accordion-inner\"><h4 class=\"bundle-attribute\" data-bundle-key=\"label_description\"></h4>"
+								+ "\"class=\"accordion-body collapse\"><div class=\"accordion-inner\"><h4  data-bundle-key=\"label_description\"></h4>"
 								+ "<br>"
 								+ listCourses.catalogDescription_collection[i].description
 								+ "<br><br>"
-								+ "<div class=\"btn-toolbar\"><div class=\"btn-group\"><a class=\"dropdown-toggle bundle-attribute\" data-toggle=\"dropdown\" href=\"#\" data-bundle-key=\"label_select\"><span class=\"icon-bookmark\"></span></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header bundle-attribute\" data-bundle-key=\"label_add_selection\"></h5></li></ul></div><a class=\"btn bundle-attribute\" data-bundle-key=\"label_html_course_outline\" href=\"#\"><i class=\"icon-star\"></i></a>";
+								+ "<div class=\"btn-toolbar\"><div class=\"btn-group\"><a class=\"dropdown-toggle \" data-toggle=\"dropdown\" href=\"#\"><span class=\"icon-bookmark\"/> <span data-bundle-key=\"label_select\"/></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header \" data-bundle-key=\"label_add_selection\"></h5></li></ul></div><a class=\"btn\" href=\"#\"><i class=\"icon-star\"/>  <span data-bundle-key=\"label_html_course_outline\"/></a>";
 
 						div += "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCouseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\">"
-								+ "<i class=\"icon-file-pdf\"></i> Plan de cours</a>";
+								+ "<i class=\"icon-file-pdf\"></i> <span data-bundle-key=\"label_pdf_course_outline\"/></a>";
 
-						div += "</div><table class=\"table\"><thead><tr><th>Responsable:</th><th class=\"bundle-attribute\" data-bundle-key=\"label_academic_career\"></th><th class=\"bundle-attribute\" data-bundle-key=\"label_credits\"></th><th class=\"bundle-attribute\" data-bundle-key=\"label_requirements\"></th><th class=\"bundle-attribute\" data-bundle-key=\"label_hours\"></th></tr></thead><tbody><tr><td><a href=\"#\">"
+						div += "</div><table class=\"table\"><thead><tr><th data-bundle-key=\"label_department\"></th><th data-bundle-key=\"label_academic_career\"></th><th data-bundle-key=\"label_credits\"></th><th data-bundle-key=\"label_requirements\"></th><th data-bundle-key=\"label_hours\"></th></tr></thead><tbody><tr><td><a href=\"#\">"
 								+ listCourses.catalogDescription_collection[i].career
 								+ "</a></td><td><a href=\"#\">"
 								+ listCourses.catalogDescription_collection[i].department
@@ -238,7 +254,7 @@ function expandListCatalogDescriptions(itemName, item, selectorIdListingDiv) {
 								+ listCourses.catalogDescription_collection[i].credits
 								+ "</td><td>"
 								+ listCourses.catalogDescription_collection[i].requirements
-								+ "</td><td class=\"bundle-attribute\" data-bundle-key=\"description_hours\"></td></tr></tbody></table></div></div></div>";
+								+ "</td><td data-bundle-key=\"description_hours\"></td></tr></tbody></table></div></div></div>";
 					}
 					;
 
@@ -268,31 +284,31 @@ function expandCatalogDescription(course) {
 				success : function(course) {
 					
 					if(course.description==null){
-						course.description="Il n'y a pas de description disponible pour ce cours.";
+						course.description="<span data-bundle-key=\"label_no_description\"/>";
 					}
 					if(course.requirements==null){
-						course.requirements="Aucune";
+						course.requirements="<span data-bundle-key=\"label_no_requirement\"/>";
 					}
 
 					var div = "<div id=\"\" class=\"accordion-group \"><div class=\"accordion-heading row\"><div class=\"span5\"><a class=\"accordion-toggle\" data-toggle=\"collapse\" href=\"#collapseCourse\"data-parent=\"#accordionCourseSelect\">"
 							+ course.courseId
 							+ " - "
 							+ course.title
-							+ "</a><div class=\"toolsWrapper\"><div class=\"dropdown\" id=\"menu\"><a class=\"dropdown-toggle icon-button-right button-microapp\"  rel=\"tooltip\" data-toggle=\"dropdown\" href=\"#menu\" data-original-title=\"ajouter � ma s�lection\"><i class=\"icon-bookmark\"></i></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header\">Ajouter � ma s�lection</h5></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok disabled\" style=\"\"></i> �t� 2012</a></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok\" style=\"\"></i> Automne 2012</a></li><li><a href=\"#\" class=\"button-option\"><i class=\"icon-ok\" style=\"\"></i> Hiver 2013</a></li></ul></div>";
+							+ "</a><div class=\"toolsWrapper\"><div class=\"dropdown\" id=\"menu\"><a class=\"dropdown-toggle icon-button-right button-microapp\"  rel=\"tooltip\" data-toggle=\"dropdown\" href=\"#menu\" data-original-title=\"ajouter à ma sélection\"><i class=\"icon-bookmark\"></i></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header \" data-bundle-key=\"label_add_selection\"></h5></li></ul></div>";
 
 					div += "<a href=\"#\" onMouseDown=\"return openCouseOutlinePDF(\'" + course.courseId + "\')\" "
 							+ "data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf\"></i></a>";
 
-					div += "<a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" href=\"#\"><i class=\"icon-star\"></i></a><a class=\"icon-button-right button-microapp\" data-original-title=\"cours archivé\" data-toggle=\"\" href=\"archive.html\"></a></div></div><div class=\"accordionToolsWrapper3\"><div class=\"accordionTools3 pull-right\"><div class=\"trimesterWrapper\"><span>cours disponible : </span><b class=\"trimester\"   rel=\"tooltip\" title=\"disponible � l'�t� 2012\">�12</b><b class=\"trimester\"   rel=\"tooltip\" title=\"disponible � l'�t� 2012\">A12</b><b class=\"trimester\"   rel=\"tooltip\" title=\"disponible � l'�t� 2012\">H13</b></div></div></div></div><div id=\"collapseCourse\"class=\"accordion-body in collapse\"><div class=\"accordion-inner\"><h4>Description</h4>"
+					div += "<a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" href=\"#\"><i class=\"icon-star\"></i></a><a class=\"icon-button-right button-microapp\" data-original-title=\"cours archivé\" data-toggle=\"\" href=\"archive.html\"></a></div></div><div class=\"accordionToolsWrapper3\"><div class=\"accordionTools3 pull-right\"><div class=\"trimesterWrapper\"><span  data-bundle-key=\"label_available_course\"></span><b class=\"trimester \"   rel=\"tooltip\" data-bundle-key=\"label_summer\"></b><b class=\"trimester \"   rel=\"tooltip\" data-bundle-key=\"label_autumn\"></b><b class=\"trimester \"   rel=\"tooltip\" data-bundle-key=\"label_winter\"></b></div></div></div></div><div id=\"collapseCourse\" class=\"accordion-body in collapse\"><div class=\"accordion-inner\"><h4 data-bundle-key=\"label_description\"></h4>"
 							+"<br>"
 							+ course.description
 							+"<br><br>"
-							+ "<div class=\"btn-toolbar\"><div class=\"btn-group\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"><span class=\"icon-bookmark\"></span> Sélectionner</a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header\">Ajouter � ma s�lection</h5></li><li><a href=\"#\" class=\"button-option\">�t� 2012</a></li><li><a href=\"#\" class=\"button-option\">Automne 2012</a></li><li><a href=\"#\" class=\"button-option\">Hiver 2013</a></li></ul></div><a class=\"btn\" href=\"#\"><i class=\"icon-star\"></i> Plan de cours enrichi</a>"
+							+ "<div class=\"btn-toolbar\"><div class=\"btn-group\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"><span class=\"icon-bookmark\"></span> <span data-bundle-key=\"label_select\"/></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header \" data-bundle-key=\"label_add_selection\"></h5></li></ul></div><a class=\"btn\" href=\"#\"><i class=\"icon-star\"/> <span data-bundle-key=\"label_html_course_outline\"/></a>"
 
 					div += "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCouseOutlinePDF(\'" + course.courseId + "\')\">"
-							+ "<i class=\"icon-file-pdf\"></i> Plan de cours</a>";
+							+ "<i class=\"icon-file-pdf\"></i> <span data-bundle-key=\"label_pdf_course_outline\"/></a>";
 
-					div += "</div><table class=\"table\"><thead><tr><th>Responsable:</th><th>Programme d'études:</th><th>Crédit(s):</th><th>Exigences:</th><th>Horaire:</th></tr></thead><tbody><tr><td><a href=\"#\">"
+					div += "</div><table class=\"table\"><thead><tr><th data-bundle-key=\"label_department\"></th><th data-bundle-key=\"label_academic_career\"></th><th data-bundle-key=\"label_credits\"></th><th data-bundle-key=\"label_requirements\"></th><th data-bundle-key=\"label_hours\"></th></tr></thead><tbody><tr><td><a href=\"#\">"
 							+ course.career
 							+ "</a></td><td><a href=\"#\">"
 							+ course.department
@@ -300,9 +316,11 @@ function expandCatalogDescription(course) {
 							+ course.credits
 							+ "</td><td>"
 							+ course.requirements
-							+ "</td><td>Outil de recherche d'horaire (via HEC en ligne)</td></tr></tbody></table></div></div></div>";
+							+ "</td><td data-bundle-key=\"description_hours\"></td></tr></tbody></table></div></div></div>";
 
 					$('#my-tab-content').append(div);
+					bindChangeLanguage();
+					getBundle('FR');
 					return false;
 
 				}
@@ -378,7 +396,7 @@ function openCouseOutlinePDF(courseId) {
 				window.open(syllabus_info.data["pdf_url"], '_blank');
 			}
 			else {
-				window.alert("Il n'y a aucun PDF disponible pour ce plan de cours");
+				alertMessage($('#bundle_value').val(), "message_no_pdf");
 			}
 			return true;
 		},
