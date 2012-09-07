@@ -25,7 +25,7 @@ function initCourseListing(itemName, serviceList) {
 								+ id
 								+ "\"data-toggle=\"collapse\" data-target=\""
 								+ selectorIdDatatarget
-								+ "\" href=\"#\" class=\"ui-link-inherit\">"
+								+ "\" href=\"#\" class=\"ui-link-inherit menuitem\">"
 								+ listItems.portalManager_collection[i].description
 								+ "</a></dd>";
 						$(selectorIdTabDiv).append(div);
@@ -70,7 +70,7 @@ function bindChangeLanguage() {
 }
 
 /**
- * Get the bundle associated with the locale(french/english/espagnol) and reload all attributes with internationalized labels
+ * Get the bundle associated with the locale(french/english/espagnol) and store it in local
  * attributes: -locale: the locale selected by the user
  */
 function getBundle(locale) {
@@ -79,31 +79,23 @@ function getBundle(locale) {
 		url : '/direct/portalManager/getBundles/' + locale + '.json',
 		datatype : 'json',
 		success : function(msgsBundle) {
-			$('[data-bundle-key]').each(function(index, value){
-				var key = $(this).attr('data-bundle-key');
-				var text = msgsBundle.data[key];
-				$(this).text(text);
-			});
-			$('#bundle_value').val(locale);
+			$('#bundleDiv').data(msgsBundle.data);		
+			updateLabelsFromBundle();
 		}		
 	});
 }
 
 /**
- * Alert the message associated with the locale(french/english/espagnol) and the key passed in parameter
- * attributes: -locale: the locale selected by the user / -key: the key associated with the message
+ * Reload all attributes with internationalized labels from the current locale bundle
  */
-function alertMessage(locale, key) {
-
-	$.ajax({
-		url : '/direct/portalManager/getBundles/' + locale + '.json',
-		datatype : 'json',
-		success : function(msgsBundle) {
-			var text = msgsBundle.data[key];
-			window.alert(text);
-		}
-	});
+function updateLabelsFromBundle() {
+	$('[data-bundle-key]').each(function(index, value){
+					var key = $(this).attr('data-bundle-key');
+					var text = $('#bundleDiv').data(key);
+					$(this).text(text);
+				});
 }
+
 
 /**
  * Bind "sorting buttons" (sort by course id/ sort by title) to the sorting
@@ -265,8 +257,7 @@ function expandListCatalogDescriptions(itemName, item, selectorIdListingDiv) {
 					$(selectorIdListingDiv).fadeIn('slow');
 					bindFilters();
 					bindSort(selectorAccordionCourseDiv);
-					bindChangeLanguage();
-					getBundle('FR');
+					updateLabelsFromBundle();
 					return false;
 
 				}
@@ -319,8 +310,7 @@ function expandCatalogDescription(course) {
 							+ "</td><td data-bundle-key=\"description_hours\"></td></tr></tbody></table></div></div></div>";
 
 					$('#my-tab-content').append(div);
-					bindChangeLanguage();
-					getBundle('FR');
+					updateLabelsFromBundle();
 					return false;
 
 				}
@@ -338,7 +328,9 @@ function expandCatalogDescription(course) {
 function bindItem(itemName, idDiv, item, selectorIdListingDiv) {
 	$(idDiv).click(
 			function() {
-				expandListCatalogDescriptions(itemName, item, selectorIdListingDiv)
+				expandListCatalogDescriptions(itemName, item, selectorIdListingDiv);
+				$('.menuitem').removeClass('selected_menuitem');
+				$(this).addClass('selected_menuitem');
 			});
 }
 
@@ -396,7 +388,7 @@ function openCouseOutlinePDF(courseId) {
 				window.open(syllabus_info.data["pdf_url"], '_blank');
 			}
 			else {
-				alertMessage($('#bundle_value').val(), "message_no_pdf");
+				window.alert($('#bundleDiv').data("message_no_pdf"));
 			}
 			return true;
 		},
@@ -440,4 +432,5 @@ $(document)
 					filterCatalogDescriptions();
 					bindChangeLanguage();
 					getBundle('FR');
+					updateLabelsFromBundle();
 				});

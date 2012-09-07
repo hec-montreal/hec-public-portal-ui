@@ -1006,6 +1006,10 @@ border-bottom: 1px solid #C4B382;
 #archives table.tablesorter .col-save {text-align:center;width: 5%;}
 #archives table.tablesorter .col-arch {text-align:center;width: 5%;}
 
+.selected_menuitem{
+    color: #555555;
+	font-style:italic;
+}
 
 /*Override Bootstrap  css*/
 .btn {
