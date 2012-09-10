@@ -346,6 +346,18 @@ function bindItem(itemName, idDiv, item, selectorIdListingDiv) {
 }
 
 /**
+ * Bind the clik event on search buttons to the corresponding functions
+ */
+function bindSearch() {
+	$('#research_tab_main_button').click(
+			function() {
+				searchCatalogDescription($('#research_tab_main_input').val());
+			});
+}
+
+
+
+/**
  * Get the GET attributes passed into the url variable. This function is called
  * when we used a specific url to display catalog descriptions of a specific
  * department/career/course
@@ -410,26 +422,55 @@ function openCouseOutlinePDF(courseId) {
 }
 
 /**
- * open the html for the course outline of the course associated with this catalog description
+ * create the search result datatable from the catalog description map passed in parameter 
  */
-function openCouseOutlineHTML(courseId) {
-	$.ajax({
-		url : '/direct/portalManager/' + courseId + '/public_syllabus_info.json',
-		datatype : 'json',
-		success : function(syllabus_info) {		
-			if (syllabus_info.data["pdf_url"] !== "") {
-				window.open(syllabus_info.data["pdf_url"], '_blank');
-			}
-			else {
-				window.alert($('#bundleDiv').data("message_no_html"));
-			}
-			return true;
-		},
-		error : function(jqXHR, textStatus, errorThrown) {
-			window.alert(errorThrown);
-		}
-	});
+function displayResultCatalogDescriptionSearch(cdList) {
+	$('#searchTable tbody').html("");	
+	for ( var i = 0; i < cdList.length; i++) {
+		var cdRow = "<tr>";
+		cdRow += "<td class=\"col-sigle\">" + cdList[i].courseid + "</td>";
+		cdRow += "<td>" + cdList[i].coursetitle + "</td>";
+		cdRow += "<td><b class=\"trimester\" rel=\"tooltip\" title=\"disponible à l'été 2012\">É12</b><b class=\"trimester\" rel=\"tooltip\" title=\"disponible à l'été 2012\">A12</b><b class=\"trimester\" rel=\"tooltip\" title=\"disponible à l'été 2012\">H13</b></td>";
+		cdRow += "<td>" + cdList[i].career + "</td>";
+		cdRow += "<td>" + cdList[i].department + "</td>";
+		cdRow += "<td class=\"col-pdf\" style=\"text-align:center\"><a href=\"#\" class=\"button-microapp\" data-original-title=\"\"><i class=\"icon-file-pdf\"></i></a></td>";
+		cdRow += "<td class=\"col-save\"><a class=\"dropdown-toggle icon-button-right button-microapp\" data-toggle=\"dropdown\" href=\"#menu2\" data-original-title=\"\"><i class=\"icon-bookmark\"></i></a><li><h5 class=\"dropdown-header\">Ajouter à ma sélection</h5></li></ul></td>";
+		cdRow += "<td class=\"col-arch\"><a class=\"dropdown-toggle icon-button-right button-microapp\" href=\"#loginModal\" data-original-title=\"archives\"><i class=\"icon-archive\"></i></a></td>";
+		$('#searchTable tbody').append(cdRow);
+	}
 }
+
+/**
+ * return catalog descriptions associated with the "searchString" criteria passed in parameter 
+ */
+function searchCatalogDescription(searchString) {
+	var cdList = new Array();
+	var cours1= new Array();
+	cours1["courseid"] = "1-612-92";
+	cours1["coursetitle"] = "Mathématiques financières";
+	cours1["career"] = "Année préparatoire BAA";
+	cours1["department"] = "Méthodes quantitatives de gestion" + searchString;
+	
+	var cours2= new Array();
+	cours2["courseid"] = "1-404-96";
+	cours2["coursetitle"] = "Sociologie de l'entreprise";
+	cours2["career"] = "Année préparatoire BAA";
+	cours2["department"] = "Management" + searchString;
+	
+	var cours3= new Array();
+	cours3["courseid"] = "80-020-76";
+	cours3["coursetitle"] = "Méthodologie de la recherche";
+	cours3["career"] = "Programme de doctorat";
+	cours3["department"] = "Doctorat";
+	
+	cdList[0] = cours1;
+	cdList[1] = cours2;
+	cdList[2] = cours3;
+	
+	displayResultCatalogDescriptionSearch(cdList);
+}
+
+
 
 /**
  * Script that is executed when the page is loaded
@@ -457,6 +498,7 @@ $(document)
 					$('#popit').popover('hide');
 					$('.collapse').collapse('toggle');
 					$('.dropdown-toggle').dropdown();
+					bindSearch();
 
 					initCourseListing('career',
 							'/direct/portalManager/getCareers.json');

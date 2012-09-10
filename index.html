@@ -151,8 +151,8 @@
 		        	
 					<div class="row span12">
 						<form id="searchpan" class="well form-search form-horizontal" style="">
-							<input type="text" class="search-query input-xlarge span2 pull-left" placeholder="# de cours">
-							<button type="submit" class="btn">Recherche</button>
+							<input type="text" class="search-query input-xlarge span2 pull-left" placeholder="# de cours" id="research_tab_main_input">
+							<button type="button" class="btn" id="research_tab_main_button">Recherche</button>
 						</form>
 						
 						<!-- Navbar 2 -->
@@ -229,11 +229,11 @@
 							
 						<!-- Results -->
 						<h3>Resultats</h3>
-						<table class="table table-striped tablesorter"  id="sortTableExample">
+						<table class="table table-striped tablesorter"  id="searchTable">
 							<thead>
 								<tr>
 						            <th class="col-sigle">
-								        <span>Sigle</span>
+								        <span>Numéro</span>
 						            </th>
 						            <th class="col-nom">
 								        <span>Nom de cours</span>							        
@@ -258,305 +258,12 @@
 								    </th>
 						        </tr>
 						    </thead>
-					        <tbody>
-					          <tr>
-					            <td class="col-sigle">
-					            	<a data-toggle="modal" href="#myModal">1-404-96</a>
-					            </td>
-					            <td><a data-toggle="modal" href="#myModal">Sociologie de l'entreprise</a></td>
-					            <td>
-									<b class="trimester"   rel="tooltip" title="disponible à l'été 2012">É12</b>
-									<b class="trimester"   rel="tooltip" title="disponible à l'été 2012">A12</b>
-									<b class="trimester"   rel="tooltip" title="disponible à l'été 2012">H13</b>
-					            </td>
-					            <td>B.A.A.</td>
-					            <td>Management</td>
-					            <td class="col-pdf">
-					            	<a href="#"  target="_blank" class="button-microapp"><i class="icon-file-pdf"></i></a>
-					            </td>
-					            <td class="col-save">
-					            	<div class="dropdown" id="menu2">
-										<a class="dropdown-toggle icon-button-right button-microapp"  rel="tooltip" data-toggle="dropdown" href="#menu2" title="ajouter à ma sélection">
-											<i class="icon-bookmark"></i>
-										</a>
-										<ul class="dropdown-menu">
-											<li><h5 class="dropdown-header">Ajouter à ma sélection</h5></li>
-											<li><a href="#" class="button-option"><i class="icon-ok disabled" style=""></i> Été 2012</a></li>
-											<li><a href="#" class="button-option"><i class="icon-ok" style=""></i> Automne 2012</a></li>
-											<li><a href="#" class="button-option"><i class="icon-ok" style=""></i> Hiver 2013</a></li>
-										</ul>
-									</div>
-									
-					            </td>
-					            <td class="col-arch">
-									<a class="dropdown-toggle icon-button-right button-microapp" href="#loginModal" title="archives">
-										<i class="icon-archive"></i>
-									</a>
-					            </td>
-					          </tr>
-					          <tr>
-					            <td class="col-sigle">1-612-92</td>
-					            <td>Mathématiques financières</td>
-					            <td>
-									<b class="trimester"   rel="tooltip" title="disponible à l'été 2012">É12</b>
-									<b class="trimester"   rel="tooltip" title="disponible à l'été 2012">A12</b>
-									<b class="trimester"   rel="tooltip" title="disponible à l'été 2012">H13</b>
-					            </td>
-					            <td>B.A.A</td>
-					            <td>Méthodes quantitatives de gestion</td>
-					            <td class="col-pdf" style="text-align:center">
-					            	<a href="#" class="button-microapp"><i class="icon-file-pdf"></i></a>
-					            </td>
-					            <td class="col-save">
-					            	<a class="dropdown-toggle icon-button-right button-microapp" data-toggle="dropdown" href="#menu2">
-					            		<i class="icon-bookmark"></i>
-					            	</a>
-									<ul class="dropdown-menu">
-										<li><h5 class="dropdown-header">Ajouter à ma sélection</h5></li>
-										<li><a href="#" class="button-option"><i class="icon-ok disabled" style=""></i> Été 2012</a></li>
-										<li><a href="#" class="button-option"><i class="icon-ok" style=""></i> Automne 2012</a></li>
-										<li><a href="#" class="button-option"><i class="icon-ok" style=""></i> Hiver 2013</a></li>
-									</ul>
-					            </td>
-					            <td class="col-arch">
-									<a class="dropdown-toggle icon-button-right button-microapp" href="#loginModal" title="archives">
-										<i class="icon-archive"></i>
-									</a>
-					            </td>
-					          </tr>
-					          <tr>
-					            <td>03</td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					          </tr>
-					          <tr>
-					            <td>04</td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					          </tr>
-					          <tr>
-					            <td>05</td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					          </tr>
-					          <tr>
-					            <td>06</td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					          </tr>
-					          <tr>
-					            <td>07</td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					          </tr>
-					          <tr>
-					            <td>08</td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					          </tr>
-					          <tr>
-					            <td>09</td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					          </tr>
-					          <tr>
-					            <td>10</td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					            <td></td>
-					          </tr>
-					        </tbody>
+					        <tbody/>
 						</table>
 					</div>
 					<!-- /Results -->
 		     	</div>
 				<!-- /tab 3 -->
-			 
-			 	<!-- tab 4 -->
-				<div id="par-selection" class="tab-pane" >
-	        	<div class=" span12">
-	        		<h3>Sélection de cours</h3>
-	        	</div>
-		        <div id="" class="span10 " >	
-					<div class="accordion accordionCourseSelected" id="accordionCourseSelect2">
-						<div id="animateTest" class="accordion-group ">
-							<div class="accordion-heading row">
-								<div class="span7">
-									<a class="accordion-toggle" data-toggle="collapse" href="#collapseCourse11">
-									1-404-96 - Sociologie de l'entreprise
-									</a>
-									<b class="trimester"   rel="tooltip" title="disponible à l'été 2012">É12</b>
-								</div>
-								<!--<div class="toolsWrapper">
-									<a class="dropdown-toggle icon-button-right button-microapp" title="éliminer" data-toggle="modal" href="">
-										<i class="icon-remove"></i>
-									</a>
-								</div>-->
-								<div class="toolsWrapper">
-									<a href="Ressources/1-404-96.H2012.00_public.pdf" title="Plan de cours" class="button-microapp icon-button-right"><i class="icon-file-pdf"></i></a>
-									<a class=" icon-button-right button-microapp" title="Plan de cours enrichi" href="#">
-										<i class="icon-star"></i>
-									</a>
-									<a class="dropdown-toggle icon-button-right button-microapp btn-remove" title="éliminer" data-toggle="modal" href="">
-										<i class="icon-remove"></i>
-									</a>
-								</div>
-								
-							</div>
-							<div id="collapseCourse11" class="accordion-body collapse">
-								<div class="accordion-inner">
-								   <h4>Description</h4>
-								  <p>Trois volets principaux dans ce cours: 
-								  <ul class="unstyled">
-								    <li>1. montrer aux étudiants la dimension sociologique de toute organisation en les initiant aux principaux concepts de la sociologie de l'organisation;</li>
-								    <li>2. présenter un portrait sociologique des principaux types d'organisations oeuvrant dans la sphère économique québécoise ainsi que les principaux problèmes auxquels elles sont confrontées;</li>
-								    <li>3. aborder enfin quelques problèmes qui touchent les organisations contemporaines.</li>
-								  </ul>
-								  
-								  Le principal objectif de ce cours est de sensibiliser le futur gestionnaire, comptable, entrepreneur ou spécialiste du marketing aux dimensions sociales et culturelles de l'entreprise. Pour ce faire, il s'agit:
-								  - de lui présenter les principaux changements socio-culturels qui touchent actuellement les entreprises;
-								  - de l'initier à la dynamique sociale et culturelle de l'entreprise;
-								  - de lui donner des instruments (grille d'analyse, méthode comparative) lui permettant de mieux appréhender ces dimensions de l'entreprise. 
-								  </p>
-									<div class="btn-toolbar">
-										<a class="btn" href="#"><i class="icon-star"></i> Plan de cours enrichi</a>
-										<a class="btn" href="Ressources/1-404-96.H2012.00_public.pdf"><i class="icon-file-pdf"></i> Plan de cours</a>
-									</div>
-								  <table class="table">
-								    <thead>
-								      <tr>
-									<th>Responsable:</th>
-									<th>Programme d'études:</th>
-									<th>Crédit(s):</th>
-									<th>Exigences:</th>
-									<th>Horaire:</th>
-								      </tr>
-								      </thead>
-								    <tbody>
-								      <tr>
-									<td><a href="http://www.hec.ca/management/">Management</a></td>
-									<td><a href="http://www.hec.ca/programmes/baa">B.A.A.</a></td>
-									<td>3</td>
-									<td>Cours réservé aux étudiants du B.A.A. trilingue / Version espagnole du cours 1-404-96</td>
-									<td>Outil de recherche d'horaire
-									  (via HEC en ligne)</td>
-									</tr>
-								      </tbody>
-								    </table>
-	
-								</div>
-							</div>
-						</div>
-						
-						<div class="accordion-group">
-					  <div class="accordion-heading row">
-					    <div class="span7">
-					    	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionCourseSelect2" href="#collapseCourse12">
-						      1-611-09	Modélisation et optimisation (offered in French) (Management Sciences)
-						    </a>
-							<b class="trimester"   rel="tooltip" title="disponible à l'automne 2012">A12</b>
-						</div>
-						<div class="toolsWrapper">	
-							<a href="Ressources/1-404-96.H2012.00_public.pdf" title="Plan de cours" class="button-microapp icon-button-right"><i class="icon-file-pdf"></i></a>
-							<a class=" icon-button-right button-microapp" title="Plan de cours enrichi" href="#">
-								<i class="icon-star"></i>
-							</a>
-							<a class="dropdown-toggle icon-button-right button-microapp btn-remove" title="éliminer" data-toggle="modal" href="">
-								<i class="icon-remove"></i>
-							</a>
-						</div>
-						
-					</div>
-		              <div id="collapseCourse12" class="accordion-body collapse">
-		                <div class="accordion-inner">
-		                  <ul class="unstyled">
-							                  
-							   <li>Description</li>
-		                  </ul>
-		                </div>
-		              </div>
-					  
-					</div>
-					<!-- Cours 3 -->
-					<div id="item3" class="accordion-group">
-					  <div class="accordion-heading row">
-					    <div class="span7">
-					    	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionCourseSelect" href="#collapseCourse13">
-						      1-612-96 Mathématiques financières
-						    </a>
-						    <b class="trimester"   rel="tooltip" title="disponible à l'hiver 2012">H13</b>
-						</div>
-						
-						<div class="toolsWrapper">
-							<a href="Ressources/1-404-96.H2012.00_public.pdf" title="Plan de cours" class="button-microapp icon-button-right"><i class="icon-file-pdf"></i></a>
-							<a class=" icon-button-right button-microapp" title="Plan de cours enrichi" href="#">
-								<i class="icon-star"></i>
-							</a>
-							<a class="dropdown-toggle icon-button-right button-microapp btn-remove" title="éliminer" data-toggle="modal" href="">
-								<i class="icon-remove"></i>
-							</a>
-						</div>
-						
-					</div>
-		              <div id="collapseCourse13" class="accordion-body collapse">
-		                <div class="accordion-inner">
-		                  <ul class="unstyled">
-							                  
-							   <li>Description</li>
-		                  </ul>
-		                </div>
-		              </div>
-					  
-					</div>
-				<!-- /Cours 3 -->
-					
-					</div>
-					 
-					<div class="">
-						<button id="printSelection" class="btn" onClick="window.print()" value="Print This Page">Imprimer</button>
-					</div>					       
-				</div>			
-			</div>		        
-		    <!--/tab 4 -->
  				 </div>
 			 <!-- Courses list -->
 			 	</div>
