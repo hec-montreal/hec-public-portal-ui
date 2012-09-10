@@ -112,33 +112,25 @@ function bindSort(selectorAccordionCourseDiv) {
 	$('.sort_title').click(function() {
 		sortByTitle(selectorAccordionCourseDiv);
 		});
+	sortByCourseId(selectorAccordionCourseDiv);	
+	
 }
 
-/**
- * Sort catalog descriptions by title (= alphabetic order) 
- * attributes: -selectorAccordionCourseDiv: selector of the div that is being
-  * sorted (accordionCourseSelect_department/accordionCourseSelect_career)
- */
 function sortByTitle(selectorAccordionCourseDiv) {
 		$('.sort_title').addClass('active');
 		$('.sort_course_id').removeClass('active');
-
-		var listCoursesSorted = $('.accordion-group').sort(function(a, b) {
+		
+		var listCoursesSorted = $('.courseToSort').sort(function(a, b) {
 			return $(a).attr('data-title') > $(b).attr('data-title') ? 1 : -1;
 		});
 		$(selectorAccordionCourseDiv).html(listCoursesSorted);
 }
 
-/**
- * Sort catalog descriptions by course id (= course number) 
- * attributes: -selectorAccordionCourseDiv: selector of the div that is being
-  * sorted (accordionCourseSelect_department/accordionCourseSelect_career)
- */
 function sortByCourseId(selectorAccordionCourseDiv) {
 		$('.sort_course_id').addClass('active');
 		$('.sort_title').removeClass('active');
 
-		var listCoursesSorted = $('.accordion-group').sort(function(a, b) {
+		var listCoursesSorted = $('.courseToSort').sort(function(a, b) {
 			return $(a).attr('data-courseId') > $(b).attr('data-courseId') ? 1 : -1;
 		});
 		$(selectorAccordionCourseDiv).html(listCoursesSorted);
@@ -150,28 +142,28 @@ function sortByCourseId(selectorAccordionCourseDiv) {
  */
 function bindFilters() {
 	$('.filter_fr').click(function() {
-		$('.accordion-group').hide();
+		$('.courseToFilter').hide();
 		$('.FR').show();
 		$('.btn').removeClass('active');
 		$('.filter_fr').addClass('active');
 	});
 
 	$('.filter_en').click(function() {
-		$('.accordion-group').hide();
+		$('.courseToFilter').hide();
 		$('.AN').show();
 		$('.btn').removeClass('active');
 		$('.filter_en').addClass('active');
 	});
 
 	$('.filter_es').click(function() {
-		$('.accordion-group').hide();
+		$('.courseToFilter').hide();
 		$('.ES').show();
 		$('.btn').removeClass('active');
 		$('.filter_es').addClass('active');
 	});
 
 	$('.filter_all').click(function() {
-		$('.accordion-group').show();
+		$('.courseToFilter').show();
 		$('.btn').removeClass('active');
 		$('.filter_all').addClass('active');
 	});
@@ -213,7 +205,7 @@ function expandListCatalogDescriptions(itemName, item, selectorIdListingDiv) {
 								+ listCourses.catalogDescription_collection[i].courseId
 								+ "\" data-title=\""
 								+ listCourses.catalogDescription_collection[i].title
-								+ "\" class=\"accordion-group "
+								+ "\" class=\"accordion-group courseToSort courseToFilter "
 								+ listCourses.catalogDescription_collection[i].lang
 								+ "\"><div class=\"accordion-heading row\"><div class=\"span5\"><a class=\"accordion-toggle\" data-toggle=\"collapse\" href=\"#collapseCourse"
 								+ "_"
@@ -241,7 +233,7 @@ function expandListCatalogDescriptions(itemName, item, selectorIdListingDiv) {
 						div += "<a href=\"#\" onMouseDown=\"return openCouseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\" "
 								+ "data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf\"></i></a>";
 
-						div += "<a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" href=\"#\">"
+						div += "<a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" href=\"planCours.html?id=" + listCourses.catalogDescription_collection[i].courseId + "\" target=\"_blank\">"
 								+ "<i class=\"icon-star\"></i></a></div></div><div class=\"accordionToolsWrapper3\"><div class=\"accordionTools3 pull-right\">"
 								+ "<div class=\"trimesterWrapper\"><span  data-bundle-key=\"label_available_course\"></span><b class=\"trimester \"   rel=\"tooltip\" data-bundle-key=\"label_summer\"></b><b class=\"trimester \"   rel=\"tooltip\" data-bundle-key=\"label_autumn\"></b><b class=\"trimester \"   rel=\"tooltip\" data-bundle-key=\"label_winter\"></b></div></div></div></div><div id=\"collapseCourse"
 								+ "_"
@@ -252,7 +244,7 @@ function expandListCatalogDescriptions(itemName, item, selectorIdListingDiv) {
 								+ "<br>"
 								+ listCourses.catalogDescription_collection[i].description
 								+ "<br><br>"
-								+ "<div class=\"btn-toolbar\"><div class=\"btn-group\"><a class=\"dropdown-toggle \" data-toggle=\"dropdown\" href=\"#\"><span class=\"icon-bookmark\"/> <span data-bundle-key=\"label_select\"/></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header \" data-bundle-key=\"label_add_selection\"></h5></li></ul></div><a class=\"btn\" href=\"#\"><i class=\"icon-star\"/>  <span data-bundle-key=\"label_html_course_outline\"/></a>";
+								+ "<div class=\"btn-toolbar\"><div class=\"btn-group\"><a class=\"dropdown-toggle \" data-toggle=\"dropdown\" href=\"#\"><span class=\"icon-bookmark\"/> <span data-bundle-key=\"label_select\"/></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header \" data-bundle-key=\"label_add_selection\"></h5></li></ul></div><a class=\"btn\" href=\"planCours.html?id=" + listCourses.catalogDescription_collection[i].courseId + "\" target=\"_blank\"><i class=\"icon-star\"/>  <span data-bundle-key=\"label_html_course_outline\"/></a>";
 
 						div += "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCouseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\">"
 								+ "<i class=\"icon-file-pdf\"></i> <span data-bundle-key=\"label_pdf_course_outline\"/></a>";
@@ -276,8 +268,7 @@ function expandListCatalogDescriptions(itemName, item, selectorIdListingDiv) {
 					$(selectorIdListingDiv).fadeIn('slow');
 					bindFilters();
 					bindSort(selectorAccordionCourseDiv);
-					sortByCourseId(selectorAccordionCourseDiv);
-					updateLabelsFromBundle();
+					updateLabelsFromBundle();			
 					return false;
 
 				}
@@ -310,11 +301,11 @@ function expandCatalogDescription(course) {
 					div += "<a href=\"#\" onMouseDown=\"return openCouseOutlinePDF(\'" + course.courseId + "\')\" "
 							+ "data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf\"></i></a>";
 
-					div += "<a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" href=\"#\"><i class=\"icon-star\"></i></a><a class=\"icon-button-right button-microapp\" data-original-title=\"cours archivé\" data-toggle=\"\" href=\"archive.html\"></a></div></div><div class=\"accordionToolsWrapper3\"><div class=\"accordionTools3 pull-right\"><div class=\"trimesterWrapper\"><span  data-bundle-key=\"label_available_course\"></span><b class=\"trimester \"   rel=\"tooltip\" data-bundle-key=\"label_summer\"></b><b class=\"trimester \"   rel=\"tooltip\" data-bundle-key=\"label_autumn\"></b><b class=\"trimester \"   rel=\"tooltip\" data-bundle-key=\"label_winter\"></b></div></div></div></div><div id=\"collapseCourse\" class=\"accordion-body in collapse\"><div class=\"accordion-inner\"><h4 data-bundle-key=\"label_description\"></h4>"
+					div += "<a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" href=\"planCours.html?id=" + course.courseId + "\" target=\"_blank\"><i class=\"icon-star\"></i></a><a class=\"icon-button-right button-microapp\" data-original-title=\"cours archivé\" data-toggle=\"\" href=\"archive.html\"></a></div></div><div class=\"accordionToolsWrapper3\"><div class=\"accordionTools3 pull-right\"><div class=\"trimesterWrapper\"><span  data-bundle-key=\"label_available_course\"></span><b class=\"trimester \"   rel=\"tooltip\" data-bundle-key=\"label_summer\"></b><b class=\"trimester \"   rel=\"tooltip\" data-bundle-key=\"label_autumn\"></b><b class=\"trimester \"   rel=\"tooltip\" data-bundle-key=\"label_winter\"></b></div></div></div></div><div id=\"collapseCourse\" class=\"accordion-body in collapse\"><div class=\"accordion-inner\"><h4 data-bundle-key=\"label_description\"></h4>"
 							+"<br>"
 							+ course.description
 							+"<br><br>"
-							+ "<div class=\"btn-toolbar\"><div class=\"btn-group\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"><span class=\"icon-bookmark\"></span> <span data-bundle-key=\"label_select\"/></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header \" data-bundle-key=\"label_add_selection\"></h5></li></ul></div><a class=\"btn\" href=\"#\"><i class=\"icon-star\"/> <span data-bundle-key=\"label_html_course_outline\"/></a>"
+							+ "<div class=\"btn-toolbar\"><div class=\"btn-group\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"><span class=\"icon-bookmark\"></span> <span data-bundle-key=\"label_select\"/></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header \" data-bundle-key=\"label_add_selection\"></h5></li></ul></div><a class=\"btn\" href=\"planCours.html?id=" + course.courseId + "\" target=\"_blank\"><i class=\"icon-star\"/> <span data-bundle-key=\"label_html_course_outline\"/></a>"
 
 					div += "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCouseOutlinePDF(\'" + course.courseId + "\')\">"
 							+ "<i class=\"icon-file-pdf\"></i> <span data-bundle-key=\"label_pdf_course_outline\"/></a>";
@@ -409,6 +400,28 @@ function openCouseOutlinePDF(courseId) {
 			}
 			else {
 				window.alert($('#bundleDiv').data("message_no_pdf"));
+			}
+			return true;
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			window.alert(errorThrown);
+		}
+	});
+}
+
+/**
+ * open the html for the course outline of the course associated with this catalog description
+ */
+function openCouseOutlineHTML(courseId) {
+	$.ajax({
+		url : '/direct/portalManager/' + courseId + '/public_syllabus_info.json',
+		datatype : 'json',
+		success : function(syllabus_info) {		
+			if (syllabus_info.data["pdf_url"] !== "") {
+				window.open(syllabus_info.data["pdf_url"], '_blank');
+			}
+			else {
+				window.alert($('#bundleDiv').data("message_no_html"));
 			}
 			return true;
 		},
