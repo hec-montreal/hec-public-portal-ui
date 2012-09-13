@@ -79,11 +79,11 @@
 				<ul class="nav pull-right">
 					<li>
 						<form class="navbar-search" action="">
-							<input type="text" data-provide="typeahead" class="search-query span2" placeholder="recherche">
+							<input type="text" data-provide="typeahead" class="search-query span2" placeholder="recherche" id="research_global_button">
 						</form>
 					</li>
 					<li>
-						<a href="search07.html" class="">
+						<a class="" id="research_global_logo">
 							<span class="icon-search icon-white "></span>
 						</a>
 					</li>
@@ -113,10 +113,10 @@
 			<div id="my-tab-content" class="span12">
 			<div class="tabbable">
 			<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-		        <li id="tab_programme" class="active"><a id="tab_career" href="#par-programme" data-toggle="tab" data-bundle-key="label_by_career"></a></li>
-		        <li id="tab_responsable"><a href="#par-responsable" data-toggle="tab" data-bundle-key="label_by_department"></a></li>
-		        <li><a href="#par-recherche" data-toggle="tab" data-bundle-key="label_search"></a></li>
-		        <li><a href="#par-selection" data-toggle="tab"><span data-bundle-key="label_my_selection"/><span class="badge badge-info">3</span></a></li>
+		        <li id="tab_programme" class="menu_tab active"><a id="tab_career" href="#par-programme" data-toggle="tab" data-bundle-key="label_by_career"></a></li>
+		        <li id="tab_responsable" class="menu_tab"><a href="#par-responsable" data-toggle="tab" data-bundle-key="label_by_department"></a></li>
+		        <li id="tab_recherche" class="menu_tab"><a href="#par-recherche" data-toggle="tab" data-bundle-key="label_search"></a></li>
+		        <li id="tab_selection" class="menu_tab"><a href="#par-selection" data-toggle="tab"><span data-bundle-key="label_my_selection"/><span class="badge badge-info">3</span></a></li>
 		    </ul>
 		    
 		    <div class="tab-content row">
@@ -147,88 +147,80 @@
 				</div>	        
 			<!-- /tab 2 --> 
 			<!-- tab 3 -->
-			<div id="par-recherche" class="tab-pane" >
-		        	
-					<div class="row span12">
-						<form id="searchpan" class="well form-search form-horizontal" style="">
-							<input type="text" class="search-query input-xlarge span2 pull-left" placeholder="# de cours" id="research_tab_main_input">
-							<button type="button" class="btn" id="research_tab_main_button">Recherche</button>
-						</form>
+			<div id="par-recherche" class="tab-pane" >		        	
+				<div class="row span12">					
+					<form id="searchpan" class="well form-search form-horizontal" style="margin: 0px; padding: 0px; height:60px;">
+						<div id="search_div_input">
+						<input type="text" class="search-query input-xlarge span2 pull-left" placeholder="numéro ou mot clé" id="research_tab_main_input">
+						<button type="button" class="btn" id="research_tab_main_button">Recherche</button>
+						</div>
+						<!-- Search option bar -->
+						<div id="search_div_options" class="navbar search-toolbar">
+									<div id ="search_div_options_label">
+											<a class="brand" href="#" id="search_options_label" >Options de recherche:</a>
+									</div>
+									<div id ="search_div_options_select">	
+										<ul class="nav search_options">										
+										  <li class="dropdown" id="dropdown_career">
+											<a  href="#" class="dropdown-toggle search_options_label" data-toggle="dropdown">
+												  <span id="search_option_career">Tous les programmes</span>
+												  <b class="caret"></b>
+											</a>
+											<ul id="dropdown-menu_career" class="dropdown-menu pull-right">
+												<li data-select-option="career" class="li_select"><a href="#dropdown1" data-toggle="tab">Tous les programmes</a></li>
+											</ul>
+										  </li>
+										</ul>
+										<ul class="nav search_options">
+										  <li class="dropdown" id="dropdown_department">
+											<a href="#"
+												  class="dropdown-toggle" data-toggle="dropdown">
+												  <span id="search_option_department">Toutes les disciplines</span>
+												  <b class="caret"></b>
+											</a>
+											<ul id="dropdown-menu_department" class="dropdown-menu pull-right">
+												<li data-select-option="department" class="li_select"><a href="#dropdown1" data-toggle="tab">Toutes les disciplines</a></li>
+											</ul>
+										  </li>
+										</ul>
+										<ul class="nav search_options">
+										  <li class="dropdown" id="dropdown_language">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+											  <span id="search_option_language">Toutes les langues</span>
+											  <b class="caret"></b>
+											</a>
+												<ul id="dropdown-menu_language" class="dropdown-menu pull-right">												
+													<li data-select-option="language" class="li_select"><a href="#dropdown1" data-toggle="tab">Toutes les langues</a></li>
+													<li data-select-option="language" class="li_select"><a href="#dropdown1" data-toggle="tab">En français</a></li>
+													<li data-select-option="language" class="li_select"><a href="#dropdown1" data-toggle="tab">En anglais</a></li>
+													<li data-select-option="language" class="li_select"><a href="#dropdown1" data-toggle="tab">En espagnol</a></li>
+												</ul>
+											</li>
+										</ul>
+										<ul class="nav search_options">
+										  <li class="dropdown" id="dropdown_focus">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+											  <span id="search_option_focus">Chercher partout</span>
+											  <b class="caret"></b>
+											</a>
+												<ul id="dropdown-menu_focus" class="dropdown-menu pull-right">
+													<li data-select-option="focus" class="li_select"><a href="#dropdown1" data-toggle="tab">Chercher partout</a></li>
+													<li data-select-option="focus" class="li_select"><a href="#dropdown1" data-toggle="tab">Seulement dans le titre</a></li>
+													<li data-select-option="focus" class="li_select"><a href="#dropdown1" data-toggle="tab">Seulement dans la description</a></li>
+												</ul>
+											</li>
+										</ul>
+									</div>
+						</div>
+						<!-- End Search option bar -->
 						
-						<!-- Navbar 2 -->
-						<div class="navbar search-toolbar">
-							<div class="navbar-inner"   style="border-bottom-left-radius: 0;border-bottom-right-radius: 0;">
-								<div class="container">
-								
-								<a class="brand" href="#" style="color: white; font-weight: normal; font-size: 16px; line-height: 20px;">Filtres de recherche</a>
-								
-									<ul class="nav">
-										<li class="divider-vertical"></li>
-									  <li class="dropdown">
-									    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-									          Programme d'étude
-									          <b class="caret"></b>
-									    </a>
-									    <ul class="dropdown-menu">
-										    <li><a href="#dropdown1" data-toggle="tab">Certificats</a></li>
-										    <li><a href="#dropdown1" data-toggle="tab">Maîtrise en administration des affaires</a></li>
-										    <li><a href="#dropdown1" data-toggle="tab">Maîtrise ès sciences en gestion</a></li>
-										    <li><a href="#dropdown1" data-toggle="tab">Diplômes d'études supérieures spécialisées</a></li>
-										    <li><a href="#dropdown1" data-toggle="tab">Doctorat en administration</a></li>
-										    <li><a href="#dropdown1" data-toggle="tab">Tous</a></li>
-									    </ul>
-									  </li>
-									</ul>
-									<ul class="nav">
-									  <li class="dropdown">
-									    <a href="#"
-									          class="dropdown-toggle"
-									          data-toggle="dropdown">
-									          Disciplines
-									          <b class="caret"></b>
-									    </a>
-									    <ul class="dropdown-menu">
-										    <li><a href="#dropdown1" data-toggle="tab">Institut d'économie appliquée (IEA)</a></li>
-										    <li><a href="#dropdown1" data-toggle="tab">Service de l'enseignement de la finance</a></li>
-										    <li><a href="#dropdown1" data-toggle="tab">Service de l'enseignement de la gestion des opérations et de la logistique (GOL) </a></li>
-										    
-										    <li><a href="#dropdown1" data-toggle="tab">Service de l'enseignement de la gestion des ressources humaines (GRH)</a></li>
-										    <li><a href="#dropdown1" data-toggle="tab">Service de l'enseignement des affaires internationales </a></li>
-										    <li><a href="#dropdown1" data-toggle="tab">Service de l'enseignement des méthodes quantitatives de gestion (MQG)</a></li>
-										    <li><a href="#dropdown1" data-toggle="tab">Service de l'enseignement des sciences comptables</a></li>
-										    <li><a href="#dropdown1" data-toggle="tab">Service de l'enseignement des technologies de l'information (TI)</a></li>
-										    <li><a href="#dropdown1" data-toggle="tab">Service de l'enseignement du marketing</a></li>
-										    <li><a href="#dropdown1" data-toggle="tab">Service de l'enseignement du management</a></li>
-										    <li><a href="#dropdown1" data-toggle="tab">Toutes</a></li>
-									    </ul>
-									  </li>
-									</ul>
-									<ul class="nav">
-									  <li class="dropdown">
-									    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								          Langues de cours
-								          <b class="caret"></b>
-									    </a>
-									    <ul class="dropdown-menu">
-										    <li><a href="#dropdown1" data-toggle="tab">En français</a></li>
-										    <li><a href="#dropdown1" data-toggle="tab">En anglais</a></li>
-										    <li><a href="#dropdown1" data-toggle="tab">En espagnol</a></li>
-										    <li><a href="#dropdown1" data-toggle="tab">Toutes</a></li>
-									    </ul>
-									  </li>
-									</ul>
-								
-								</div>
-
-							</div>
-							<form class="well form-search form-horizontal" style="border-top-left-radius: 0;border-top-right-radius: 0;">
-								<input type="text" class="search-query input-medium span2 pull-left" placeholder="# de cours">
-								<input type="text" class="search-query input-medium span3 pull-left" placeholder="Titre du cours">
-								<button type="submit" class="btn">Filtrer</button>
-							</form>
+						</form>
+							<br>
+							
 							
 						<!-- Results -->
 						<h3>Resultats</h3>
+						<br>
 						<table class="table table-striped tablesorter"  id="searchTable">
 							<thead>
 								<tr>

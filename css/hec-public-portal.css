@@ -178,11 +178,7 @@ height:100%;
 ****************************/
 .navbar .brand {
 	color: #C8DEF1;
-	/*font-weight: 500;*/
-	/*text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.8), 0 1px 0 rgba(255, 255, 255, 0.8);*/
 	font-weight: bold;
-	
-	background-color: #08437F;
 	-webkit-background-clip: text;
 	-moz-background-clip: text;
 	background-clip: text;
@@ -1014,6 +1010,114 @@ border-bottom: 1px solid #C4B382;
 .accordion-inner p{
 	font-size: 13px;
 }
+
+#search_div_input {
+	float: left;
+	position:relative;
+	top: 25%;
+	padding-left: 20px;
+	width:30%;
+	min-width:200px;
+}
+
+#search_div_options {
+	float: right;
+	width:600px;
+	height:100%;
+}
+
+#research_tab_main_input{
+	width:40% !important;
+	min-width:100px;
+}
+
+#search_div_options_label{
+	width:50px;
+    text-align: center;
+	position:relative;
+	top: 14%;	
+	 
+}
+
+#search_div_options_select {
+	position:relative;
+	top: 8%;
+}
+
+#search_options_label{
+	color: white;
+	font-weight: bold;
+	font-size: 1em ;
+}
+
+.search_options li a{
+	font-size: 1em !important;
+	line-height: 1.15em !important;
+	text-align:center;
+	width:90px;
+}
+
+
+.li_select a{
+	width:160px  !important;
+	text-overflow:ellipsis;	
+    -o-text-overflow: ellipsis;  
+    -ms-text-overflow: ellipsis;
+	white-space: nowrap;  
+    overflow: hidden;
+	 text-align: left !important;
+}
+
+#select_career, #dropdown-menu_career li a{
+	width:200px  !important;
+	_width: 200px;
+}
+#select_department, #dropdown-menu_department li a{
+	width:200px  !important;
+	_width: 200px;
+}
+#select_language, #dropdown-menu_language li a{
+	width:120px  !important;
+	_width: 120px;
+}
+#select_focus, #dropdown-menu_focus li a{
+	width:200px  !important;
+	_width: 200px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  text-align: left;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  float: left;
+  display: none;
+  min-width: 120px;  
+  max-width: 250px;
+  _width: 160px;
+  padding: 4px 0;
+  margin: 0;
+  list-style: none;
+  background-color: #ffffff;
+  border-color: #ccc;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-style: solid;
+  border-width: 1px;
+  -webkit-border-radius: 0 0 5px 5px;
+  -moz-border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 5px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+}
+
+
 
 /*Override Bootstrap  css*/
 .btn {

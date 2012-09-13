@@ -11,13 +11,15 @@ function initCourseListing(itemName, serviceList) {
 	var selectorIdDatatarget = '#courseListing_' + itemName;
 	var selectorIdMainDiv = '#divCourseListing_' + itemName;
 	var idListingDiv = 'listing_' + itemName;
+	var idListingSearchLi = 'li_' + itemName;
 	var selectorIdListingDiv = '#' + idListingDiv;
+	var selectorSearchSelectBox = 	'#dropdown-menu_' + itemName;
 
 	$
 			.ajax({
 				url : serviceList,
 				datatype : 'json',
-				success : function(listItems) {
+				success : function(listItems) {				
 					for ( var i = 0; i < listItems.portalManager_collection.length; i++) {
 						var item = listItems.portalManager_collection[i].id;
 						var id = itemName + "_" + i;
@@ -36,12 +38,30 @@ function initCourseListing(itemName, serviceList) {
 								+ "\" class=\" in \" style=\"display: none; \"><div class=\"btn-group\" style=\"\"><div class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle btn\" data-toggle=\"dropdown\">Trier <b class=\"caret\"></b></a><ul class=\"dropdown-menu\"><li><a href=\"#dropdown1\" data-toggle=\"tab\">Par ordre alphab�tique</a></li><li><a href=\"#dropdown2\" data-toggle=\"tab\">Par num�ro de cours</a></li><li><a href=\"#dropdown2\" data-toggle=\"tab\">Par ordre de sigle</a></li></ul></div></div><div class=\"btn-group\"><a href=\"#\" class=\"btn active\">Tous les cours</a><a href=\"#\" class=\"btn\">En fran�ais</a><a href=\"#\" class=\"btn\">En anglais</a><a href=\"#\" class=\"btn\">En espagnol</a></div><div class=\"accordion\" id=\"accordionCourseSelect\"></div></div>";
 						$(selectorIdMainDiv).html(div);
 						bindItem(itemName, idDiv, item, selectorIdListingDiv);
-
-					}
+						
+						/* We also populate the Carreer/Department select boxes that are used in the Search tab */
+						$(selectorSearchSelectBox).append("<li data-select-option=\"" + itemName + "\" class=\"li_select\"><a href=\"#dropdown1\" data-toggle=\"tab\">" + listItems.portalManager_collection[i].description + "</a></li>");
+												
+					}					
+					bindSelectSearchOptions();
 				}
 			});
 }
 
+	
+/**
+ * Bind action to execute when we select a search option in the Search tab.
+ */
+function bindSelectSearchOptions() {
+	$('.li_select').click(function() {
+			var selector = '#search_option_' + $(this).attr('data-select-option');
+			var selection = $(this).children().html();
+			$(selector).html(selection);
+		});
+	}	
+
+	
+	
 /**
  * Bind "change language" buttons (french/english/spanish) to the 
  * "change local" behaviour : all attributes with internationalized labels are reloaded in the new language.
@@ -349,11 +369,27 @@ function bindItem(itemName, idDiv, item, selectorIdListingDiv) {
  * Bind the clik event on search buttons to the corresponding functions
  */
 function bindSearch() {
+	/* click on the search button of the search tab*/
 	$('#research_tab_main_button').click(
 			function() {
 				searchCatalogDescription($('#research_tab_main_input').val());
 			});
+			
+	/* click on the search button on the header, visible in all tabs*/		
+	$("#research_global_button").keypress(function(e) {
+        if(e.which == 13) {
+            var searchText = $("#research_global_button").val();
+			$('#research_tab_main_input').val(searchText);
+			searchCatalogDescription(searchText);
+			$('.menu_tab').removeClass('active');
+			$('.tab-pane').removeClass('active');
+			$('#tab_recherche').addClass('active');
+			$('#par-recherche').addClass('active');
+			$(location).attr('href',"#par-recherche");			
+        }
+    });
 }
+
 
 
 
