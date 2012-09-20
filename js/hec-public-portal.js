@@ -21,7 +21,7 @@ function initCourseListing(itemName, serviceList) {
 				datatype : 'json',
 				success : function(listItems) {				
 					for ( var i = 0; i < listItems.portalManager_collection.length; i++) {
-						var item = listItems.portalManager_collection[i].id;
+						var listId = listItems.portalManager_collection[i].listId;
 						var id = itemName + "_" + i;
 						var div = "<dd class=\"\"><a id=\""
 								+ id
@@ -37,7 +37,7 @@ function initCourseListing(itemName, serviceList) {
 								+ idListingDiv
 								+ "\" class=\" in \" style=\"display: none; \"><div class=\"btn-group\" style=\"\"><div class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle btn\" data-toggle=\"dropdown\">Trier <b class=\"caret\"></b></a><ul class=\"dropdown-menu\"><li><a href=\"#dropdown1\" data-toggle=\"tab\">Par ordre alphab�tique</a></li><li><a href=\"#dropdown2\" data-toggle=\"tab\">Par num�ro de cours</a></li><li><a href=\"#dropdown2\" data-toggle=\"tab\">Par ordre de sigle</a></li></ul></div></div><div class=\"btn-group\"><a href=\"#\" class=\"btn active\">Tous les cours</a><a href=\"#\" class=\"btn\">En fran�ais</a><a href=\"#\" class=\"btn\">En anglais</a><a href=\"#\" class=\"btn\">En espagnol</a></div><div class=\"accordion\" id=\"accordionCourseSelect\"></div></div>";
 						$(selectorIdMainDiv).html(div);
-						bindItem(itemName, idDiv, item, selectorIdListingDiv);
+						bindItem(itemName, idDiv, listId, selectorIdListingDiv);
 						
 						/* We also populate the Carreer/Department select boxes that are used in the Search tab */
 						$(selectorSearchSelectBox).append("<li data-select-option=\"" + itemName + "\" class=\"li_select\"><a href=\"#dropdown1\" data-toggle=\"tab\">" + listItems.portalManager_collection[i].description + "</a></li>");
@@ -191,20 +191,20 @@ function bindFilters() {
 
 /**
  * Expand the catalog descriptions that match the folowing criteria attributes:
- * -itemName: carrer or department -item: item (department/career) catalog
+ * -itemName: carrer or department -listId: list of department/career ids associated to co we need to populate
  * descriptions belong to -selectorIdListingDiv: selector of the div that we
  * will populate with the associated catalog descriptions -serviceGet: service
  * that get the catalog descriptions for a specific deparment/career the
  * departments/carrer
  */
-function expandListCatalogDescriptions(itemName, item, selectorIdListingDiv) {
+function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 
-	var itemCleaned = item.replace(/[^a-z0-9\s]/gi, '');
+	var itemCleaned = listId[0].replace(/[^a-z0-9\s]/gi, '');
 	var selectorAccordionCourseDiv = '#accordionCourseSelect_' + itemName;
 
 	$
 			.ajax({
-				url : '/direct/catalogDescription.json?' + itemName + '=' + item,
+				url : '/direct/catalogDescription.json?' + itemName + '=' + listId,
 				datatype : 'json',
 				success : function(listCourses) {
 					$(selectorIdListingDiv).html("");
@@ -351,15 +351,15 @@ function expandCatalogDescription(course) {
 /**
  * Bind the clik event on an item (career/department) to the function that list
  * associated catalog descriptions attributes: -itemName: carrer or department
- * -idDiv: id of the div to bind -item: item associated to the div
+ * -idDiv: id of the div to bind -listId: list of department/career ids associated to the div
  * -selectorIdListingDiv: selector of the div that we will populate with the
  * associated catalog descriptions -serviceGet: service that get the catalog
  * descriptions for a specific deparment/career the departments/carrer
  */
-function bindItem(itemName, idDiv, item, selectorIdListingDiv) {
+function bindItem(itemName, idDiv, listId, selectorIdListingDiv) {
 	$(idDiv).click(
 			function() {
-				expandListCatalogDescriptions(itemName, item, selectorIdListingDiv);
+				expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv);
 				$('.menuitem').removeClass('selected_menuitem');
 				$(this).addClass('selected_menuitem');
 			});
