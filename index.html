@@ -24,7 +24,8 @@
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="plugins/html5shiv.js"></script>
+      <link rel="stylesheet" type="text/css" href="css/hec-public-portal-ie8.css" />
     <![endif]-->
 
     <!-- Le fav and touch icons -->
@@ -151,76 +152,86 @@
 				<div class="row span12">					
 					<form id="searchpan" class="well form-search form-horizontal" style="margin: 0px; padding: 0px; height:60px;">
 						<div id="search_div_input">
-						<input type="text" class="search-query input-xlarge span2 pull-left" placeholder="numéro ou mot clé" id="research_tab_main_input">
-						<button type="button" class="btn" id="research_tab_main_button">Recherche</button>
-						</div>
-						<!-- Search option bar -->
-						<div id="search_div_options" class="navbar search-toolbar">
-									<div id ="search_div_options_label">
-											<a class="brand" href="#" id="search_options_label" >Options de recherche:</a>
-									</div>
-									<div id ="search_div_options_select">	
-										<ul class="nav search_options">										
-										  <li class="dropdown" id="dropdown_career">
-											<a  href="#" class="dropdown-toggle search_options_label" data-toggle="dropdown">
-												  <span id="search_option_career">Tous les programmes</span>
-												  <b class="caret"></b>
-											</a>
-											<ul id="dropdown-menu_career" class="dropdown-menu pull-right">
-												<li data-select-option="career" class="li_select"><a href="#dropdown1" data-toggle="tab">Tous les programmes</a></li>
-											</ul>
-										  </li>
-										</ul>
-										<ul class="nav search_options">
-										  <li class="dropdown" id="dropdown_department">
-											<a href="#"
-												  class="dropdown-toggle" data-toggle="dropdown">
-												  <span id="search_option_department">Toutes les disciplines</span>
-												  <b class="caret"></b>
-											</a>
-											<ul id="dropdown-menu_department" class="dropdown-menu pull-right">
-												<li data-select-option="department" class="li_select"><a href="#dropdown1" data-toggle="tab">Toutes les disciplines</a></li>
-											</ul>
-										  </li>
-										</ul>
-										<ul class="nav search_options">
-										  <li class="dropdown" id="dropdown_language">
-											<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-											  <span id="search_option_language">Toutes les langues</span>
-											  <b class="caret"></b>
-											</a>
-												<ul id="dropdown-menu_language" class="dropdown-menu pull-right">												
-													<li data-select-option="language" class="li_select"><a href="#dropdown1" data-toggle="tab">Toutes les langues</a></li>
-													<li data-select-option="language" class="li_select"><a href="#dropdown1" data-toggle="tab">En français</a></li>
-													<li data-select-option="language" class="li_select"><a href="#dropdown1" data-toggle="tab">En anglais</a></li>
-													<li data-select-option="language" class="li_select"><a href="#dropdown1" data-toggle="tab">En espagnol</a></li>
-												</ul>
-											</li>
-										</ul>
-										<ul class="nav search_options">
-										  <li class="dropdown" id="dropdown_focus">
-											<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-											  <span id="search_option_focus">Chercher partout</span>
-											  <b class="caret"></b>
-											</a>
-												<ul id="dropdown-menu_focus" class="dropdown-menu pull-right">
-													<li data-select-option="focus" class="li_select"><a href="#dropdown1" data-toggle="tab">Chercher partout</a></li>
-													<li data-select-option="focus" class="li_select"><a href="#dropdown1" data-toggle="tab">Seulement dans le titre</a></li>
-													<li data-select-option="focus" class="li_select"><a href="#dropdown1" data-toggle="tab">Seulement dans la description</a></li>
-												</ul>
-											</li>
-										</ul>
-									</div>
-						</div>
-						<!-- End Search option bar -->
-						
+							<div>
+								<input type="text" class="search-query input-xlarge span2 pull-left" placeholder="numéro ou mot clé" id="research_tab_main_input">
+								<a class="" id="research_global_logo">
+									<span class="icon-search icon-white "></span>
+								</a>
+							</div>
+							<div class="navbar search-toolbar">	
+								<ul class="nav search_options">
+								  
+								</ul>
+							</div>
+						</div>						
 						</form>
-							<br>
+						<div class="navbar search-toolbar">
+							<div class="navbar-inner" style="border-bottom-left-radius: 0;border-bottom-right-radius: 0;">
+								<div class="container">
+								
+								<a class="brand" href="#" style="color: white; font-weight: normal; font-size: 16px; line-height: 20px;">Options de recherche</a>
+								
+									<ul class="nav search_options">										
+								  <li class="divider-vertical"></li>
+								  <li class="dropdown" id="dropdown_scope">
+									<a href="#" class="dropdown-toggle search_options_label" data-toggle="dropdown">
+									  <span id="search_option_scope" data-select-value="title,description">Chercher partout</span>
+									  <b class="caret"></b>
+									</a>
+										<ul id="dropdown-menu" class="dropdown-menu pull-right">
+											<li data-select-option="scope" data-select-value="title,description" class="li_select"><a href="#dropdown1" data-toggle="tab">Chercher partout</a></li>
+											<li data-select-option="scope" data-select-value="title" class="li_select"><a href="#dropdown1" data-toggle="tab">Seulement dans le titre</a></li>
+											<li data-select-option="scope" data-select-value="description" class="li_select"><a href="#dropdown1" data-toggle="tab">Seulement dans la description</a></li>
+										</ul>
+									</li>
+								</ul>
+								<ul class="nav search_options">
+								  <li class="dropdown" id="dropdown_career">
+									<a  href="#" class="dropdown-toggle search_options_label" data-toggle="dropdown">
+										  <span id="search_option_career">Tous les programmes</span>
+										  <b class="caret"></b>
+									</a>
+									<ul id="dropdown-menu_career" class="dropdown-menu pull-right">
+										<li data-select-option="career" class="li_select"><a href="#dropdown1" data-toggle="tab">Tous les programmes</a></li>
+									</ul>
+								  </li>
+								</ul>									
+									
+									<ul class="nav search_options">
+								  <li class="dropdown" id="dropdown_department">
+									<a href="#"
+										  class="dropdown-toggle search_options_label" data-toggle="dropdown">
+										  <span id="search_option_department">Toutes les disciplines</span>
+										  <b class="caret"></b>
+									</a>
+									<ul id="dropdown-menu_department" class="dropdown-menu pull-right">
+										<li data-select-option="department" class="li_select"><a href="#dropdown1" data-toggle="tab">Toutes les disciplines</a></li>
+									</ul>
+								  </li>
+								</ul>
+								<ul class="nav search_options">
+								  <li class="dropdown" id="dropdown_language">
+									<a href="#" class="dropdown-toggle search_options_label" data-toggle="dropdown">
+									  <span id="search_option_language" data-select-value="en,fr,es">Toutes les langues</span>
+									  <b class="caret"></b>
+									</a>
+										<ul id="dropdown-menu_language" class="dropdown-menu pull-right">												
+											<li data-select-option="language" data-select-value="en,fr,es" class="li_select"><a href="#dropdown1" data-toggle="tab">Toutes les langues</a></li>
+											<li data-select-option="language" data-select-value="fr" class="li_select"><a href="#dropdown1" data-toggle="tab">En français</a></li>
+											<li data-select-option="language" data-select-value="en" class="li_select"><a href="#dropdown1" data-toggle="tab">En anglais</a></li>
+											<li data-select-option="language" data-select-value="es" class="li_select"><a href="#dropdown1" data-toggle="tab">En espagnol</a></li>
+										</ul>
+									</li>
+								</ul>
+								
+								</div>
+
+							</div>
 							
+							<br/>
 							
 						<!-- Results -->
 						<h3>Resultats</h3>
-						<br>
 						<table class="table table-striped tablesorter"  id="searchTable">
 							<thead>
 								<tr>
@@ -318,7 +329,7 @@
 
 <!--  /Modal Windows  -->
 
-    <script src="plugins/jquery/jquery-1.7.1.min.js"></script>
+    <script src="plugins/jquery/jquery-1.8.1.min.js"></script>
     <script src="plugins/bootstrap-2.0.3/js/bootstrap-transition.js"></script>
     <script src="plugins/bootstrap-2.0.3/js/bootstrap-alert.js"></script>
     <script src="plugins/bootstrap-2.0.3/js/bootstrap-modal.js"></script>

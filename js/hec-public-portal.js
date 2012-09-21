@@ -54,9 +54,11 @@ function initCourseListing(itemName, serviceList) {
  */
 function bindSelectSearchOptions() {
 	$('.li_select').click(function() {
-			var selector = '#search_option_' + $(this).attr('data-select-option');
-			var selection = $(this).children().html();
-			$(selector).html(selection);
+			var selectorSpan = '#search_option_' + $(this).attr('data-select-option');
+			var selectionValue = $(this).attr('data-select-value');
+			var selectionDescription = $(this).children().html();
+			$(selector).html(selectionDescription);
+			$(selector).attr('data-select-value',selectionValue);
 		});
 	}	
 
@@ -481,27 +483,25 @@ function displayResultCatalogDescriptionSearch(cdList) {
  */
 function searchCatalogDescription(searchString) {
 	var cdList = new Array();
-	var cours1= new Array();
-	cours1["courseid"] = "1-612-92";
-	cours1["coursetitle"] = "Mathématiques financières";
-	cours1["career"] = "Année préparatoire BAA";
-	cours1["department"] = "Méthodes quantitatives de gestion" + searchString;
+	var words= searchString.replace(/[ ,]+/g, ",");
+	var scope= $('#search_option_scope').attr('data-select-value');
+	var url= '/direct/catalogDescription.json?searchWords=' + words + '&searchScope=' + scope;
 	
-	var cours2= new Array();
-	cours2["courseid"] = "1-404-96";
-	cours2["coursetitle"] = "Sociologie de l'entreprise";
-	cours2["career"] = "Année préparatoire BAA";
-	cours2["department"] = "Management" + searchString;
-	
-	var cours3= new Array();
-	cours3["courseid"] = "80-020-76";
-	cours3["coursetitle"] = "Méthodologie de la recherche";
-	cours3["career"] = "Programme de doctorat";
-	cours3["department"] = "Doctorat";
-	
-	cdList[0] = cours1;
-	cdList[1] = cours2;
-	cdList[2] = cours3;
+	$.ajax({
+		url : url,
+		datatype : 'json',
+		success : function(listCourses) {
+
+					for ( var i = 0; i < listCourses.catalogDescription_collection.length; i++) {
+						var cours= new Array();
+						cours["courseid"] = listCourses.catalogDescription_collection[i].courseId;
+						cours["coursetitle"] = listCourses.catalogDescription_collection[i].title;
+						cours["career"] = listCourses.catalogDescription_collection[i].career;
+						cours["department"] = listCourses.catalogDescription_collection[i].department;
+						cdList[i] = cours;
+					}
+				}
+			});
 	
 	displayResultCatalogDescriptionSearch(cdList);
 }
