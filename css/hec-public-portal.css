@@ -1058,9 +1058,10 @@ border-bottom: 1px solid #C4B382;
 
 
 .search_options li a{
-	font-size: 1em !important;
+	font-size: 1.15em !important;
 	line-height: 1.15em !important;
 	text-align:center;
+	text-shadow:none !important;
 }
 
 
@@ -1075,24 +1076,85 @@ border-bottom: 1px solid #C4B382;
 }
 
 #select_career, #dropdown-menu_career li a{
-	width:200px  !important;
-	_width: 200px;
+	width:300px  !important;
+	_width: 300px;
 }
 #select_department, #dropdown-menu_department li a{
-	width:200px  !important;
-	_width: 200px;
+	width:300px  !important;
+	_width: 300px;
 }
 #select_language, #dropdown-menu_language li a{
 	width:120px  !important;
 	_width: 120px;
 }
-#select_focus, #dropdown-menu_focus li a{
-	width:200px  !important;
-	_width: 200px;
+
+#searchTable thead, #searchTable th, .search_options, #searchTable li, #searchTable a{
+	text-align:center;
+	margin:0;
+	padding:0;
+	width:100%;
 }
 
-#searchTable th{
+#main, .row, #my-tab-content{
+	overflow: visible;
+	scroll:no;
+	};  
+
+.search_options_label{
 color:#333;
+text-align:center;
+width:100%;
+}
+
+.search_options_label:hover{
+	background-color: rgba(1, 43, 93, 0.5) !important;
+}
+
+.search_options_label:hover > span{
+	color: white ;
+}
+
+.span_label{
+color:#333;
+text-align:center   !important;
+width:100% !important;
+font-weight:bold;
+font-size: 1.2em;
+border-bottom: 1px solid white;
+margin:0;
+padding:0;
+height: 25px;
+padding-top:0px;
+}
+
+.span_label_static{
+color:#333;
+text-align:center   !important;
+width:100% !important;
+font-weight:bold;
+font-size: 1.2em;
+border-bottom: 1px solid white;
+margin:0;
+padding:0;
+height: 60px;
+padding-top:10px;
+}
+
+.search_options{
+	height: 35px !important;
+}
+
+
+
+.span_filter{
+font-weight:normal;
+color: #999999;
+text-align:center   !important;
+width:100% !important;
+margin:0;
+padding:0;
+height: 15px;
+padding-top:10px;
 }
 
 .dropdown-menu {

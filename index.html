@@ -149,115 +149,49 @@
 			<!-- /tab 2 --> 
 			<!-- tab 3 -->
 			<div id="par-recherche" class="tab-pane" >		        	
-				<div class="row span12">					
-					<form id="searchpan" class="well form-search form-horizontal" style="margin: 0px; padding: 0px; height:60px;">
-						<div id="search_div_input">
-							<div>
-								<input type="text" class="search-query input-xlarge span2 pull-left" placeholder="numéro ou mot clé" id="research_tab_main_input">
-								<a class="" id="research_global_logo">
-									<span class="icon-search icon-white "></span>
-								</a>
-							</div>
-							<div class="navbar search-toolbar">	
-								<ul class="nav search_options">
-								  
-								</ul>
-							</div>
-						</div>						
-						</form>
-						<div class="navbar search-toolbar">
-							<div class="navbar-inner" style="border-bottom-left-radius: 0;border-bottom-right-radius: 0;">
-								<div class="container">
+				<div class="row span12">
+								<input type="hidden" id="search_option_scope" data-select-value="title,description">
 								
-								<a class="brand" href="#" style="color: white; font-weight: normal; font-size: 16px; line-height: 20px;">Options de recherche</a>
-								
-									<ul class="nav search_options">										
-								  <li class="divider-vertical"></li>
-								  <li class="dropdown" id="dropdown_scope">
-									<a href="#" class="dropdown-toggle search_options_label" data-toggle="dropdown">
-									  <span id="search_option_scope" data-select-value="title,description">Chercher partout</span>
-									  <b class="caret"></b>
-									</a>
-										<ul id="dropdown-menu" class="dropdown-menu pull-right">
-											<li data-select-option="scope" data-select-value="title,description" class="li_select"><a href="#dropdown1" data-toggle="tab">Chercher partout</a></li>
-											<li data-select-option="scope" data-select-value="title" class="li_select"><a href="#dropdown1" data-toggle="tab">Seulement dans le titre</a></li>
-											<li data-select-option="scope" data-select-value="description" class="li_select"><a href="#dropdown1" data-toggle="tab">Seulement dans la description</a></li>
-										</ul>
-									</li>
-								</ul>
-								<ul class="nav search_options">
-								  <li class="dropdown" id="dropdown_career">
-									<a  href="#" class="dropdown-toggle search_options_label" data-toggle="dropdown">
-										  <span id="search_option_career">Tous les programmes</span>
-										  <b class="caret"></b>
-									</a>
-									<ul id="dropdown-menu_career" class="dropdown-menu pull-right">
-										<li data-select-option="career" class="li_select"><a href="#dropdown1" data-toggle="tab">Tous les programmes</a></li>
-									</ul>
-								  </li>
-								</ul>									
-									
-									<ul class="nav search_options">
-								  <li class="dropdown" id="dropdown_department">
-									<a href="#"
-										  class="dropdown-toggle search_options_label" data-toggle="dropdown">
-										  <span id="search_option_department">Toutes les disciplines</span>
-										  <b class="caret"></b>
-									</a>
-									<ul id="dropdown-menu_department" class="dropdown-menu pull-right">
-										<li data-select-option="department" class="li_select"><a href="#dropdown1" data-toggle="tab">Toutes les disciplines</a></li>
-									</ul>
-								  </li>
-								</ul>
-								<ul class="nav search_options">
-								  <li class="dropdown" id="dropdown_language">
-									<a href="#" class="dropdown-toggle search_options_label" data-toggle="dropdown">
-									  <span id="search_option_language" data-select-value="en,fr,es">Toutes les langues</span>
-									  <b class="caret"></b>
-									</a>
-										<ul id="dropdown-menu_language" class="dropdown-menu pull-right">												
-											<li data-select-option="language" data-select-value="en,fr,es" class="li_select"><a href="#dropdown1" data-toggle="tab">Toutes les langues</a></li>
-											<li data-select-option="language" data-select-value="fr" class="li_select"><a href="#dropdown1" data-toggle="tab">En français</a></li>
-											<li data-select-option="language" data-select-value="en" class="li_select"><a href="#dropdown1" data-toggle="tab">En anglais</a></li>
-											<li data-select-option="language" data-select-value="es" class="li_select"><a href="#dropdown1" data-toggle="tab">En espagnol</a></li>
-										</ul>
-									</li>
-								</ul>
-								
-								</div>
-
-							</div>
-							
-							<br/>
-							
-						<!-- Results -->
-						<h3>Resultats</h3>
+						<div class="navbar search-toolbar">							
 						<table class="table table-striped tablesorter"  id="searchTable">
 							<thead>
 								<tr>
 						            <th class="col-sigle">
-								        <span>Numéro</span>
+								        <span class="span_label_static">Numéro</span>
 						            </th>
 						            <th class="col-nom">
-								        <span>Nom de cours</span>							        
-								    </th>
-								    <th class="col-dispo">
-										<span>Disponibilité</span>
-								    </th>
-						            <th class="col-prog">
-								        <span>Programme d'études</span>
+								        <span class="span_label_static">Titre du cours</span>							        
+								    </th>									
+						            <th class="col-pdf">
+								        <span class="span_label_static">Plan de cours</span>
 								    </th>
 						            <th class="col-dis">
-								        <span>Disciplines</span>
+										<span class="span_label">Discipline</span>
+								        <ul class="nav search_options">
+										  <li class="dropdown" id="dropdown_department">
+											<a  href="#" class="dropdown-toggle search_options_label" data-toggle="dropdown">
+												  <span class="span_filter" id="search_option_department">Toutes</span>
+												  <b class="caret"></b>
+											</a>
+											<ul id="dropdown-menu_department" class="dropdown-menu pull-right">
+												<li data-select-option="department" class="li_select"><a href="#dropdown1" data-toggle="tab">Toutes</a></li>
+											</ul>
+										  </li>
+										</ul>	
 								    </th>
-						            <th class="col-pdf">
-								        <span>Plan de cours</span>
-								    </th>
-						            <th class="col-save">
-								        <span>Signet</span>
-								    </th>
-						            <th class="col-arch">
-								        <span>Archives</span>
+									 <th class="col-prog">
+										<span class="span_label">Programme</span>
+								        <ul class="nav search_options">
+										  <li class="dropdown" id="dropdown_career">
+											<a  href="#" class="dropdown-toggle search_options_label" data-toggle="dropdown">
+												  <span class="span_filter" id="search_option_career">Tous</span>
+												  <b class="caret"></b>
+											</a>
+											<ul id="dropdown-menu_career" class="dropdown-menu pull-right">
+												<li data-select-option="career" class="li_select"><a href="#dropdown1" data-toggle="tab">Tous</a></li>
+											</ul>
+										  </li>
+										</ul>	
 								    </th>
 						        </tr>
 						    </thead>

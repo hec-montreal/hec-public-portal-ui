@@ -40,7 +40,7 @@ function initCourseListing(itemName, serviceList) {
 						bindItem(itemName, idDiv, listId, selectorIdListingDiv);
 						
 						/* We also populate the Carreer/Department select boxes that are used in the Search tab */
-						$(selectorSearchSelectBox).append("<li data-select-option=\"" + itemName + "\" class=\"li_select\"><a href=\"#dropdown1\" data-toggle=\"tab\">" + listItems.portalManager_collection[i].description + "</a></li>");
+						$(selectorSearchSelectBox).append("<li data-select-option=\"" + itemName + "\" data-select-value=\"" + listItems.portalManager_collection[i].description + "\" class=\"li_select\"><a href=\"#dropdown1\" data-toggle=\"tab\">" + listItems.portalManager_collection[i].description + "</a></li>");
 												
 					}					
 					bindSelectSearchOptions();
@@ -57,8 +57,10 @@ function bindSelectSearchOptions() {
 			var selectorSpan = '#search_option_' + $(this).attr('data-select-option');
 			var selectionValue = $(this).attr('data-select-value');
 			var selectionDescription = $(this).children().html();
-			$(selector).html(selectionDescription);
-			$(selector).attr('data-select-value',selectionValue);
+			$(selectorSpan).html(selectionDescription);
+			$(selectorSpan).attr('data-select-value',selectionValue);
+			$('.courseToFilter').hide();
+			$('tbody tr').hide();
 		});
 	}	
 
@@ -465,15 +467,12 @@ function openCouseOutlinePDF(courseId) {
 function displayResultCatalogDescriptionSearch(cdList) {
 	$('#searchTable tbody').html("");	
 	for ( var i = 0; i < cdList.length; i++) {
-		var cdRow = "<tr>";
+		var cdRow = "<tr data-career=\"" + cdList[i].careerGroup + "\" data-department=\"" + cdList[i].departmentGroup + "\" >";
 		cdRow += "<td class=\"col-sigle\">" + cdList[i].courseid + "</td>";
 		cdRow += "<td>" + cdList[i].coursetitle + "</td>";
-		cdRow += "<td><b class=\"trimester\" rel=\"tooltip\" title=\"disponible à l'été 2012\">É12</b><b class=\"trimester\" rel=\"tooltip\" title=\"disponible à l'été 2012\">A12</b><b class=\"trimester\" rel=\"tooltip\" title=\"disponible à l'été 2012\">H13</b></td>";
-		cdRow += "<td>" + cdList[i].career + "</td>";
+		cdRow += "<td class=\"col-pdf\" style=\"text-align:center\"><a href=\"#\" class=\"button-microapp\" data-original-title=\"\"><i class=\"icon-file-pdf\"></i></a></td>";		
 		cdRow += "<td>" + cdList[i].department + "</td>";
-		cdRow += "<td class=\"col-pdf\" style=\"text-align:center\"><a href=\"#\" class=\"button-microapp\" data-original-title=\"\"><i class=\"icon-file-pdf\"></i></a></td>";
-		cdRow += "<td class=\"col-save\"><a class=\"dropdown-toggle icon-button-right button-microapp\" data-toggle=\"dropdown\" href=\"#menu2\" data-original-title=\"\"><i class=\"icon-bookmark\"></i></a><li><h5 class=\"dropdown-header\">Ajouter à ma sélection</h5></li></ul></td>";
-		cdRow += "<td class=\"col-arch\"><a class=\"dropdown-toggle icon-button-right button-microapp\" href=\"#loginModal\" data-original-title=\"archives\"><i class=\"icon-archive\"></i></a></td>";
+		cdRow += "<td>" + cdList[i].career + "</td>";		
 		$('#searchTable tbody').append(cdRow);
 	}
 }
@@ -498,12 +497,14 @@ function searchCatalogDescription(searchString) {
 						cours["coursetitle"] = listCourses.catalogDescription_collection[i].title;
 						cours["career"] = listCourses.catalogDescription_collection[i].career;
 						cours["department"] = listCourses.catalogDescription_collection[i].department;
+						cours["careerGroup"] = listCourses.catalogDescription_collection[i].careerGroup;
+						cours["departmentGroup"] = listCourses.catalogDescription_collection[i].departmentGroup;
 						cdList[i] = cours;
-					}
-				}
+					}								
+				displayResultCatalogDescriptionSearch(cdList);
+				}	
 			});
 	
-	displayResultCatalogDescriptionSearch(cdList);
 }
 
 
@@ -533,8 +534,9 @@ $(document)
 					$('#popit').popover('show');
 					$('#popit').popover('hide');
 					$('.collapse').collapse('toggle');
-					$('.dropdown-toggle').dropdown();
-					bindSearch();
+					$('.dropdown-toggle').dropdown();									
+					getBundle('FR');
+					bindSearch();	
 
 					initCourseListing('career',
 							'/direct/portalManager/getCareers.json');
@@ -542,6 +544,5 @@ $(document)
 							'/direct/portalManager/getDepartments.json');
 					filterCatalogDescriptions();
 					bindChangeLanguage();
-					getBundle('FR');
 					updateLabelsFromBundle();
 				});
