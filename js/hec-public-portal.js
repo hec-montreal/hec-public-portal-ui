@@ -40,7 +40,7 @@ function initCourseListing(itemName, serviceList) {
 						bindItem(itemName, idDiv, listId, selectorIdListingDiv);
 						
 						/* We also populate the Carreer/Department select boxes that are used in the Search tab */
-						$(selectorSearchSelectBox).append("<li data-select-option=\"" + itemName + "\" data-select-value=\"" + listItems.portalManager_collection[i].description + "\" class=\"li_select\"><a href=\"#dropdown1\" data-toggle=\"tab\">" + listItems.portalManager_collection[i].description + "</a></li>");
+						$(selectorSearchSelectBox).append("<li data-select-option=\"" + itemName + "\" data-select-value=\"" + listItems.portalManager_collection[i].itemGroup + "\" class=\"li_select\"><a href=\"#dropdown1\" data-toggle=\"tab\">" + listItems.portalManager_collection[i].description + "</a></li>");
 												
 					}					
 					bindSelectSearchOptions();
@@ -52,17 +52,36 @@ function initCourseListing(itemName, serviceList) {
 /**
  * Bind action to execute when we select a search option in the Search tab.
  */
-function bindSelectSearchOptions() {
+function bindSelectSearchOptions() {	
 	$('.li_select').click(function() {
-			var selectorSpan = '#search_option_' + $(this).attr('data-select-option');
-			var selectionValue = $(this).attr('data-select-value');
+			var selectorSpan = '#search_option_' + $(this).attr('data-select-option');				
 			var selectionDescription = $(this).children().html();
-			$(selectorSpan).html(selectionDescription);
-			$(selectorSpan).attr('data-select-value',selectionValue);
-			$('.courseToFilter').hide();
-			$('tbody tr').hide();
+			$(selectorSpan).html(selectionDescription);	
+			$(selectorSpan).attr('data-select-value',$(this).attr('data-select-value'));	
+			applyFiler();
 		});
 	}	
+	
+function applyFiler() {	
+	var filter_career = createFiler('career'); 
+	var filter_department = createFiler('department'); 
+	var selectorFilter  = '.search_row' + filter_career + filter_department;
+	$('.search_row').hide();
+	$(selectorFilter).show();
+}	
+
+function createFiler(itemName) {
+	var selectorSpan = '#search_option_' + itemName;
+	var filter;	
+	if($(selectorSpan).attr('data-select-value') == '*') {
+		filter = '';
+	}	
+	else{
+	 filter = '[data-' + itemName + '=\'' + $(selectorSpan).attr('data-select-value') + '\']';
+	}
+	return filter;
+}
+
 
 	
 	
@@ -467,7 +486,7 @@ function openCouseOutlinePDF(courseId) {
 function displayResultCatalogDescriptionSearch(cdList) {
 	$('#searchTable tbody').html("");	
 	for ( var i = 0; i < cdList.length; i++) {
-		var cdRow = "<tr data-career=\"" + cdList[i].careerGroup + "\" data-department=\"" + cdList[i].departmentGroup + "\" >";
+		var cdRow = "<tr class=\"search_row\" data-career=\"" + cdList[i].careerGroup + "\" data-department=\"" + cdList[i].departmentGroup + "\" >";
 		cdRow += "<td class=\"col-sigle\">" + cdList[i].courseid + "</td>";
 		cdRow += "<td>" + cdList[i].coursetitle + "</td>";
 		cdRow += "<td class=\"col-pdf\" style=\"text-align:center\"><a href=\"#\" class=\"button-microapp\" data-original-title=\"\"><i class=\"icon-file-pdf\"></i></a></td>";		
