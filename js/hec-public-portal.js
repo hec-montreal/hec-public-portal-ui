@@ -261,24 +261,17 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 								+ listCourses.catalogDescription_collection[i].courseId
 								+ " - "
 								+ listCourses.catalogDescription_collection[i].title
-								+ "</a><div class=\"toolsWrapper\"><div class=\"dropdown\" id=\"menu"
-								+ "_"
-								+ itemCleaned
-								+ "_"
-								+ i
-								+ "\"><a class=\"dropdown-toggle icon-button-right button-microapp\"  rel=\"tooltip\" data-toggle=\"dropdown\" href=\"#menu"
-								+ "_"
-								+ itemCleaned
-								+ "_"
-								+ i
-								+ "\" data-original-title=\"ajouter à ma sélection\"><i class=\"icon-bookmark\"></i></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header \" data-bundle-key=\"label_add_selection\"></h5></li></ul></div>";
-
-						div += "<a href=\"#\" onMouseDown=\"return openCouseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\" "
+								+ "</a><div class=\"toolsWrapper\">";
+						
+						//Button HTML
+						div += "<a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" href=\"/direct/portalManager/" + listCourses.catalogDescription_collection[i].courseId + "/public_syllabus_info.html\" target=\"_blank\">"
+								+ "<i class=\"icon-star\"></i></a>"
+						
+						// Button PDF
+						div += "<a href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\" "
 								+ "data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf\"></i></a>";
 
-						div += "<a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" href=\"planCours.html?id=" + listCourses.catalogDescription_collection[i].courseId + "\" target=\"_blank\">"
-								+ "<i class=\"icon-star\"></i></a></div></div><div class=\"accordionToolsWrapper3\"><div class=\"accordionTools3 pull-right\">"
-								+ "<div class=\"trimesterWrapper\"><span  data-bundle-key=\"label_available_course\"></span><b class=\"trimester \"   rel=\"tooltip\" data-bundle-key=\"label_summer\"></b><b class=\"trimester \"   rel=\"tooltip\" data-bundle-key=\"label_autumn\"></b><b class=\"trimester \"   rel=\"tooltip\" data-bundle-key=\"label_winter\"></b></div></div></div></div><div id=\"collapseCourse"
+						div += "</div></div></div><div id=\"collapseCourse"
 								+ "_"
 								+ itemCleaned
 								+ "_"
@@ -287,9 +280,13 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 								+ "<br>"
 								+ listCourses.catalogDescription_collection[i].description
 								+ "<br><br>"
-								+ "<div class=\"btn-toolbar\"><div class=\"btn-group\"><a class=\"dropdown-toggle \" data-toggle=\"dropdown\" href=\"#\"><span class=\"icon-bookmark\"/> <span data-bundle-key=\"label_select\"/></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header \" data-bundle-key=\"label_add_selection\"></h5></li></ul></div><a class=\"btn\" href=\"planCours.html?id=" + listCourses.catalogDescription_collection[i].courseId + "\" target=\"_blank\"><i class=\"icon-star\"/>  <span data-bundle-key=\"label_html_course_outline\"/></a>";
+								+ "<div class=\"btn-toolbar\">";
+								
+						//Button HTML
+						div += "<a class=\"btn\" href=\"/direct/portalManager/" + listCourses.catalogDescription_collection[i].courseId + "/public_syllabus_info.html\" target=\"_blank\"><i class=\"icon-star\"/>  <span data-bundle-key=\"label_html_course_outline\"/></a>";
 
-						div += "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCouseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\">"
+						//Button PDF
+						div += "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\">"
 								+ "<i class=\"icon-file-pdf\"></i> <span data-bundle-key=\"label_pdf_course_outline\"/></a>";
 
 						div += "</div><table class=\"table\"><thead><tr><th data-bundle-key=\"label_department\"></th><th data-bundle-key=\"label_academic_career\"></th><th data-bundle-key=\"label_credits\"></th><th data-bundle-key=\"label_requirements\"></th><th data-bundle-key=\"label_hours\"></th></tr></thead><tbody><tr><td><a href=\"#\">"
@@ -339,18 +336,27 @@ function expandCatalogDescription(course) {
 							+ course.courseId
 							+ " - "
 							+ course.title
-							+ "</a><div class=\"toolsWrapper\"><div class=\"dropdown\" id=\"menu\"><a class=\"dropdown-toggle icon-button-right button-microapp\"  rel=\"tooltip\" data-toggle=\"dropdown\" href=\"#menu\" data-original-title=\"ajouter à ma sélection\"><i class=\"icon-bookmark\"></i></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header \" data-bundle-key=\"label_add_selection\"></h5></li></ul></div>";
+							+ "</a><div class=\"toolsWrapper\">";
 
-					div += "<a href=\"#\" onMouseDown=\"return openCouseOutlinePDF(\'" + course.courseId + "\')\" "
+					//Button HTML
+					div += "<a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" href=\""
+							+ "/direct/portalManager/" + course.courseId + "/public_syllabus_info.html\" target=\"_blank\"><i class=\"icon-star\"></i></a>";
+							
+					//Button PDF
+					div += "<a href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.courseId + "\')\" "
 							+ "data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf\"></i></a>";
 
-					div += "<a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" href=\"planCours.html?id=" + course.courseId + "\" target=\"_blank\"><i class=\"icon-star\"></i></a><a class=\"icon-button-right button-microapp\" data-original-title=\"cours archivé\" data-toggle=\"\" href=\"archive.html\"></a></div></div><div class=\"accordionToolsWrapper3\"><div class=\"accordionTools3 pull-right\"><div class=\"trimesterWrapper\"><span  data-bundle-key=\"label_available_course\"></span><b class=\"trimester \"   rel=\"tooltip\" data-bundle-key=\"label_summer\"></b><b class=\"trimester \"   rel=\"tooltip\" data-bundle-key=\"label_autumn\"></b><b class=\"trimester \"   rel=\"tooltip\" data-bundle-key=\"label_winter\"></b></div></div></div></div><div id=\"collapseCourse\" class=\"accordion-body in collapse\"><div class=\"accordion-inner\"><h4 data-bundle-key=\"label_description\"></h4>"
+					div += "<a class=\"icon-button-right button-microapp\" data-original-title=\"cours archivé\" data-toggle=\"\" href=\"archive.html\"></a></div></div></div><div id=\"collapseCourse\" class=\"accordion-body in collapse\"><div class=\"accordion-inner\"><h4 data-bundle-key=\"label_description\"></h4>"
 							+"<br>"
 							+ course.description
 							+"<br><br>"
-							+ "<div class=\"btn-toolbar\"><div class=\"btn-group\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"><span class=\"icon-bookmark\"></span> <span data-bundle-key=\"label_select\"/></a><ul class=\"dropdown-menu\"><li><h5 class=\"dropdown-header \" data-bundle-key=\"label_add_selection\"></h5></li></ul></div><a class=\"btn\" href=\"planCours.html?id=" + course.courseId + "\" target=\"_blank\"><i class=\"icon-star\"/> <span data-bundle-key=\"label_html_course_outline\"/></a>"
+							+ "<div class=\"btn-toolbar\">";
 
-					div += "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCouseOutlinePDF(\'" + course.courseId + "\')\">"
+					// Button HTML
+					div += "<a class=\"btn\" href=\"/direct/portalManager/" + course.courseId + "/public_syllabus_info.html\" target=\"_blank\"><i class=\"icon-star\"/> <span data-bundle-key=\"label_html_course_outline\"/></a>"
+
+					// Button PDF
+					div += "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.courseId + "\')\">"
 							+ "<i class=\"icon-file-pdf\"></i> <span data-bundle-key=\"label_pdf_course_outline\"/></a>";
 
 					div += "</div><table class=\"table\"><thead><tr><th data-bundle-key=\"label_department\"></th><th data-bundle-key=\"label_academic_career\"></th><th data-bundle-key=\"label_credits\"></th><th data-bundle-key=\"label_requirements\"></th><th data-bundle-key=\"label_hours\"></th></tr></thead><tbody><tr><td><a href=\"#\">"
@@ -461,7 +467,7 @@ function filterCatalogDescriptions() {
 /**
  * open the pdf for the course outline of the course associated with this catalog description
  */
-function openCouseOutlinePDF(courseId) {
+function openCourseOutlinePDF(courseId) {
 	$.ajax({
 		url : '/direct/portalManager/' + courseId + '/public_syllabus_info.json',
 		datatype : 'json',
