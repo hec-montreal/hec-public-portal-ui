@@ -1,3 +1,207 @@
+
+
+/***************************** "Courses by department/career tab" specific functions *******************************/
+	
+/**
+ * Bind action to execute when we select a filter by career or department for the list of courses displayed
+ */
+function bindFilerByItem() {	
+	$('.li_filter_list_by_item').click(function() {
+			var selectorButtonFilter = '#filter_by_' + $(this).attr('data-select-option');	
+			$(selectorButtonFilter).attr('data-select-value',$(this).attr('data-select-value'));	
+			applyFilerByItem(getOtherItem($(this).attr('data-select-option')));
+			var selecorLi = '.li_filter_list_by_item[data-select-option=\'' + $(this).attr('data-select-option') + '\']';
+			$(selecorLi).removeClass('active');
+			$(this).addClass('active');
+		});
+	}	
+	
+/**
+ * Bind action to execute when we select a filter by language for the list of courses displayed
+ */
+function bindFilterLanguage() {
+	$('.li_filter_by_language').click(function() {
+		var selectorButtonFilter = '#filter_by_lang_for_tab_' + $(this).attr('data-select-option');	
+		$(selectorButtonFilter).attr('data-select-value',$(this).attr('data-select-value'));	
+		applyFilerByItem($(this).attr('data-select-option'));
+		var selecorLi = '.li_filter_by_language[data-select-option=\'' + $(this).attr('data-select-option') + '\']';
+		$(selecorLi).removeClass('active');
+		$(this).addClass('active');
+	});
+}	
+
+/**
+ * Execute the filtering process of a given tab (itemName="career" for courses by career/itemName="department" for courses by department);
+ */
+function applyFilerByItem(itemName) {
+	var filter_item = getFilterItem(getOtherItem(itemName)); 
+	var filter_language = getFilterLanguage(itemName);
+	var selectorRow = '.courseToFilter.list_by_' + itemName;
+	var selectorRowFilter  = selectorRow + filter_item + filter_language;
+	$(selectorRow).hide();
+	$(selectorRowFilter).show();
+}	
+
+/**
+ * Get filter selector for an item (department/career)
+ */
+function getFilterItem(itemName) {
+
+	var selectorButtonFilter = '#filter_by_' + itemName;
+	var filter;	
+	if($(selectorButtonFilter).attr('data-select-value') == '*') {
+		filter = '';
+	}	
+	else{
+	 filter = '[data-' + itemName + '=\'' + $(selectorButtonFilter).attr('data-select-value') + '\']';
+	}
+	return filter;
+}	
+
+/**
+ * Get filter selector for the language
+ */
+function getFilterLanguage(itemName) {
+	var selectorLangFilter = '#filter_by_lang_for_tab_' + itemName;
+	var filter;	
+	if($(selectorLangFilter).attr('data-select-value') == '*') {
+		filter = '';
+	}	
+	else{
+	 filter = '[data-lang=\'' + $(selectorLangFilter).attr('data-select-value') + '\']';
+	}
+	return filter;
+}	
+
+
+/***************************** END "Courses by department/career tab" specific functions *******************************/	
+	
+
+
+/***************************** "Search tab" specific functions *******************************/	
+
+/**
+ * Bind action to execute when we select a search option in the Search tab.
+ */
+function bindSelectSearchOptions() {	
+	$('.li_select').click(function() {
+			var selectorSpan = '#search_option_' + $(this).attr('data-select-option');				
+			var selectionDescription = $(this).children().html();
+			$(selectorSpan).html(selectionDescription);	
+			$(selectorSpan).attr('data-select-value',$(this).attr('data-select-value'));	
+			applyFilerSearch();
+		});
+	}
+	
+/**
+ * Execute the filtering process of the Search tab.
+ */	
+function applyFilerSearch() {	
+	var filter_career = getFilterSearch('career'); 
+	var filter_department = getFilterSearch('department'); 
+	var filter_language = getFilterSearch('language'); 
+	var selectorFilter  = '.search_row' + filter_career + filter_department + filter_language;
+	$('.search_row').hide();
+	$(selectorFilter).show();
+}	
+
+/**
+ * Get filter selector for an item (department/career/language)
+ */
+function getFilterSearch(itemName) {
+	var selectorSpan = '#search_option_' + itemName;
+	var filter;	
+	if($(selectorSpan).attr('data-select-value') == '*') {
+		filter = '';
+	}	
+	else{
+	 filter = '[data-' + itemName + '=\'' + $(selectorSpan).attr('data-select-value') + '\']';
+	}
+	return filter;
+}
+
+
+
+/**
+ * create the search result datatable from the catalog description map passed in parameter 
+ */
+function displayResultCatalogDescriptionSearch(cdList) {
+	$('#searchTable tbody').html("");	
+	for ( var i = 0; i < cdList.length; i++) {
+		var cdRow = "<tr class=\"search_row\" data-career=\"" + cdList[i].careerGroup + "\" data-department=\"" + cdList[i].departmentGroup + "\" data-language=\"" + cdList[i].language + "\">";
+		cdRow += "<td class=\"col-sigle\">" + cdList[i].courseid + "</td>";
+		cdRow += "<td class=\"col-nom\">" + cdList[i].coursetitle + "</td>";
+		cdRow += "<td class=\"col-pdf\" style=\"text-align:center\"><a href=\"#\" class=\"button-microapp\" data-original-title=\"\"><i class=\"icon-file-pdf\"></i></a></td>";		
+		cdRow += "<td class=\"col-department\">" + cdList[i].department + "</td>";
+		cdRow += "<td class=\"col-career\">" + cdList[i].career + "</td>";	
+		cdRow += "<td class=\"col-lang\">" + cdList[i].language + "</td>";		
+		$('#searchTable tbody').append(cdRow);
+	}
+}
+
+/**
+ * return catalog descriptions associated with the "searchString" criteria passed in parameter 
+ */
+function searchCatalogDescription(searchString) {
+	var cdList = new Array();
+	var words= searchString.replace(/[ ,]+/g, ",");
+	var scope= $('#search_option_scope').attr('data-select-value');
+	var url= '/direct/catalogDescription.json?searchWords=' + words + '&searchScope=' + scope;
+	
+	$.ajax({
+		url : url,
+		datatype : 'json',
+		success : function(listCourses) {
+
+					for ( var i = 0; i < listCourses.catalogDescription_collection.length; i++) {
+						var cours= new Array();
+						cours["courseid"] = listCourses.catalogDescription_collection[i].courseId;
+						cours["coursetitle"] = listCourses.catalogDescription_collection[i].title;
+						cours["career"] = listCourses.catalogDescription_collection[i].career;
+						cours["department"] = listCourses.catalogDescription_collection[i].department;
+						cours["careerGroup"] = listCourses.catalogDescription_collection[i].careerGroup;
+						cours["departmentGroup"] = listCourses.catalogDescription_collection[i].departmentGroup;
+						cours["language"] = listCourses.catalogDescription_collection[i].lang;
+						cdList[i] = cours;
+					}								
+				displayResultCatalogDescriptionSearch(cdList);
+				}	
+			});
+	
+}
+
+/**
+ * Bind the clik event on search buttons to the corresponding functions
+ */
+function bindSearch() {
+	/* click on the search button of the search tab*/
+	$('#research_tab_main_button').click(
+			function() {
+				searchCatalogDescription($('#research_tab_main_input').val());
+			});
+			
+	/* click on the search button on the header, visible in all tabs*/		
+	$("#research_global_button").keypress(function(e) {
+        if(e.which == 13) {
+            var searchText = $("#research_global_button").val();
+			$('#research_tab_main_input').val(searchText);
+			searchCatalogDescription(searchText);
+			$('.menu_tab').removeClass('active');
+			$('.tab-pane').removeClass('active');
+			$('#tab_recherche').addClass('active');
+			$('#par-recherche').addClass('active');
+			$(location).attr('href',"#");
+			return false;		
+        }
+    });
+}
+
+
+/***************************** END "Search tab" specific functions *******************************/		
+	
+
+/***************************** Other functions *******************************/	
+
 /**
  * Get a catalog description and initialize the editor dialog box attributes:
  * -itemName: carrer or department -serviceList: service that list all the
@@ -14,6 +218,25 @@ function initCourseListing(itemName, serviceList) {
 	var idListingSearchLi = 'li_' + itemName;
 	var selectorIdListingDiv = '#' + idListingDiv;
 	var selectorSearchSelectBox = 	'#dropdown-menu_' + itemName;
+	var selectorMenuFilterBox = 	'#dropdown_filter_' + getOtherItem(itemName); 
+	
+	
+
+	var div = "<div id=\""
+			+ idListingDiv
+			+ "\" class=\" in \" style=\"display: none; \">"
+			+ "<div class=\"btn-toolbar well\"><div class=\"btn-group \" style=\"\"><div class=\"dropdown\"><a href=\"#\"  data-toggle=\"dropdown\" class=\"dropdown-toggle btn \" data-bundle-key=\"button_filter_for_" + itemName + "\" id=\"filter_by_" + getOtherItem(itemName) + "\" data-select-value=\"*\"><b class=\"caret\"></b>"
+			+ "</a><ul class=\"dropdown-menu\" id=\"dropdown_filter_" + itemName + "\">"
+			+ "<li data-select-option=\"" + getOtherItem(itemName) + "\" data-select-value=\"*\" class=\"li_select\"><a href=\"#dropdown1\" data-toggle=\"tab\" data-bundle-key=\"button_filter_all\"></a></li>"					
+			+"</ul></div></div>"
+			+ "<div class=\"btn-group \" style=\"\"><div class=\"dropdown\"><a href=\"#\"  data-toggle=\"dropdown\" class=\"dropdown-toggle btn \" data-bundle-key=\"button_filter_language\" id=\"filter_by_lang_for_tab_" + itemName + "\" data-select-value=\"*\"><b class=\"caret\"></b></a><ul class=\"dropdown-menu\">"
+			+ "<li class=\"li_filter_by_language\" data-select-value=\"*\" data-select-option=\"" + itemName + "\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"button_filter_all\"></a></li>"
+			+ "<li class=\"li_filter_by_language\" data-select-value=\"FR\" data-select-option=\"" + itemName + "\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"button_filter_fr\"></a></li>"
+			+ "<li class=\"li_filter_by_language\" data-select-value=\"AN\" data-select-option=\"" + itemName + "\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"button_filter_en\"></a></li>"
+			+ "<li class=\"li_filter_by_language\" data-select-value=\"ES\" data-select-option=\"" + itemName + "\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"button_filter_es\"></a></li>"
+			+ "</ul></div></div></div><!--  courses --><div class=\"accordion \" id=\"accordionCourseSelect_"	+ itemName + "\">";
+			
+	$(selectorIdMainDiv).html(div);
 
 	$
 			.ajax({
@@ -32,58 +255,28 @@ function initCourseListing(itemName, serviceList) {
 								+ "</a></dd>";
 						$(selectorIdTabDiv).append(div);
 						var idDiv = '#' + id;
-
-						var div = "<div id=\""
-								+ idListingDiv
-								+ "\" class=\" in \" style=\"display: none; \"><div class=\"btn-group\" style=\"\"><div class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle btn\" data-toggle=\"dropdown\">Trier <b class=\"caret\"></b></a><ul class=\"dropdown-menu\"><li><a href=\"#dropdown1\" data-toggle=\"tab\">Par ordre alphab�tique</a></li><li><a href=\"#dropdown2\" data-toggle=\"tab\">Par num�ro de cours</a></li><li><a href=\"#dropdown2\" data-toggle=\"tab\">Par ordre de sigle</a></li></ul></div></div><div class=\"btn-group\"><a href=\"#\" class=\"btn active\">Tous les cours</a><a href=\"#\" class=\"btn\">En fran�ais</a><a href=\"#\" class=\"btn\">En anglais</a><a href=\"#\" class=\"btn\">En espagnol</a></div><div class=\"accordion\" id=\"accordionCourseSelect\"></div></div>";
-						$(selectorIdMainDiv).html(div);
 						bindItem(itemName, idDiv, listId, selectorIdListingDiv);
 						
-						/* We also populate the Carreer/Department select boxes that are used in the Search tab */
+						/* We also populate the Carreer/Department filter boxes*/
 						$(selectorSearchSelectBox).append("<li data-select-option=\"" + itemName + "\" data-select-value=\"" + listItems.portalManager_collection[i].itemGroup + "\" class=\"li_select\"><a href=\"#dropdown1\" data-toggle=\"tab\">" + listItems.portalManager_collection[i].description + "</a></li>");
-												
+						$(selectorMenuFilterBox).append("<li data-select-option=\"" + itemName + "\" data-select-value=\"" + listItems.portalManager_collection[i].itemGroup + "\" class=\"li_filter_list_by_item\"><a href=\"#dropdown1\" data-toggle=\"tab\">" + listItems.portalManager_collection[i].description + "</a></li>");						
 					}					
 					bindSelectSearchOptions();
 				}
 			});
 }
 
-	
 /**
- * Bind action to execute when we select a search option in the Search tab.
+ * Return "career" if we pass "department" in parameter and vice versa
  */
-function bindSelectSearchOptions() {	
-	$('.li_select').click(function() {
-			var selectorSpan = '#search_option_' + $(this).attr('data-select-option');				
-			var selectionDescription = $(this).children().html();
-			$(selectorSpan).html(selectionDescription);	
-			$(selectorSpan).attr('data-select-value',$(this).attr('data-select-value'));	
-			applyFiler();
-		});
-	}	
-	
-function applyFiler() {	
-	var filter_career = createFiler('career'); 
-	var filter_department = createFiler('department'); 
-	var selectorFilter  = '.search_row' + filter_career + filter_department;
-	$('.search_row').hide();
-	$(selectorFilter).show();
-}	
-
-function createFiler(itemName) {
-	var selectorSpan = '#search_option_' + itemName;
-	var filter;	
-	if($(selectorSpan).attr('data-select-value') == '*') {
-		filter = '';
-	}	
-	else{
-	 filter = '[data-' + itemName + '=\'' + $(selectorSpan).attr('data-select-value') + '\']';
+function getOtherItem(itemName) {	
+	if (itemName == "career"){
+		return "department";
 	}
-	return filter;
-}
-
-
-	
+	else{
+		return "career";
+	}
+}	
 	
 /**
  * Bind "change language" buttons (french/english/spanish) to the 
@@ -141,78 +334,6 @@ function updateLabelsFromBundle() {
 
 
 /**
- * Bind "sorting buttons" (sort by course id/ sort by title) to the sorting
- * behaviour 
- * attributes: -selectorAccordionCourseDiv: selector of the div that is being
- * sorted (accordionCourseSelect_department/accordionCourseSelect_career)
- */
-function bindSort(selectorAccordionCourseDiv) {
-	
-	$('.sort_course_id').click(function() {
-		sortByCourseId(selectorAccordionCourseDiv);
-		});
-
-	$('.sort_title').click(function() {
-		sortByTitle(selectorAccordionCourseDiv);
-		});
-	sortByCourseId(selectorAccordionCourseDiv);	
-	
-}
-
-function sortByTitle(selectorAccordionCourseDiv) {
-		$('.sort_title').addClass('active');
-		$('.sort_course_id').removeClass('active');
-		
-		var listCoursesSorted = $('.courseToSort').sort(function(a, b) {
-			return $(a).attr('data-title') > $(b).attr('data-title') ? 1 : -1;
-		});
-		$(selectorAccordionCourseDiv).html(listCoursesSorted);
-}
-
-function sortByCourseId(selectorAccordionCourseDiv) {
-		$('.sort_course_id').addClass('active');
-		$('.sort_title').removeClass('active');
-
-		var listCoursesSorted = $('.courseToSort').sort(function(a, b) {
-			return $(a).attr('data-courseId') > $(b).attr('data-courseId') ? 1 : -1;
-		});
-		$(selectorAccordionCourseDiv).html(listCoursesSorted);
-}
-
-/**
- * Bind "language filtering buttons" (french/english/spanish) to the filtering
- * behaviour
- */
-function bindFilters() {
-	$('.filter_fr').click(function() {
-		$('.courseToFilter').hide();
-		$('.FR').show();
-		$('.btn').removeClass('active');
-		$('.filter_fr').addClass('active');
-	});
-
-	$('.filter_en').click(function() {
-		$('.courseToFilter').hide();
-		$('.AN').show();
-		$('.btn').removeClass('active');
-		$('.filter_en').addClass('active');
-	});
-
-	$('.filter_es').click(function() {
-		$('.courseToFilter').hide();
-		$('.ES').show();
-		$('.btn').removeClass('active');
-		$('.filter_es').addClass('active');
-	});
-
-	$('.filter_all').click(function() {
-		$('.courseToFilter').show();
-		$('.btn').removeClass('active');
-		$('.filter_all').addClass('active');
-	});
-}
-
-/**
  * Expand the catalog descriptions that match the folowing criteria attributes:
  * -itemName: carrer or department -listId: list of department/career ids associated to co we need to populate
  * descriptions belong to -selectorIdListingDiv: selector of the div that we
@@ -224,16 +345,16 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 
 	var itemCleaned = listId[0].replace(/[^a-z0-9\s]/gi, '');
 	var selectorAccordionCourseDiv = '#accordionCourseSelect_' + itemName;
-
+	
+	
 	$
 			.ajax({
 				url : '/direct/catalogDescription.json?' + itemName + '=' + listId,
 				datatype : 'json',
 				success : function(listCourses) {
-					$(selectorIdListingDiv).html("");
+					$(selectorAccordionCourseDiv).html("");
 
-					var div = "<div class=\"btn-toolbar well\"><div class=\"btn-group \" style=\"\"><div class=\"dropdown\"><a href=\"#\"  data-toggle=\"dropdown\" class=\"dropdown-toggle btn \" data-bundle-key=\"button_sort\"><b class=\"caret\"></b></a><ul class=\"dropdown-menu\"><li class=\"sort_title\"><a href=\"#dropdown1\" data-toggle=\"tab\"  data-bundle-key=\"button_sort_alphabetic\"></a></li><li class=\"sort_course_id\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"button_sort_numeric\"></a></li></ul></div></div><div class=\"btn-group\"><a href=\"#\" class=\"btn active filter_all \" data-bundle-key=\"button_filter_all\"></a><a href=\"#\" class=\"btn filter_fr \" data-bundle-key=\"button_filter_fr\"></a><a href=\"#\" class=\"btn filter_en \" data-bundle-key=\"button_filter_en\"></a><a href=\"#\" class=\"btn filter_es \" data-bundle-key=\"button_filter_es\"></a></div></div><!--  courses --><div class=\"accordion \" id=\"accordionCourseSelect_"
-							+ itemName + "\">";
+					var div = "";
 
 					for ( var i = 0; i < listCourses.catalogDescription_collection.length; i++) {
 						
@@ -242,14 +363,16 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 						}
 						if(listCourses.catalogDescription_collection[i].requirements==null){
 							listCourses.catalogDescription_collection[i].requirements="<span data-bundle-key=\"label_no_requirement\"/>";
-						}
-											
+						}									
+									
 						div += "<div id=\"\" data-courseId=\""
 								+ listCourses.catalogDescription_collection[i].courseId
 								+ "\" data-title=\""
-								+ listCourses.catalogDescription_collection[i].title
-								+ "\" class=\"accordion-group courseToSort courseToFilter "
-								+ listCourses.catalogDescription_collection[i].lang
+								+ listCourses.catalogDescription_collection[i].title								
+								+ "\" data-career=\"" + listCourses.catalogDescription_collection[i].careerGroup 
+								+ "\" data-department=\"" + listCourses.catalogDescription_collection[i].departmentGroup
+								+ "\" data-lang=\"" + listCourses.catalogDescription_collection[i].lang
+								+ "\" class=\"accordion-group courseToFilter list_by_" + itemName
 								+ "\"><div class=\"accordion-heading row\"><div class=\"span5\"><a class=\"accordion-toggle\" data-toggle=\"collapse\" href=\"#collapseCourse"
 								+ "_"
 								+ itemCleaned
@@ -290,9 +413,9 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 								+ "<i class=\"icon-file-pdf\"></i> <span data-bundle-key=\"label_pdf_course_outline\"/></a>";
 
 						div += "</div><table class=\"table\"><thead><tr><th data-bundle-key=\"label_department\"></th><th data-bundle-key=\"label_academic_career\"></th><th data-bundle-key=\"label_credits\"></th><th data-bundle-key=\"label_requirements\"></th><th data-bundle-key=\"label_hours\"></th></tr></thead><tbody><tr><td><a href=\"#\">"
-								+ listCourses.catalogDescription_collection[i].career
-								+ "</a></td><td><a href=\"#\">"
 								+ listCourses.catalogDescription_collection[i].department
+								+ "</a></td><td><a href=\"#\">"
+								+ listCourses.catalogDescription_collection[i].career
 								+ "</a></td><td>"
 								+ listCourses.catalogDescription_collection[i].credits
 								+ "</td><td>"
@@ -303,11 +426,11 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 
 					div += "</div>";
 
-					$(selectorIdListingDiv).append(div);
+					$(selectorAccordionCourseDiv).html(div);
 
-					$(selectorIdListingDiv).fadeIn('slow');
-					bindFilters();
-					bindSort(selectorAccordionCourseDiv);
+					$(selectorIdListingDiv).fadeIn('slow');	
+					bindFilerByItem();
+					bindFilterLanguage();
 					updateLabelsFromBundle();			
 					return false;
 
@@ -394,30 +517,7 @@ function bindItem(itemName, idDiv, listId, selectorIdListingDiv) {
 			});
 }
 
-/**
- * Bind the clik event on search buttons to the corresponding functions
- */
-function bindSearch() {
-	/* click on the search button of the search tab*/
-	$('#research_tab_main_button').click(
-			function() {
-				searchCatalogDescription($('#research_tab_main_input').val());
-			});
-			
-	/* click on the search button on the header, visible in all tabs*/		
-	$("#research_global_button").keypress(function(e) {
-        if(e.which == 13) {
-            var searchText = $("#research_global_button").val();
-			$('#research_tab_main_input').val(searchText);
-			searchCatalogDescription(searchText);
-			$('.menu_tab').removeClass('active');
-			$('.tab-pane').removeClass('active');
-			$('#tab_recherche').addClass('active');
-			$('#par-recherche').addClass('active');
-			$(location).attr('href',"#par-recherche");			
-        }
-    });
-}
+
 
 
 
@@ -485,53 +585,6 @@ function openCourseOutlinePDF(courseId) {
 		}
 	});
 }
-
-/**
- * create the search result datatable from the catalog description map passed in parameter 
- */
-function displayResultCatalogDescriptionSearch(cdList) {
-	$('#searchTable tbody').html("");	
-	for ( var i = 0; i < cdList.length; i++) {
-		var cdRow = "<tr class=\"search_row\" data-career=\"" + cdList[i].careerGroup + "\" data-department=\"" + cdList[i].departmentGroup + "\" >";
-		cdRow += "<td class=\"col-sigle\">" + cdList[i].courseid + "</td>";
-		cdRow += "<td>" + cdList[i].coursetitle + "</td>";
-		cdRow += "<td class=\"col-pdf\" style=\"text-align:center\"><a href=\"#\" class=\"button-microapp\" data-original-title=\"\"><i class=\"icon-file-pdf\"></i></a></td>";		
-		cdRow += "<td>" + cdList[i].department + "</td>";
-		cdRow += "<td>" + cdList[i].career + "</td>";		
-		$('#searchTable tbody').append(cdRow);
-	}
-}
-
-/**
- * return catalog descriptions associated with the "searchString" criteria passed in parameter 
- */
-function searchCatalogDescription(searchString) {
-	var cdList = new Array();
-	var words= searchString.replace(/[ ,]+/g, ",");
-	var scope= $('#search_option_scope').attr('data-select-value');
-	var url= '/direct/catalogDescription.json?searchWords=' + words + '&searchScope=' + scope;
-	
-	$.ajax({
-		url : url,
-		datatype : 'json',
-		success : function(listCourses) {
-
-					for ( var i = 0; i < listCourses.catalogDescription_collection.length; i++) {
-						var cours= new Array();
-						cours["courseid"] = listCourses.catalogDescription_collection[i].courseId;
-						cours["coursetitle"] = listCourses.catalogDescription_collection[i].title;
-						cours["career"] = listCourses.catalogDescription_collection[i].career;
-						cours["department"] = listCourses.catalogDescription_collection[i].department;
-						cours["careerGroup"] = listCourses.catalogDescription_collection[i].careerGroup;
-						cours["departmentGroup"] = listCourses.catalogDescription_collection[i].departmentGroup;
-						cdList[i] = cours;
-					}								
-				displayResultCatalogDescriptionSearch(cdList);
-				}	
-			});
-	
-}
-
 
 
 /**
