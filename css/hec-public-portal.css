@@ -872,14 +872,12 @@ table.tablesorter thead tr th, table.tablesorter tfoot tr th {
 	background-color: rgba(151, 200, 241, 0.125);
 	border-color: #DDD
 }
-table.tablesorter .col-sigle{text-align:center;white-space: nowrap;width: 8%;}
-table.tablesorter .col-nom {text-align:center;width: 26%;}
-table.tablesorter .col-dispo {text-align:center;width: 11%;}
-table.tablesorter .col-prog {text-align:center;width: 15%;}
-table.tablesorter .col-dis {text-align:center;width: 13%;}
-table.tablesorter .col-pdf {text-align:center;width: 11%;}
-table.tablesorter .col-save {text-align:center;width: 7%;}
-table.tablesorter .col-arch {text-align:center;width: 9%;}
+table.tablesorter .col-sigle{text-align:center;white-space: nowrap;width: 15% !important;}
+table.tablesorter .col-nom {text-align:left;width: 25% !important;}
+table.tablesorter .col-pdf {text-align:center;width: 10% !important;}
+table.tablesorter .col-department{text-align:left;width: 20% !important;}
+table.tablesorter .col-career {text-align:left;width: 20% !important;}
+table.tablesorter .col-lang{text-align:center;width: 10% !important;}
 
 table.tablesorter .col-pdf .icon-file-pdf, .toolsWrapper .icon-file-pdf {
 	background-image: url(../images/16x16_pdf-dark.png);
@@ -1136,12 +1134,12 @@ font-size: 1.2em;
 border-bottom: 1px solid white;
 margin:0;
 padding:0;
-height: 60px;
+height: 65px;
 padding-top:10px;
 }
 
 .search_options{
-	height: 35px !important;
+	height: 40px !important;
 }
 
 
@@ -1153,8 +1151,8 @@ text-align:center   !important;
 width:100% !important;
 margin:0;
 padding:0;
-height: 15px;
-padding-top:10px;
+height: 20px;
+padding-top:8px;
 }
 
 .dropdown-menu {
