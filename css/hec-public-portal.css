@@ -1152,6 +1152,9 @@ div.courseOutline-ressource {
 	font-size: 13px;
 	margin-bottom: 1em;
 }
+div.icone-niveau {
+	margin-right: 5px;
+}
 div.ressource-type{
 	color: #8C8A87;
 }
