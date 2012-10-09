@@ -8,17 +8,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Le styles -->    
-    <style>
-      /*body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }*/
-    </style>
-	<link href="plugins/bootstrap-2.0.3/css/animate-custom.css" rel="stylesheet">
-	<link href="plugins/bootstrap-2.0.3/css/bootstrap.css" rel="stylesheet">
-    <link href="plugins/bootstrap-2.0.3/css/bootstrap-custom_style.css" rel="stylesheet">
-    <link href="plugins/bootstrap-2.0.3/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="css/hec-public-portal.css" rel="stylesheet">    
+    
+	<link href="css/hec-public-portal.css" rel="stylesheet">    
     <link href="plugins/tablesorter/themes/blue/style.css" rel="stylesheet">
 
 
@@ -41,21 +32,12 @@
 <body>
 <div id="wrap">
 	<!-- Header -->
-	<div id="HEC-header" class="navbar navbar-fixed-top">
+	<div id="HEC-header" class="navbar">
       <div class="navbar-inner">
-        <div class="container">
-        	
-			<a class="btn btn-navbar" data-toggle="collapse" data-target="nav-collapse">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</a>
-			
-			
-			<a class="brand" href="#" style="padding: 4px 12px 4px 18px">
+		<div class="container">
+			<a id="brand" href="#">
 				<img src="images/HECMontreal_blanc-med.png" alt="HECMontreal_blanc-med" width="189" height="24" />
-			</a>
-			
+			</a>			
 			<!--.nav-collapse -->
 			<div class="nav-collapse">
 				<ul class="nav">
@@ -75,12 +57,11 @@
 					</li>
 					<!-- use for i18n -->
 					<div id ="bundleDiv"/>
-				    <li class="divider-vertical"></li>
 				</ul>
 				<ul class="nav pull-right">
 					<li>
-						<form class="navbar-search" action="">
-							<input type="text" data-provide="typeahead" class="search-query span2" placeholder="recherche" id="research_global_button">
+						<form id="navbar-search" action="">
+							<input type="text" class="span2" placeholder="recherche" id="research_global_button">
 						</form>
 					</li>
 					<li>
@@ -90,9 +71,7 @@
 					</li>
 				</ul>
 			</div>
-			<!--/.nav-collapse -->
-          
-        </div>
+		</div>
       </div>
     </div>
 	<!-- /Header -->
@@ -109,25 +88,21 @@
 				<a href="#">HEC accès libre</a> <span class="divider">/</span>
 			</li>
 			<li class="active">Cours HEC</li>
-		</ul>
-		<div  class="row"> 
-			<div id="my-tab-content" class="span12">
-			<div class="tabbable">
-			<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-		        <li id="tab_programme" class="menu_tab active"><a id="tab_career" href="#par-programme" data-toggle="tab" data-bundle-key="label_by_career"></a></li>
+		</ul> 
+			<div id="my-tab-content">
+			<ul id="tabs" class="nav" data-tabs="tabs">		        
 		        <li id="tab_responsable" class="menu_tab"><a href="#par-responsable" data-toggle="tab" data-bundle-key="label_by_department"></a></li>
-		        <li id="tab_recherche" class="menu_tab"><a href="#par-recherche" data-toggle="tab" data-bundle-key="label_search"></a></li>
-		        <li id="tab_selection" class="menu_tab"><a href="#par-selection" data-toggle="tab"><span data-bundle-key="label_my_selection"/><span class="badge badge-info">3</span></a></li>
+				<li id="tab_programme" class="menu_tab active"><a id="tab_career" href="#par-programme" data-toggle="tab" data-bundle-key="label_by_career"></a></li>
 		    </ul>
 		    
 		    <div class="tab-content row">
 		    <!-- tab 1 -->
 		        <div id="par-programme" class="active tab-pane" >
-		        	<div class="row span12">
+		        	<div class="span12">
 			           <h3 data-bundle-key="label_by_career"></h3>
 		        	</div>
 			        <div id="" class=" span5" >
-			           <dl class="well" id="div_career">
+			           <dl class="items_menu" id="div_career">
 					   </dl>
 					 </div>	
 					<div id="divCourseListing_career" class="span7">					
@@ -136,11 +111,11 @@
 			 <!-- /tab 1 -->
 			<!-- tab 2 -->			
 			 <div id="par-responsable" class="tab-pane">			 
-		     	<div class="row span12">
+		     	<div class="span12">
 				   <h3 data-bundle-key="label_by_department"></h3>
 		     	</div>
 			 <div id="" class=" span5">
-			   <dl class="well" id="div_department">			     
+			   <dl class="items_menu" id="div_department">			     
 			   </dl>
 			 </div>
 			 <div id="divCourseListing_department" class="span7 last">						
@@ -162,7 +137,7 @@
 						            <th class="col-nom">
 								        <span class="span_label_static">Titre du cours</span>							        
 								    </th>									
-						            <th class="col-pdf">
+						            <th class="col-co">
 								        <span class="span_label_static">Plan de cours</span>
 								    </th>
 						            <th class="col-department">
@@ -220,79 +195,30 @@
 				<!-- /tab 3 -->
  				 </div>
 			 <!-- Courses list -->
-			 	</div>
-			 	<!-- /tabbable -->
 		        </div>
 			
 			</div>
-			<!-- /Row -->
-		</div>
 		<!-- /Main -->
 	</div>
 </div>
-<footer class="footer navbar">
+<footer class="navbar">
 	<ul id="footerLinks" class="nav">
 		<li class=""><a href="archive02.html">Archives de cours</a></li>
 		<li class=""><a href="#">Bureau du régistraire</a></li>
-		<!--<li class="divider-vertical"></li>-->
 		<li class=""><a href="#">À propos du site web</a></li>
-		<!--<li class="divider-vertical"></li>-->
 		<li class=""><a href="#">Règlements et politiques</a></li>
-		<!--<li class="divider-vertical"></li>-->
 	</ul>  
-	<ul id="copyright" class="nav pull-right">
-		<li class="copyright">© HEC Montréal, 2012    Tous droits réservés</li>
+	<ul class="nav pull-right">
+		<li id="copyright">© HEC Montréal, 2012    Tous droits réservés</li>
 	</ul>
 </footer>
 
-
-<!--   Modal Windows  -->
-
-<!--   Modal Login  -->
-<div class="modal fade" id="loginModal" style="display: none">
-	<!-- Modal Header -->
-	<div class="modal-header">
-	  <a class="close" data-dismiss="modal">×</a>
-	  <h3>Authentification</h3>
-	</div>
-	<!-- /Modal Header -->
-	<!-- Modal Body -->
-	<div class="modal-body">
-		<form class="well">
-			<label>Pour accéder au contenu des archives, vous devez vous identifier</label>
-				<input type="text" class="span3" placeholder="Identifiant">
-				<span class="help-inline">votre numéro d'identifiant HEC</span>
-				<input type="text" class="span3" placeholder="mot de passe">
-				<span class="help-inline">votre mot de passe</span>
-				<label class="checkbox">
-				<input type="checkbox"> conserver mes informations
-			</label>
-			<button type="submit" class="btn">Soumettre</button>
-		</form>
-	</div>
-	<!-- Modal Footer -->
-	<div class="modal-footer">
-	  <a id="closeButton" href="#" class="btn" data-dismiss="modal">Fermer</a> 
-	</div>
-	  <!-- /Modal Footer -->
-</div>
-<!--  /Modal Login  -->
-
-<!--  /Modal Windows  -->
-
     <script src="plugins/jquery/jquery-1.8.1.min.js"></script>
     <script src="plugins/bootstrap-2.0.3/js/bootstrap-transition.js"></script>
-    <script src="plugins/bootstrap-2.0.3/js/bootstrap-alert.js"></script>
-    <script src="plugins/bootstrap-2.0.3/js/bootstrap-modal.js"></script>
     <script src="plugins/bootstrap-2.0.3/js/bootstrap-dropdown.js"></script>
-    <script src="plugins/bootstrap-2.0.3/js/bootstrap-scrollspy.js"></script>
     <script src="plugins/bootstrap-2.0.3/js/bootstrap-tab.js"></script>
-    <script src="plugins/bootstrap-2.0.3/js/bootstrap-tooltip.js"></script>
-    <script src="plugins/bootstrap-2.0.3/js/bootstrap-popover.js"></script>
     <script src="plugins/bootstrap-2.0.3/js/bootstrap-button.js"></script>
-    <script src="plugins/bootstrap-2.0.3/js/bootstrap-collapse.js"></script>
-    <script src="plugins/bootstrap-2.0.3/js/bootstrap-carousel.js"></script>
-    <script src="plugins/bootstrap-2.0.3/js/bootstrap-typeahead.js"></script>    
+    <script src="plugins/bootstrap-2.0.3/js/bootstrap-collapse.js"></script>   
     <script src="plugins/tablesorter/jquery.tablesorter.js"></script>
 	<script src="js/hec-public-portal.js"></script>
 </body>
