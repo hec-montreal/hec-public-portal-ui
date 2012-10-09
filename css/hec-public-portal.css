@@ -1125,7 +1125,43 @@ display: table;
 content: "";
 }
 
-
-
-
-
+/******************************
+*******  Course Outline ******
+*****************************/
+.courseOutline {
+	background: white;
+	padding: 8px 32px;
+	border:1px solid #ddd; 
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+.courseOutline h1, h2, h3, h4, h5, h6 {
+	margin: 10px 0;
+	color: #012B5D;
+}
+.courseOutline ul {
+	margin-bottom: 0;
+}
+.courseOutline p {
+	font-size: 13px;
+	margin: 0px;
+}
+table.courseOutline-ressource, 
+div.courseOutline-ressource {
+	font-size: 13px;
+	margin-bottom: 1em;
+}
+div.ressource-type{
+	color: #8C8A87;
+}
+div.ressource-filename{
+	color: #A0A0A0;
+}
+div.comment {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+.nav-sublist {
+	list-style-type: none;
+}
