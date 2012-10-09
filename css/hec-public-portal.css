@@ -75,9 +75,9 @@ margin: 0 0 9px 25px;
 /***** Div that wrap the frame containing the content (everything but header and footer) ***/
 #main
 {
-	overflow: visible;
+	overflow: hidden;
 	padding-bottom:50px; /* this needs to be bigger than footer height*/
-	padding-top: 10px;
+	padding-top: 40px;
 }
 
 /***** Copyright HEC Montréal ***/
