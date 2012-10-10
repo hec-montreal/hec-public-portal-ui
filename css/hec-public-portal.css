@@ -557,8 +557,8 @@ clear: both;
 /********************** Menus styles ******************/
 /******************************************************************************************************************************************************/
 
-/***** style for the menu frame displaying the list of careers or departments ***/
-.items_menu {
+/***** style for the menu frames ***/
+.menu {
 	background: rgba(31, 93, 154, 0.05);
 	min-height: 20px;
   padding: 19px;
@@ -1071,10 +1071,10 @@ display: inline-block;
 /******************************************************************************************************************************************************/
 /*********************************************************** Span styles ***********************************************************/
 /******************************************************************************************************************************************************/
-.span12 {
-width: 1170px;
-margin-left: 30px;
-float: left;
+
+.span4{
+float:left;
+width: 30%;
 }
 .span5 {
 width: 470px;
@@ -1083,6 +1083,15 @@ float: left;
 }
 .span7 {
 width: 670px;
+margin-left: 30px;
+float: left;
+}
+.span8{
+float:right;
+width: 67%;
+}
+.span12 {
+width: 1170px;
 margin-left: 30px;
 float: left;
 }
@@ -1165,6 +1174,11 @@ div.comment {
 	margin-top: 0.5em;
 	margin-bottom: 0.5em;
 }
-.nav-sublist {
+.nav-sublist, .nav.nav-list {
 	list-style-type: none;
+}
+/* course Outline title */ 
+.span12 > h2 {
+	font-size: 28px;
+	height: 40px; 
 }
