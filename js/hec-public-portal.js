@@ -262,11 +262,13 @@ function initCourseListing(itemName, serviceList) {
 					for ( var i = 0; i < listItems.portalManager_collection.length; i++) {
 						var listId = listItems.portalManager_collection[i].listId;
 						var id = itemName + "_" + i;
+						var item_group_bundle_key = itemName + '_' + listItems.portalManager_collection[i].itemGroup;
 						var div = "<dd class=\"\"><a id=\""
 								+ id
 								+ "\"data-toggle=\"collapse\" data-target=\""
 								+ selectorIdDatatarget
-								+ "\" href=\"#\" class=\"ui-link-inherit menuitem\">"
+								+ "\" href=\"#\" class=\"ui-link-inherit menuitem\""
+								+ " data-bundle-key=\"" + item_group_bundle_key + "\">"
 								+ listItems.portalManager_collection[i].description
 								+ "</a></dd>";
 						$(selectorIdTabDiv).append(div);
@@ -274,13 +276,14 @@ function initCourseListing(itemName, serviceList) {
 						bindItem(itemName, idDiv, listId, selectorIdListingDiv);
 						
 						/* We also populate the Carreer/Department filter boxes*/
-						$(selectorSearchSelectBox).append("<li data-select-option=\"" + itemName + "\" data-select-value=\"" + listItems.portalManager_collection[i].itemGroup + "\" class=\"li_select\"><a href=\"#dropdown1\" data-toggle=\"tab\">" + listItems.portalManager_collection[i].description + "</a></li>");
-						$(selectorMenuFilterBox).append("<li data-select-option=\"" + itemName + "\" data-select-value=\"" + listItems.portalManager_collection[i].itemGroup + "\" class=\"li_filter_list_by_item\"><a href=\"#dropdown1\" data-toggle=\"tab\">" + listItems.portalManager_collection[i].description + "</a></li>");						
+						$(selectorSearchSelectBox).append("<li data-select-option=\"" + itemName + "\" data-select-value=\"" + listItems.portalManager_collection[i].itemGroup + "\" class=\"li_select\"><a data-bundle-key=\"" + item_group_bundle_key + "\"> href=\"#dropdown1\" data-toggle=\"tab\">" + listItems.portalManager_collection[i].description + "</a></li>");
+						$(selectorMenuFilterBox).append("<li data-select-option=\"" + itemName + "\" data-select-value=\"" + listItems.portalManager_collection[i].itemGroup + "\" class=\"li_filter_list_by_item\"><a data-bundle-key=\"" + item_group_bundle_key + "\" href=\"#dropdown1\" data-toggle=\"tab\">" + listItems.portalManager_collection[i].description + "</a></li>");						
 					}					
 					bindSelectSearchOptions();
 				}
 			});
 }
+
 
 /**
  * Return "career" if we pass "department" in parameter and vice versa
@@ -331,7 +334,7 @@ function getBundle(locale) {
 		url : '/direct/portalManager/getBundles/' + locale + '.json',
 		datatype : 'json',
 		success : function(msgsBundle) {
-			$('#bundleDiv').data(msgsBundle.data);		
+			$('#bundleDiv').data(msgsBundle.data);	
 			updateLabelsFromBundle();
 		}		
 	});
@@ -616,9 +619,9 @@ $(document)
 					getBundle('FR');
 					bindSearch();
 					initCourseListing('career',
-							'/direct/portalManager/getCareers.json');
+							'/direct/portalManager/getCareers/FR.json');
 					initCourseListing('department',
-							'/direct/portalManager/getDepartments.json');
+							'/direct/portalManager/getDepartments/FR.json');
 					filterCatalogDescriptions();
 					bindChangeLanguage();
 					updateLabelsFromBundle();
