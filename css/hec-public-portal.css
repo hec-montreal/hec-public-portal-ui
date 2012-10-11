@@ -187,7 +187,9 @@ margin: 0 0 9px 25px;
 /***** search bar logo (fire search when cliked)***/
 #research_global_logo{
 	position:relative;
-	left:10px;
+	left:5px;
+	padding-top: 12px;
+	padding-bottom: 0px;
 }
 
 /***** div that contains the dropdown filtering options within search datatable headers(career, department or language)***/
@@ -638,19 +640,6 @@ background-repeat: no-repeat;
 	top:-4px;
 }
 
-
-
-a:hover .icon-white, li.active a .icon-white {
-	background-image: url(../plugins/bootstrap/img/glyphicons-halflings-white2.png);
-}
-
-.icon-search {
-background-position: -48px 0;
-}
-
-
-
-
 /***** Define the file where we get the icons ***/
 .icon-white,
 .nav > .active > a > [class^="icon-"],
@@ -659,7 +648,19 @@ background-position: -48px 0;
 .dropdown-menu > li > a:hover > [class*=" icon-"],
 .dropdown-menu > .active > a > [class^="icon-"],
 .dropdown-menu > .active > a > [class*=" icon-"] {
-  background-image: url("../plugins/bootstrap/img/glyphicons-halflings-white.png");
+  background-image: url("../plugins/bootstrap-2.0.3/img/glyphicons-halflings-white.png");
+}
+
+a:hover .icon-white, li.active a .icon-white {
+	background-image: url(../plugins/bootstrap-2.0.3/img/glyphicons-halflings-white-over.png);
+}
+
+
+
+.icon-search {
+background-position: -48px 0;
+width: 14px;
+height: 14px;
 }
 
 /***** Microapp class used to display icons (pdf or html) in result list ***/
