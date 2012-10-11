@@ -168,7 +168,7 @@ function getLanguageDescription(code) {
  */
 function searchCatalogDescription(searchString) {
 	var cdList = new Array();
-	var words= searchString.replace(/[ ,]+/g, ",");
+	var words= searchString.trim().replace(/[\']+/g, " ").replace(/[ ,]+/g, ",").replace(/[ ,]+/g, ",");
 	var scope= $('#search_option_scope').attr('data-select-value');
 	var url= '/direct/catalogDescription.json?searchWords=' + words + '&searchScope=' + scope;
 	
