@@ -202,7 +202,19 @@ function bindSearch() {
 	/* click on the search button on the header, visible in all tabs*/		
 	$("#research_global_button").keypress(function(e) {
         if(e.which == 13) {
-            var searchText = $("#research_global_button").val();
+            launchSearch();
+        }
+    });
+	$("#research_global_logo").click(function() {
+			launchSearch();
+		});
+}
+
+/**
+ * Launch the search with search tab content
+ */
+function launchSearch() {
+			var searchText = $("#research_global_button").val();
 			$('#research_tab_main_input').val(searchText);
 			searchCatalogDescription(searchText);
 			$('.menu_tab').removeClass('active');
@@ -210,10 +222,9 @@ function bindSearch() {
 			$('#tab_recherche').addClass('active');
 			$('#par-recherche').addClass('active');
 			$(location).attr('href',"#");
-			return false;		
-        }
-    });
+			return false;
 }
+		
 
 
 /***************************** END "Search tab" specific functions *******************************/		
