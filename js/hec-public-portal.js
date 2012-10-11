@@ -310,31 +310,28 @@ function getOtherItem(itemName) {
 		return "career";
 	}
 }	
+
+/**
+ * Return "FR" if we pass "EN" in parameter and vice versa
+ */
+function getOtherLanguage(itemName) {	
+	if (itemName == "FR"){
+		return "EN";
+	}
+	else{
+		return "FR";
+	}
+}
 	
 /**
- * Bind "change language" buttons (french/english/spanish) to the 
+ * Bind "change language" buttons (french/english) to the 
  * "change local" behaviour : all attributes with internationalized labels are reloaded in the new language.
  */
 function bindChangeLanguage() {
-	$('.lang_fr').click(function() {
-		getBundle('FR');
-		$('.lang_en').removeClass('active');
-		$('.lang_es').removeClass('active');
-		$('.lang_fr').addClass('active');
-	});
-
-	$('.lang_en').click(function() {
-		getBundle('EN');
-		$('.lang_fr').removeClass('active');
-		$('.lang_es').removeClass('active');
-		$('.lang_en').addClass('active');
-	});
-
-	$('.lang_es').click(function() {
-		getBundle('ES');
-		$('.lang_fr').removeClass('active');
-		$('.lang_en').removeClass('active');		
-		$('.lang_es').addClass('active');
+	$('#switch_language').click(function() {
+	var locale = $(this).attr('data-select-value');
+	$(this).attr('data-select-value', getOtherLanguage(locale));
+	getBundle(locale);
 	});
 }
 
