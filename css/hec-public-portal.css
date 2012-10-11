@@ -75,7 +75,7 @@ margin: 0 0 9px 25px;
 /***** Div that wrap the frame containing the content (everything but header and footer) ***/
 #main
 {
-	overflow: hidden;
+	overflow: visible;
 	padding-bottom:50px; /* this needs to be bigger than footer height*/
 	padding-top: 40px;
 }
@@ -1125,6 +1125,9 @@ content: "";
 /******************************
 *******  Course Outline ******
 *****************************/
+.courseOutline-main .row {
+	margin-left: 0;
+}
 .courseOutline {
 	background: white;
 	padding: 8px 32px;
@@ -1139,6 +1142,42 @@ content: "";
 .courseOutline p {
 	font-size: 13px;
 	margin: 0px;
+}
+/* course outline menu */
+.courseOutline-menu {
+	background: rgba(31, 93, 154, 0.05);
+	min-height: 20px;
+	padding: 8px 0;
+	margin-bottom: 20px;
+	border: 1px solid #eee;
+	border: 1px solid rgba(0, 0, 0, 0.05);
+	-webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+	        border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);	
+}
+.courseOutline-Menu ul {
+	list-style-type: none;
+	margin-bottom: 0;
+	margin-left: 0;
+	padding-left: 20px;
+}
+.courseOutline-Menu > ul {
+	padding-right: 15px;
+}
+.courseOutline-Menu li {
+	line-height: 25px;
+}
+
+/* les ressources */
+table.ressource td {
+	font-size: 13px;
+	padding: 0;
+}
+div.ressource {
+	margin-bottom: 1em;
 }
 table.courseOutline-ressource, 
 div.courseOutline-ressource {
@@ -1174,9 +1213,7 @@ div.comment {
 	margin-top: 0.5em;
 	margin-bottom: 0.5em;
 }
-.nav-sublist, .nav.nav-list {
-	list-style-type: none;
-}
+
 /* course outline headings */
 .courseOutline-main h2, 
 .courseOutline-main h3, 
