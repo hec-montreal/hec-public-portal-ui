@@ -1133,10 +1133,6 @@ content: "";
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 }
-.courseOutline h1, h2, h3, h4, h5, h6 {
-	margin: 10px 0;
-	color: #012B5D;
-}
 .courseOutline ul {
 	margin-bottom: 0;
 }
@@ -1152,12 +1148,28 @@ div.courseOutline-ressource {
 div.icone-niveau {
 	margin-right: 5px;
 }
+div.important_header {
+	color: #FFFFFF;
+	border: 2px solid #B6BEC4;
+	background-color: #B6BEC4;
+	font-weight: bold;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+div.important_body {
+	border: 2px solid #B6BEC4;
+	background-color: #EFF2F4;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+/*
 div.ressource-type{
 	color: #8C8A87;
 }
 div.ressource-filename{
 	color: #A0A0A0;
 }
+*/
 div.comment {
 	margin-top: 0.5em;
 	margin-bottom: 0.5em;
@@ -1165,8 +1177,22 @@ div.comment {
 .nav-sublist, .nav.nav-list {
 	list-style-type: none;
 }
-/* course Outline title */ 
-.span12 > h2 {
-	font-size: 28px;
-	height: 40px; 
+/* course outline headings */
+.courseOutline-main h2, 
+.courseOutline-main h3, 
+.courseOutline-main h4 {
+	margin: 10px 0;
+	color: #012B5D;
+}
+.courseOutline-main h2 {
+	line-height: 40px;
+	font-size: 30px;
+}
+.courseOutline-main h3 {
+	line-height: 30px;
+	font-size: 24px;
+}
+.courseOutline-main h4 {
+	line-height: 20px;
+	font-size: 18px;
 }
