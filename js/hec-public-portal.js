@@ -88,7 +88,10 @@ function bindSelectSearchOptions() {
 			var selectorSpan = '#search_option_' + $(this).attr('data-select-option');				
 			var selectionDescription = $(this).children().html();
 			$(selectorSpan).html(selectionDescription);	
-			$(selectorSpan).attr('data-select-value',$(this).attr('data-select-value'));	
+			$(selectorSpan).attr('data-select-value',$(this).attr('data-select-value'));
+			var selecorLi = '.li_select[data-select-option=\'' + $(this).attr('data-select-option') + '\']';
+			$(selecorLi).removeClass('active');
+			$(this).addClass('active');			
 			applyFilerSearch();
 		});
 	}
@@ -241,12 +244,12 @@ function initCourseListing(itemName, serviceList) {
 	var div = "<div id=\""
 			+ idListingDiv
 			+ "\" class=\" in \" style=\"display: none; \">"
-			+ "<div class=\"filter_bar\"><div class=\"btn-group \" style=\"\"><div class=\"dropdown\"><a href=\"#\"  data-toggle=\"dropdown\" class=\"dropdown-toggle btn \" data-bundle-key=\"button_filter_for_" + itemName + "\" id=\"filter_by_" + getOtherItem(itemName) + "\" data-select-value=\"*\"><b class=\"caret\"></b>"
-			+ "</a><ul class=\"dropdown-menu\" id=\"dropdown_filter_" + itemName + "\">"
-			+ "<li data-select-option=\"" + getOtherItem(itemName) + "\" data-select-value=\"*\" class=\"li_select\"><a href=\"#dropdown1\" data-toggle=\"tab\" data-bundle-key=\"button_filter_all\"></a></li>"					
+			+ "<div class=\"filter_bar  navbar\"><div class=\"btn-group \" style=\"\"><div class=\"dropdown\"><a href=\"#\"  data-toggle=\"dropdown\" class=\"dropdown-toggle btn \" data-bundle-key=\"button_filter_for_" + itemName + "\" id=\"filter_by_" + getOtherItem(itemName) + "\" data-select-value=\"*\"><b class=\"caret\"></b>"
+			+ "</a><ul class=\"dropdown-menu pull-right\" id=\"dropdown_filter_" + itemName + "\">"
+			+ "<li data-select-option=\"" + getOtherItem(itemName) + "\" data-select-value=\"*\" class=\"li_filter_list_by_item active\"><a href=\"#dropdown1\" data-toggle=\"tab\" data-bundle-key=\"button_filter_all\"></a></li>"					
 			+"</ul></div></div>"
 			+ "<div class=\"btn-group \" style=\"\"><div class=\"dropdown\"><a href=\"#\"  data-toggle=\"dropdown\" class=\"dropdown-toggle btn \" data-bundle-key=\"button_filter_language\" id=\"filter_by_lang_for_tab_" + itemName + "\" data-select-value=\"*\"><b class=\"caret\"></b></a><ul class=\"dropdown-menu\">"
-			+ "<li class=\"li_filter_by_language\" data-select-value=\"*\" data-select-option=\"" + itemName + "\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"button_filter_all\"></a></li>"
+			+ "<li class=\"li_filter_by_language active\" data-select-value=\"*\" data-select-option=\"" + itemName + "\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"button_filter_all\"></a></li>"
 			+ "<li class=\"li_filter_by_language\" data-select-value=\"FR\" data-select-option=\"" + itemName + "\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"button_filter_fr\"></a></li>"
 			+ "<li class=\"li_filter_by_language\" data-select-value=\"AN\" data-select-option=\"" + itemName + "\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"button_filter_en\"></a></li>"
 			+ "<li class=\"li_filter_by_language\" data-select-value=\"ES\" data-select-option=\"" + itemName + "\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"button_filter_es\"></a></li>"

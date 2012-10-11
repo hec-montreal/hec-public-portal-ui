@@ -121,6 +121,10 @@ margin: 0 0 9px 25px;
 	color: white/*#555555*/;
 }
 
+#par-recherche  > div{
+	min-height: 300px;
+}
+
 
 
 
@@ -191,13 +195,6 @@ margin: 0 0 9px 25px;
 	height: 40px !important;
 }
 
-/***** links under the dropdown filtering box within search datatable headers(career, department or language)***/
-.search_options li a{
-	font-size: 1.15em !important;
-	line-height: 1.15em !important;
-	text-align:center;
-	text-shadow:none !important;
-}
 
 /***** text describing the filter selected within search datatable headers(career, department or language)***/
 .span_filter{
@@ -207,9 +204,16 @@ margin: 0 0 9px 25px;
 	width:100% !important;
 	margin:0;
 	padding:0;
-	height: 20px;
+	height: 18px;
 	padding-top:8px;
 	float: left;
+	text-shadow:none !important;
+	text-overflow:ellipsis;	
+    -o-text-overflow: ellipsis;  
+    -ms-text-overflow: ellipsis;
+	white-space: nowrap;  
+    overflow: hidden;
+	line-height:8px;
 }
 /***** value of the filter selected within search datatable headers(career, department or language)***/
 .search_options_label{
@@ -222,35 +226,6 @@ margin: 0 0 9px 25px;
 }
 .search_options_label:hover > span{
 	color: white ;
-}
-
-/***** elements of the filter list within search datatable headers(career, department or language)***/
-.li_select a{
-	width:160px  !important;
-	text-overflow:ellipsis;	
-    -o-text-overflow: ellipsis;  
-    -ms-text-overflow: ellipsis;
-	white-space: nowrap;  
-    overflow: hidden;
-	 text-align: left !important;
-}
-
-
-
-/***** dropdown box that opens to select career filtering value ***/
-#select_career, #dropdown-menu_career li a{
-	width:300px  !important;
-	_width: 300px;
-}
-/***** dropdown box that opens to select department filtering value ***/
-#select_department, #dropdown-menu_department li a{
-	width:300px  !important;
-	_width: 300px;
-}
-/***** dropdown box that opens to select language filtering value ***/
-#select_language, #dropdown-menu_language li a{
-	width:120px  !important;
-	_width: 120px;
 }
 
 /***** cell content within search result datatable ***/
@@ -362,10 +337,27 @@ float: left;
   text-decoration: none;
   background-color: #0088cc;
 }
+.dropdown-menu.pull-right {
+	right: 0;
+	left: auto;
+	max-width: inherit;
+}
+
+/***** elements of the filter list within search datatable headers(career, department or language)***/
+.dropdown-menu.pull-right a{
+	 text-align: left !important;
+	 font-size: 13px !important;
+}
+
+.dropdown.open .dropdown-menu {
+    display: block;
+}
+
   
 /******************************************************************************************************************************************************/
 /********************** Navbar styles(overidde twitter bootstrap css): wrapper of bar divs used in header/footer/search result table ******************/
 /******************************************************************************************************************************************************/
+
 
 
 .navbar {
@@ -456,6 +448,7 @@ background-color: transparent;
   right: 13px;
   left: auto;
 }
+
 
 
 
@@ -553,6 +546,7 @@ clear: both;
 }
 
 
+
 /******************************************************************************************************************************************************/
 /********************** Menus styles ******************/
 /******************************************************************************************************************************************************/
@@ -645,6 +639,7 @@ background-repeat: no-repeat;
 }
 
 
+
 a:hover .icon-white, li.active a .icon-white {
 	background-image: url(../plugins/bootstrap/img/glyphicons-halflings-white2.png);
 }
@@ -652,6 +647,7 @@ a:hover .icon-white, li.active a .icon-white {
 .icon-search {
 background-position: -48px 0;
 }
+
 
 
 
@@ -895,22 +891,6 @@ box-shadow: inset 1px 0px 2px rgba(0, 0, 0, 0.05);
 }
 
 /******************************************************************************************************************************************************/
-/********************** Dropdown style ******************/
-/******************************************************************************************************************************************************/
-.dropdown {
-	position: relative;
-}
-
-.dropdown-menu.pull-right {
-	right: 0;
-	left: auto;
-	max-width: inherit;
-}
-.dropdown.open .dropdown-menu {
-    display: block;
-}
-
-/******************************************************************************************************************************************************/
 /********************** datatable of Search results ******************/
 /******************************************************************************************************************************************************/
 
@@ -938,10 +918,10 @@ table.tablesorter .col-department{text-align:left;width: 20% !important;}
 table.tablesorter .col-career {text-align:left;width: 20% !important;}
 table.tablesorter .col-lang{text-align:center;width: 10% !important;}
 
-table .col-co-department{text-align:left;white-space: nowrap;width: 30% !important;}
-table .col-co-career {text-align:left;width: 30% !important;}
+table .col-co-department{text-align:left;white-space: nowrap;width: 25% !important;}
+table .col-co-career {text-align:left;width: 25% !important;}
 table .col-co-credits {text-align:center;width: 10% !important;}
-table .col-co-requirements{text-align:left;width: 30% !important;}
+table .col-co-requirements{text-align:left;width: 40% !important;}
 
  table .dropdown-menu {
  	float: right;
@@ -1081,6 +1061,11 @@ width: 470px;
 margin-left: 30px;
 float: left;
 }
+
+.span6{
+margin-left: 30px;
+float: left;
+}
 .span7 {
 width: 670px;
 margin-left: 30px;
@@ -1095,6 +1080,9 @@ width: 1170px;
 margin-left: 30px;
 float: left;
 }
+
+
+
 
 
 /******************************************************************************************************************************************************/
