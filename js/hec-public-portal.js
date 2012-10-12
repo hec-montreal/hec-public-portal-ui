@@ -131,19 +131,24 @@ function getFilterSearch(itemName) {
 function displayResultCatalogDescriptionSearch(cdList) {
 	$('#searchTable tbody').html("");	
 	for ( var i = 0; i < cdList.length; i++) {
+	
+		var department_group_bundle_key = 'department_' + cdList[i].departmentGroup;
+		var career_group_bundle_key = 'career_' + cdList[i].careerGroup;
+		var language_bundle_key = 'label_description_' + cdList[i].language.toLowerCase();
+						
 		var cdRow = "<tr class=\"search_row\" data-career=\"" + cdList[i].careerGroup + "\" data-department=\"" + cdList[i].departmentGroup + "\" data-language=\"" + cdList[i].language + "\">";
 		cdRow += "<td class=\"col-sigle\">" + cdList[i].courseid + "</td>";
 		cdRow += "<td class=\"col-nom\">" + cdList[i].coursetitle + "</td>";
 		cdRow += "<td class=\"col-co\" style=\"text-align:center\"><div class=\"btn-toolbar\">"
 		//Button HTML
-		 + "<a class=\"btn\" href=\"/direct/portalManager/" + cdList[i].courseid + "/public_syllabus_info.html\" target=\"_blank\"><i class=\"icon-star icon_button_img\"/>  <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\"/></a>"
+		 + "<a class=\"btn\" href=\"/direct/portalManager/" + cdList[i].courseid + "/public_syllabus_info.html\" target=\"_blank\"><i class=\"icon-star icon_button_img\"/>  <span class=\"icon_button_label\"/></a>"
 		//Button PDF
 		+ "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + cdList[i].courseid + "\')\">"
-		+ "<i class=\"icon-file-pdf icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_pdf_course_outline\"/></a>";
+		+ "<i class=\"icon-file-pdf icon_button_img\"></i> <span class=\"icon_button_label\"/></a>";
 		+ "<a href=\"#\" class=\"button-microapp\" data-original-title=\"\"><i class=\"icon-file-pdf\"></i></a></div></td>";		
-		cdRow += "<td class=\"col-department\">" + cdList[i].department + "</td>";
-		cdRow += "<td class=\"col-career\">" + cdList[i].career + "</td>";	
-		cdRow += "<td class=\"col-lang\">" + getLanguageDescription(cdList[i].language) + "</td>";		
+		cdRow += "<td class=\"col-department\" data-bundle-key=\"" + department_group_bundle_key + "\">" + cdList[i].department + "</td>";
+		cdRow += "<td class=\"col-career\" data-bundle-key=\"" + career_group_bundle_key + "\">" + cdList[i].career + "</td>";	
+		cdRow += "<td class=\"col-lang\" data-bundle-key=\"" + language_bundle_key + "\">" + getLanguageDescription(cdList[i].language) + "</td>";		
 		$('#searchTable tbody').append(cdRow);
 	}
 }
@@ -178,6 +183,7 @@ function searchCatalogDescription(searchString) {
 		success : function(listCourses) {
 
 					for ( var i = 0; i < listCourses.catalogDescription_collection.length; i++) {
+					
 						var cours= new Array();
 						cours["courseid"] = listCourses.catalogDescription_collection[i].courseId;
 						cours["coursetitle"] = listCourses.catalogDescription_collection[i].title;
@@ -480,6 +486,9 @@ function expandCatalogDescription(course) {
 				url : '/direct/catalogDescription/' + course + '.json',
 				datatype : 'json',
 				success : function(course) {
+				
+					var department_group_bundle_key = 'department_' + course.departmentGroup;
+					var career_group_bundle_key = 'career_' + course.careerGroup;						
 					
 					if(course.description==null){
 						course.description="<span data-bundle-key=\"label_no_description\"/>";
@@ -515,10 +524,10 @@ function expandCatalogDescription(course) {
 					div += "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.courseId + "\')\">"
 							+ "<i class=\"icon-file-pdf icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_pdf_course_outline\"/></a>";
 
-					div += "</div><table class=\"table\"><thead><tr><th class=\"col-co-department\" data-bundle-key=\"label_department\"></th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\"></th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\"></th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\"></th></tr></thead><tbody><tr><td><a href=\"#\">"
-							+ course.career
-							+ "</a></td><td><a href=\"#\">"
+					div += "</div><table class=\"table\"><thead><tr><th class=\"col-co-department\" data-bundle-key=\"label_department\"></th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\"></th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\"></th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\"></th></tr></thead><tbody><tr><td><a data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#\" >"
 							+ course.department
+							+ "</a></td><td><a data-bundle-key=\"" + career_group_bundle_key + "\" href=\"#\">"
+							+ course.career
 							+ "</a></td><td>"
 							+ course.credits
 							+ "</td><td>"
@@ -594,6 +603,8 @@ function filterCatalogDescriptions() {
 		$('#tab_programme').removeClass('active');
 		expandCatalogDescription(course);
 		$('#tabs').hide();
+		$('#navbar-search').hide();
+		$('#research_global_logo').hide();		
 	}
 }
 
