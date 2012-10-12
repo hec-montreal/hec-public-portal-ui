@@ -387,6 +387,9 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 					var div = "";
 
 					for ( var i = 0; i < listCourses.catalogDescription_collection.length; i++) {
+					
+						var department_group_bundle_key = 'department_' + listCourses.catalogDescription_collection[i].departmentGroup;
+						var career_group_bundle_key = 'career_' + listCourses.catalogDescription_collection[i].careerGroup;
 						
 						if(listCourses.catalogDescription_collection[i].description==null){
 							listCourses.catalogDescription_collection[i].description="<span data-bundle-key=\"label_no_description\"/>";
@@ -442,9 +445,9 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 						div += "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\">"
 								+ "<i class=\"icon-file-pdf icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_pdf_course_outline\"/></a>";
 
-						div += "</div><table class=\"table\"><thead><tr><th class=\"col-co-department\"  data-bundle-key=\"label_department\"></th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\"></th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\"></th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\"></th></tr></thead><tbody><tr><td><a href=\"#\">"
+						div += "</div><table class=\"table\"><thead><tr><th class=\"col-co-department\"  data-bundle-key=\"label_department\"></th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\"></th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\"></th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\"></th></tr></thead><tbody><tr><td><a data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#\" >"
 								+ listCourses.catalogDescription_collection[i].department
-								+ "</a></td><td><a href=\"#\">"
+								+ "</a></td><td><a data-bundle-key=\"" + career_group_bundle_key + "\" href=\"#\">"
 								+ listCourses.catalogDescription_collection[i].career
 								+ "</a></td><td>"
 								+ listCourses.catalogDescription_collection[i].credits
