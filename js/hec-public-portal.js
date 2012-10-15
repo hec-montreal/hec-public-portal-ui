@@ -89,6 +89,7 @@ function bindSelectSearchOptions() {
 			var selectionDescription = $(this).children().html();
 			$(selectorSpan).html(selectionDescription);	
 			$(selectorSpan).attr('data-select-value',$(this).attr('data-select-value'));
+			$(selectorSpan).attr('data-bundle-key',$(this).children().attr('data-bundle-key'));
 			var selecorLi = '.li_select[data-select-option=\'' + $(this).attr('data-select-option') + '\']';
 			$(selecorLi).removeClass('active');
 			$(this).addClass('active');			
@@ -107,6 +108,31 @@ function applyFilerSearch() {
 	$('.search_row').hide();
 	$(selectorFilter).show();
 }	
+
+/**
+ * Initiate the search filter in order to display all departments/careers/languages.
+ */	
+function initiateSearchFilterStatus() {	
+	initiateSearchFilterForItem('career');
+	initiateSearchFilterForItem('department');
+	initiateSearchFilterForItem('language');
+	var selecorLi = '.li_select';
+	var selecorLiActiveDefault = '.li_select[data-select-value=\'*\']';
+	$(selecorLi).removeClass('active');
+	$(selecorLiActiveDefault).addClass('active');	
+}
+
+/**
+ * Initiate the search filter for a specific item (department/career/language).
+ */	
+function initiateSearchFilterForItem(itemName) {	
+	var selectorSpan = '#search_option_' + itemName;
+	var bundle_filter_all = 'label_filter_all_' + itemName;
+	$(selectorSpan).attr('data-select-value', '*');
+	$(selectorSpan).attr('data-bundle-key', bundle_filter_all);
+	$(selectorSpan).html($('#bundleDiv').data(bundle_filter_all));	
+}
+
 
 /**
  * Get filter selector for an item (department/career/language)
@@ -227,7 +253,8 @@ function launchSearch() {
 			$('.tab-pane').removeClass('active');
 			$('#tab_recherche').addClass('active');
 			$('#par-recherche').addClass('active');
-			$(location).attr('href',"#");
+			$(location).attr('href',"#");			
+			initiateSearchFilterStatus();
 			return false;
 }
 		
