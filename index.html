@@ -10,7 +10,6 @@
 
     
 	<link href="css/hec-public-portal.css" rel="stylesheet">    
-    <link href="plugins/tablesorter/themes/blue/style.css" rel="stylesheet">
 
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -36,25 +35,23 @@
       <div class="navbar-inner">
 		<div class="container">
 			<a id="brand" href="#">
-				<img src="images/HECMontreal_blanc-med.png" alt="HECMontreal_blanc-med" />
+				<img style="border: none" src="images/HECMontreal_bleu-med.png" alt="HECMontreal_bleu-med" />
 			</a>			
 			<!--.nav-collapse -->
 			<div class="nav-collapse">
-				<ul class="nav">
-					<li class="divider-vertical"></li>
-					<li class="dropdown" id="menu1">
-						<a id="switch_language" class="dropdown-toggle" data-toggle="dropdown" href="#menu1" data-select-value="EN">
-							<span class="icon-flag icon-white "></span> <span data-bundle-key="label_portal_language"/>
-							<b class="caret"></b>
-						</a>
-					</li>
+				<ul class="nav">	
 					<!-- use for i18n -->
 					<div id ="bundleDiv"/>
 				</ul>
 				<ul class="nav pull-right">
+					<li class="dropdown" id="menu1">
+						<a id="switch_language" class="dropdown-toggle" data-toggle="dropdown" href="#menu1" data-select-value="EN">
+							<span class="icon-flag icon-white "></span> <span data-bundle-key="label_portal_language"/>
+						</a>
+					</li>
 					<li>
 						<form id="navbar-search" action="">
-							<input type="text" class="span2" placeholder="recherche" id="research_global_button">
+							<input type="text" class="span2" id="research_global_button">
 						</form>
 					</li>
 					<li>
@@ -73,7 +70,7 @@
 	<!-- Main -->
 	<div id="main" class="container clear-top">
 	
-		<ul class="breadcrumb">
+		<!-- <ul class="breadcrumb">
 			<li>
 				<a href="http://www.hec.ca/">HEC</a> <span class="divider">/</span>
 			</li>
@@ -81,7 +78,7 @@
 				<a href="#">HEC accès libre</a> <span class="divider">/</span>
 			</li>
 			<li class="active">Cours HEC</li>
-		</ul> 
+		</ul>  -->
 			<div id="my-tab-content">
 			<ul id="tabs" class="nav" data-tabs="tabs">		        
 		        <li id="tab_responsable" class="menu_tab"><a href="#par-responsable" data-toggle="tab" data-bundle-key="label_by_department"></a></li>
@@ -91,25 +88,19 @@
 		    <div class="tab-content row">
 		    <!-- tab 1 -->
 		        <div id="par-programme" class="active tab-pane" >
-		        	<div class="span12">
-			           <h3 data-bundle-key="label_by_career"></h3>
-		        	</div>
 			        <div id="" class=" span6" >
-			           <dl class="menu" id="div_career">
-					   </dl>
+			           <ul class="menu" id="div_career">
+					   </ul>
 					 </div>	
 					<div id="divCourseListing_career" class="span9">					
 					</div>				 	
 				 </div>
 			 <!-- /tab 1 -->
 			<!-- tab 2 -->			
-			 <div id="par-responsable" class="tab-pane">			 
-		     	<div class="span12">
-				   <h3 data-bundle-key="label_by_department"></h3>
-		     	</div>
+			 <div id="par-responsable" class="tab-pane">
 			 <div id="" class=" span6">
-			   <dl class="menu" id="div_department">			     
-			   </dl>
+			   <ul class="menu" id="div_department">			     
+			   </ul>
 			 </div>
 			 <div id="divCourseListing_department" class="span9 last">						
 					</div>
@@ -135,8 +126,8 @@
 								    </th>
 						            <th class="col-department">
 										<span class="span_label" data-bundle-key="label_department"></span>
-								        <ul class="nav search_options">
-										  <li class="dropdown" id="dropdown_department">
+								        <div class="nav search_options">
+										  <div class="dropdown" id="dropdown_department">
 											<a  href="#" class="dropdown-toggle search_options_label" data-toggle="dropdown">
 												  <span class="span_filter" id="search_option_department" data-select-value="*" data-bundle-key="label_filter_all_department"></span>
 												  <b class="caret"></b>
@@ -144,13 +135,13 @@
 											<ul id="dropdown-menu_department" class="dropdown-menu pull-right">
 												<li data-select-option="department" data-select-value="*" class="li_select active"><a href="#dropdown1" data-toggle="tab" data-bundle-key="label_filter_all_department"></a></li>
 											</ul>
-										  </li>
-										</ul>	
+										  </div>
+										</div>	
 								    </th>
 									 <th class="col-career">
 										<span class="span_label" data-bundle-key="label_academic_career"></span>
-								        <ul class="nav search_options">
-										  <li class="dropdown" id="dropdown_career">
+								        <div class="nav search_options">
+										  <div class="dropdown" id="dropdown_career">
 											<a  href="#" class="dropdown-toggle search_options_label" data-toggle="dropdown">
 												  <span class="span_filter" id="search_option_career" data-select-value="*" data-bundle-key="label_filter_all_career"></span>
 												  <b class="caret"></b>
@@ -158,13 +149,13 @@
 											<ul id="dropdown-menu_career" class="dropdown-menu pull-right">
 												<li data-select-option="career" data-select-value="*" class="li_select active"><a href="#dropdown1" data-toggle="tab" data-bundle-key="label_filter_all_career"></a></li>
 											</ul>
-										  </li>
-										</ul>	
+										  </div>
+										</div>	
 								    </th>
 									<th class="col-lang">
 										<span class="span_label" data-bundle-key="label_language"></span>
-								        <ul class="nav search_options">
-										  <li class="dropdown" id="dropdown_language">
+								        <div class="nav search_options">
+										  <div class="dropdown" id="dropdown_language">
 											<a  href="#" class="dropdown-toggle search_options_label" data-toggle="dropdown">
 												  <span class="span_filter" id="search_option_language" data-select-value="*" data-bundle-key="label_filter_all_language"></span>
 												  <b class="caret"></b>
@@ -175,8 +166,8 @@
 												<li class="li_select" data-select-option="language" data-select-value="AN"><a href="#dropdown2" data-toggle="tab"  data-bundle-key="button_filter_en"></a></li>
 												<li class="li_select" data-select-option="language" data-select-value="ES"><a href="#dropdown2" data-toggle="tab"  data-bundle-key="button_filter_es"></a></li>			
 											</ul>
-										  </li>
-										</ul>	
+										  </div>
+										</div>	
 								    </th>
 						        </tr>
 						    </thead>
@@ -211,7 +202,6 @@
     <script src="plugins/bootstrap-2.0.3/js/bootstrap-dropdown.js"></script>
     <script src="plugins/bootstrap-2.0.3/js/bootstrap-tab.js"></script>
     <script src="plugins/bootstrap-2.0.3/js/bootstrap-button.js"></script>
-    <script src="plugins/bootstrap-2.0.3/js/bootstrap-collapse.js"></script>   
-    <script src="plugins/tablesorter/jquery.tablesorter.js"></script>
+    <script src="plugins/bootstrap-2.0.3/js/bootstrap-collapse.js"></script> 
 	<script src="js/hec-public-portal.js"></script>
 </body>
