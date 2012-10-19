@@ -187,7 +187,7 @@ function displayResultCatalogDescriptionSearch(cdList) {
 		cdRow += "<td class=\"col-nom\">" + cdList[i].coursetitle + "</td>";
 		cdRow += "<td class=\"col-co\" style=\"text-align:center\"><div class=\"btn-toolbar\">"
 		//Button HTML
-		 + "<a class=\"btn\" href=\"/direct/portalManager/" + cdList[i].courseid + "/public_syllabus_info.html\" target=\"_blank\"><i class=\"icon-star icon_button_img\"/>  <span class=\"icon_button_label\"/></a>"
+		 + "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + cdList[i].courseid + "\')\"><i class=\"icon-star icon_button_img\"/>  <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\"/></a>"
 		//Button PDF
 		+ "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + cdList[i].courseid + "\')\">"
 		+ "<i class=\"icon-file-pdf icon_button_img\"></i> <span class=\"icon_button_label\"/></a>";
@@ -471,7 +471,7 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 								+ "</a><div class=\"toolsWrapper\">";
 						
 						//Button HTML
-						div += "<a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" href=\"/direct/portalManager/" + listCourses.catalogDescription_collection[i].courseId + "/public_syllabus_info.html\" target=\"_blank\">"
+						div += "<a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" onMouseDown=\"return openCourseOutlineHTML(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\">"
 								+ "<i class=\"icon-star icon_header_img\"></i></a>"
 						
 						// Button PDF
@@ -490,7 +490,7 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 								+ "<div class=\"btn-toolbar\">";
 								
 						//Button HTML
-						div += "<a class=\"btn\" href=\"/direct/portalManager/" + listCourses.catalogDescription_collection[i].courseId + "/public_syllabus_info.html\" target=\"_blank\"><i class=\"icon-star icon_button_img\"/>  <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\"/></a>";
+						div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\"><i class=\"icon-star icon_button_img\"/>  <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\"/></a>";
 
 						//Button PDF
 						div += "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\">"
@@ -549,8 +549,7 @@ function expandCatalogDescription(course) {
 							+ "</a><div class=\"toolsWrapper\">";
 
 					//Button HTML
-					div += "<a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" href=\""
-							+ "/direct/portalManager/" + course.courseId + "/public_syllabus_info.html\" target=\"_blank\"><i class=\"icon-star icon_header_img\"></i></a>";
+					div += "<a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.courseIf + "\')\"><i class=\"icon-star icon_header_img\"></i></a>";
 							
 					//Button PDF
 					div += "<a href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.courseId + "\')\" "
@@ -563,7 +562,7 @@ function expandCatalogDescription(course) {
 							+ "<div class=\"btn-toolbar\">";
 
 					// Button HTML
-					div += "<a class=\"btn\" href=\"/direct/portalManager/" + course.courseId + "/public_syllabus_info.html\" target=\"_blank\"><i class=\"icon-star icon_button_img\"/> <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\"/></a>"
+					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.courseIf + "\')\"><i class=\"icon-star icon_button_img\"/> <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\"/></a>"
 
 					// Button PDF
 					div += "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.courseId + "\')\">"
@@ -653,18 +652,37 @@ function filterCatalogDescriptions() {
 }
 
 /**
+ * open the html version of the course outline, otherwise popup an error
+ */
+function openCourseOutlineHTML(courseId) {
+	var url = '/direct/portalManager/' + courseId + '/public_syllabus.html';
+	$.ajax({
+		type : 'HEAD',
+		url : url,
+		success : function () {
+			window.open(url, '_blank');
+		},
+		statusCode: {
+			404: function() {
+				window.alert($('#bundleDiv').data("message_no_co"));
+			}
+		}
+	});
+}
+
+/**
  * open the pdf for the course outline of the course associated with this catalog description
  */
 function openCourseOutlinePDF(courseId) {
 	$.ajax({
-		url : '/direct/portalManager/' + courseId + '/public_syllabus_info.json',
+		url : '/direct/portalManager/' + courseId + '/public_syllabus.json',
 		datatype : 'json',
 		success : function(syllabus_info) {		
 			if (syllabus_info.data["pdf_url"] !== "") {
 				window.open(syllabus_info.data["pdf_url"], '_blank');
 			}
 			else {
-				window.alert($('#bundleDiv').data("message_no_pdf"));
+				window.alert($('#bundleDiv').data("message_no_co"));
 			}
 			return true;
 		},
