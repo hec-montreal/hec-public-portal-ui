@@ -668,6 +668,19 @@ background-repeat: no-repeat;
 	height: 20px;
 }
 
+.icon-loader{
+	background-image: url(../images/ajax-loader.gif);
+	background-position: 0 0;
+	width: 16px;
+	height: 11px;
+	margin-left:10px;
+}
+
+.loader-container{
+	background-color: rgba(0, 0, 0, 0.02);
+	display: block;
+}
+
 .icon_header_img{	
 	margin-left:7px;	
 	margin-top:7px;
@@ -705,6 +718,7 @@ background-position: -48px 0;
 width: 14px;
 height: 14px;
 }
+
 
 /***** Microapp class used to display icons (pdf or html) in result list ***/
 a.button-microapp i, a.button-option i {
