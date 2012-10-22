@@ -190,7 +190,7 @@ function displayResultCatalogDescriptionSearch(cdList) {
 		//Button HTML
 		 + "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + cdList[i].courseid + "\')\"><i class=\"icon-star icon_button_img\"/>  <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\"/></a>"
 		//Button PDF
-		+ "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + cdList[i].courseid + "\')\">"
+		+ "<a class=\"btn\" onMouseDown=\"return openCourseOutlinePDF(\'" + cdList[i].courseid + "\')\">"
 		+ "<i class=\"icon-file-pdf icon_button_img\"></i> <span class=\"icon_button_label\"/></a>";
 		+ "<a href=\"#\" class=\"button-microapp\" data-original-title=\"\"><i class=\"icon-file-pdf\"></i></a></div></td>";		
 		cdRow += "<td class=\"col-department\" data-bundle-key=\"" + department_group_bundle_key + "\">" + cdList[i].department + "</td>";
@@ -482,7 +482,7 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 								+ "<i class=\"icon-star icon_header_img\"></i></a>";
 						
 						// Button PDF
-						div += "<a href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\" "
+						div += "<a onMouseDown=\"return openCourseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\" "
 								+ "data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf icon_header_img\"></i></a>";
 
 						div += "</div></div></div><div id=\"collapseCourse"
@@ -500,7 +500,7 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 						div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\"><i class=\"icon-star icon_button_img\"/>  <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\"/></a>";
 
 						//Button PDF
-						div += "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\">"
+						div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\">"
 								+ "<i class=\"icon-file-pdf icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_pdf_course_outline\"/></a>";
 
 						div += "</div><table class=\"table\"><thead><tr><th class=\"col-co-department\"  data-bundle-key=\"label_department\"></th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\"></th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\"></th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\"></th></tr></thead><tbody><tr><td><a data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#\" >"
@@ -557,7 +557,7 @@ function expandCatalogDescription(course) {
 					div += "<a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.courseIf + "\')\"><i class=\"icon-star icon_header_img\"></i></a>";
 							
 					//Button PDF
-					div += "<a href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.courseId + "\')\" "
+					div += "<a onMouseDown=\"return openCourseOutlinePDF(\'" + course.courseId + "\')\" "
 							+ "data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf\"></i></a>";
 
 					div += "<a class=\"icon-button-right button-microapp\" data-original-title=\"cours archivé\" data-toggle=\"\" href=\"archive.html\"></a></div></div></div><div id=\"collapseCourse\" class=\"accordion-body in collapse\"><div class=\"accordion-inner\"><h4 data-bundle-key=\"label_description\"></h4>"
@@ -570,7 +570,7 @@ function expandCatalogDescription(course) {
 					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.courseIf + "\')\"><i class=\"icon-star icon_button_img\"/> <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\"/></a>";
 
 					// Button PDF
-					div += "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.courseId + "\')\">"
+					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.courseId + "\')\">"
 							+ "<i class=\"icon-file-pdf icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_pdf_course_outline\"/></a>";
 
 					div += "</div><table class=\"table\"><thead><tr><th class=\"col-co-department\" data-bundle-key=\"label_department\"></th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\"></th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\"></th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\"></th></tr></thead><tbody><tr><td><a data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#\" >"
