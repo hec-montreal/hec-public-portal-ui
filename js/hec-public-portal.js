@@ -133,6 +133,8 @@ function applyFilerSearch() {
  * Initiate the search filter in order to display all departments/careers/languages.
  */	
 function initiateSearchFilterStatus() {	
+	$('#searchTable tbody').html("");
+	$('#loader-container_search').fadeIn('fast');
 	initiateSearchFilterForItem('career');
 	initiateSearchFilterForItem('department');
 	initiateSearchFilterForItem('language');
@@ -174,8 +176,7 @@ function getFilterSearch(itemName) {
 /**
  * create the search result datatable from the catalog description map passed in parameter 
  */
-function displayResultCatalogDescriptionSearch(cdList) {
-	$('#searchTable tbody').html("");	
+function displayResultCatalogDescriptionSearch(cdList) {	
 	for ( var i = 0; i < cdList.length; i++) {
 	
 		var department_group_bundle_key = 'department_' + cdList[i].departmentGroup;
@@ -197,6 +198,7 @@ function displayResultCatalogDescriptionSearch(cdList) {
 		cdRow += "<td class=\"col-lang\" data-bundle-key=\"" + language_bundle_key + "\">" + getLanguageDescription(cdList[i].language) + "</td>";		
 		$('#searchTable tbody').append(cdRow);
 	}
+		$('#loader-container_search').fadeOut('fast');
 }
 
 /**
@@ -268,12 +270,12 @@ function bindSearch() {
  * Launch the search with search tab content
  */
 function launchSearch() {
-			var searchText = $("#research_global_button").val();
-			searchCatalogDescription(searchText);
+			var searchText = $("#research_global_button").val();			
 			$('.menu_tab').removeClass('active');
 			$('.tab-pane').removeClass('active');
-			$('#par-recherche').addClass('active');		
+			$('#par-recherche').addClass('active');				
 			initiateSearchFilterStatus();
+			searchCatalogDescription(searchText);	
 }
 		
 
@@ -315,7 +317,7 @@ function initCourseListing(itemName, serviceList) {
 			+ "<li class=\"li_filter_by_language\" data-select-value=\"FR\" data-select-option=\"" + itemName + "\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"button_filter_fr\"></a></li>"
 			+ "<li class=\"li_filter_by_language\" data-select-value=\"AN\" data-select-option=\"" + itemName + "\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"button_filter_en\"></a></li>"
 			+ "<li class=\"li_filter_by_language\" data-select-value=\"ES\" data-select-option=\"" + itemName + "\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"button_filter_es\"></a></li>"
-			+ "</ul></div></div></div><!--  courses --><div class=\"accordion \" id=\"accordionCourseSelect_"	+ itemName + "\">";
+			+ "</ul></div></div></div><!--  courses --><div class=\"accordion \" id=\"accordionCourseSelect_"	+ itemName + "\"></div><!-- loader --><div id=\"loader-container_" + itemName + "\" class=\"loader-container\"><span data-bundle-key=\"message_loading\"/><i class=\"icon-loader\"></i></div>";
 			
 	$(selectorIdMainDiv).html(div);
 
@@ -426,9 +428,14 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 
 	var itemCleaned = listId[0].replace(/[^a-z0-9\s]/gi, '');
 	var selectorAccordionCourseDiv = '#accordionCourseSelect_' + itemName;
-	
-	
-	$
+	var selectorAccordionCourseDiv = '#accordionCourseSelect_' + itemName;	
+	var selectorLoader = '#loader-container_' + itemName;																		
+	$(selectorIdListingDiv).fadeIn('fast');
+				//first we hide the list of courses and we display the loader bar
+				$(selectorAccordionCourseDiv).fadeOut('fast', 
+					function() {
+						$(selectorLoader).fadeIn('fast',function(){
+							$
 			.ajax({
 				url : '/direct/catalogDescription.json?' + itemName + '=' + listId,
 				datatype : 'json',
@@ -472,7 +479,7 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 						
 						//Button HTML
 						div += "<a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" onMouseDown=\"return openCourseOutlineHTML(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\">"
-								+ "<i class=\"icon-star icon_header_img\"></i></a>"
+								+ "<i class=\"icon-star icon_header_img\"></i></a>";
 						
 						// Button PDF
 						div += "<a href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\" "
@@ -506,20 +513,18 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 								+ listCourses.catalogDescription_collection[i].requirements
 								+ "</td></tr></tbody></table></div></div></div>";
 					}
-					;
 
-					div += "</div>";
-
-					$(selectorAccordionCourseDiv).html(div);
-
-					$(selectorIdListingDiv).fadeIn('slow');	
+					$(selectorAccordionCourseDiv).html(div);					
 					bindFilerByItem();
 					bindFilterLanguage();
-					updateLabelsFromBundle();			
+					updateLabelsFromBundle();		
+					var selectorLoader = '#loader-container_' + itemName;	
+					$(selectorAccordionCourseDiv).fadeIn('fast',function() {$(selectorLoader).fadeOut('fast')});					
 					return false;
-
 				}
-			});
+			});		
+		});		
+	});	
 }
 
 /**
@@ -562,7 +567,7 @@ function expandCatalogDescription(course) {
 							+ "<div class=\"btn-toolbar\">";
 
 					// Button HTML
-					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.courseIf + "\')\"><i class=\"icon-star icon_button_img\"/> <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\"/></a>"
+					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.courseIf + "\')\"><i class=\"icon-star icon_button_img\"/> <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\"/></a>";
 
 					// Button PDF
 					div += "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.courseId + "\')\">"
@@ -597,14 +602,10 @@ function bindItem(itemName, idDiv, listId, selectorIdListingDiv) {
 	$(idDiv).click(
 			function() {
 				$('.menuitem').removeClass('selected_menuitem');
-				$(this).addClass('selected_menuitem');
-				expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv);				
+				$(this).addClass('selected_menuitem');	
+				expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv);
 			});
 }
-
-
-
-
 
 
 /**
