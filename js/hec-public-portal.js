@@ -428,8 +428,7 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 
 	var itemCleaned = listId[0].replace(/[^a-z0-9\s]/gi, '');
 	var selectorAccordionCourseDiv = '#accordionCourseSelect_' + itemName;
-	var selectorAccordionCourseDiv = '#accordionCourseSelect_' + itemName;	
-	var selectorLoader = '#loader-container_' + itemName;																		
+	var selectorLoader = '#loader-container_' + itemName;	
 	$(selectorIdListingDiv).fadeIn('fast');
 				//first we hide the list of courses and we display the loader bar
 				$(selectorAccordionCourseDiv).fadeOut('fast', 
@@ -639,18 +638,41 @@ function filterCatalogDescriptions() {
 		$('#par-programme').removeClass('active');
 		$('#tab_responsable').addClass('active');
 		$('#tab_programme').removeClass('active');
+		setCurrentBreadCrumb('department');
 		expandListCatalogDescriptions('department',getUrlVars()["discipline"], '#listing_department');
-	} else if (typeof (career) !== 'undefined') {
+	} else if (typeof (career) !== 'undefined') {	
+		setCurrentBreadCrumb('career');
 		expandListCatalogDescriptions('career',getUrlVars()["programme"], '#listing_career');
 	} else if (typeof (course) !== 'undefined') {
 		$('#par-programme').removeClass('active');
 		$('#tab_programme').removeClass('active');
-		expandCatalogDescription(course);
-		$('#tabs').hide();
-		$('#navbar-search').hide();
-		$('#research_global_logo').hide();		
+		expandCatalogDescription(course);	
+		$('#current_breadcrumb').html(course);		
 	}
 }
+
+/**
+ * Bind click event on tas in order to change the breadcumb value when we switch tabs
+ */
+function bindTabsSwitch() {
+	$('[data-toggle="tab"]').click(
+			function() {
+				setCurrentBreadCrumb($(this).attr('data-item-type'));
+			});
+}
+
+
+
+/**
+ * Set the breadcumb with the current position on the site
+ */
+function setCurrentBreadCrumb(itemName) {
+	var bundle_current_breadcumb = 'label_breadcumb_hec_course_by_' + itemName;
+	$('#current_breadcrumb').html($('#bundleDiv').data(bundle_current_breadcumb));
+	$('#current_breadcrumb').attr('data-bundle-key',bundle_current_breadcumb);
+}
+
+
 
 /**
  * open the html version of the course outline, otherwise popup an error
@@ -712,5 +734,6 @@ $(document)
 							'/direct/portalManager/getDepartments/FR.json');
 					filterCatalogDescriptions();
 					bindChangeLanguage();
+					bindTabsSwitch();
 					updateLabelsFromBundle();
 				});
