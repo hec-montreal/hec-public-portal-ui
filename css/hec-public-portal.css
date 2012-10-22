@@ -734,6 +734,7 @@ a.button-microapp i:hover, a.button-option i.hover{
 }
 a.button-microapp {
 	border-radius: 4px;
+	cursor: pointer;
 }
 a.button-microapp:hover {
 	opacity: 1;
@@ -1203,6 +1204,11 @@ content: "";
 /******************************
 *******  Course Outline ******
 *****************************/
+.course-title {
+	width: 1170px;
+	margin-left: 30px;
+	float: left;
+}
 .courseOutline-main .row {
 	margin-left: 0;
 }
@@ -1221,12 +1227,14 @@ content: "";
 	font-size: 13px;
 	margin: 0px;
 }
+
 /* course outline menu */
 .courseOutline-menu {
 	background: rgba(31, 93, 154, 0.05);
 	min-height: 20px;
 	padding: 8px 0;
-	margin-bottom: 20px;
+	margin-bottom: 0px;
+	margin-top: 0px;
 	border: 1px solid #eee;
 	border: 1px solid rgba(0, 0, 0, 0.05);
 	-webkit-border-radius: 4px;
@@ -1236,17 +1244,11 @@ content: "";
      -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
           box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);	
 }
-.courseOutline-Menu ul {
-	list-style-type: none;
-	margin-bottom: 0;
-	margin-left: 0;
-	padding-left: 20px;
+.courseOutline-Menu li a {
+	color: black;
 }
-.courseOutline-Menu > ul {
-	padding-right: 15px;
-}
-.courseOutline-Menu li {
-	line-height: 25px;
+.courseOutline-menu li :hover, .selected_menuitem{
+	background-color: #B6BEC4;
 }
 
 /* les ressources */
@@ -1279,14 +1281,6 @@ div.important_body {
 	padding-left: 4px;
 	padding-right: 4px;
 }
-/*
-div.ressource-type{
-	color: #8C8A87;
-}
-div.ressource-filename{
-	color: #A0A0A0;
-}
-*/
 div.comment {
 	margin-top: 0.5em;
 	margin-bottom: 0.5em;
