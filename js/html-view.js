@@ -4,7 +4,7 @@ $(document).ready(function() {
 	$(this).bind (
 		"click",
 		function(){
-			$('div.courseOutline').hide();
+			$('div.content').hide();
 			$($(this).attr("data-target")).fadeIn('slow');
 		})
   });
