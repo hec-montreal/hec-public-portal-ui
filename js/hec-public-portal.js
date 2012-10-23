@@ -349,7 +349,6 @@ function initCourseListing(itemName, serviceList) {
 						$(selectorIdTabDiv).append(div);
 						
 						var idDiv = '#' + id;
-						bindItem(itemName, idDiv, listId, selectorIdListingDiv);
 						
 						/* We also populate the Carreer/Department filter boxes*/
 						$(selectorSearchSelectBox).append("<li data-select-option=\"" + itemName + "\" data-select-value=\"" + listItems.portalManager_collection[i].itemGroup + "\" class=\"li_select\"><a data-bundle-key=\"" + item_group_bundle_key + "\" href=\"#dropdown1\" data-toggle=\"tab\">" + listItems.portalManager_collection[i].description + "</a></li>");
@@ -607,23 +606,6 @@ function expandCatalogDescription(course) {
 					updateLabelsFromBundle();
 					return false;
 				}
-			});
-}
-
-/**
- * Bind the clik event on an item (career/department) to the function that list
- * associated catalog descriptions attributes: -itemName: carrer or department
- * -idDiv: id of the div to bind -listId: list of department/career ids associated to the div
- * -selectorIdListingDiv: selector of the div that we will populate with the
- * associated catalog descriptions -serviceGet: service that get the catalog
- * descriptions for a specific deparment/career the departments/carrer
- */
-function bindItem(itemName, idDiv, listId, selectorIdListingDiv) {
-	$(idDiv).click(
-			function() {
-				$('.menuitem').removeClass('selected_menuitem');
-				$(this).addClass('selected_menuitem');	
-				expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv);
 			});
 }
 
