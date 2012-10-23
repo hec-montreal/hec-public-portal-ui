@@ -328,6 +328,7 @@ function initCourseListing(itemName, serviceList) {
 					for ( var i = 0; i < listItems.portalManager_collection.length; i++) {
 						var listId = listItems.portalManager_collection[i].listId;
 						var id = itemName + "_" + i;
+						var href= '?' + getParameterForItem(itemName) + "=" + listItems.portalManager_collection[i].itemGroup;
 						var item_group_bundle_key = itemName + '_' + listItems.portalManager_collection[i].itemGroup;
 						var test = $('#dataDiv').data("selected_menu") ;
 						
@@ -341,8 +342,7 @@ function initCourseListing(itemName, serviceList) {
 								+ id
 								+ "\"data-toggle=\"collapse\" data-target=\""
 								+ selectorIdDatatarget
-								+ "\" href=\"#\" class=\"ui-link-inherit menuitem " + classSelected + " \" "
-								+ $('#dataDiv').data("selected_menu")
+								+ "\" href=\"" + href + "\" class=\"ui-link-inherit menuitem " + classSelected + " \" "
 								+ " data-bundle-key=\"" + item_group_bundle_key + "\">"
 								+ listItems.portalManager_collection[i].description
 								+ "</a></li>";
@@ -360,7 +360,6 @@ function initCourseListing(itemName, serviceList) {
 			});
 }
 
-
 /**
  * Return "career" if we pass "department" in parameter and vice versa
  */
@@ -373,15 +372,28 @@ function getOtherItem(itemName) {
 	}
 }	
 
+
 /**
- * Return "FR" if we pass "EN" in parameter and vice versa
+ * Return the parameter we use for the specific item ("programme" for career and "discipline" for department)
  */
-function getOtherLanguage(itemName) {	
-	if (itemName == "FR"){
-		return "EN";
+function getParameterForItem(itemName) {	
+	if (itemName == "career"){
+		return "programme";
 	}
 	else{
-		return "FR";
+		return "discipline";
+	}
+}
+
+/**
+ * Return "career" if we pass "department" in parameter and vice versa
+ */
+function getOtherItem(itemName) {	
+	if (itemName == "career"){
+		return "department";
+	}
+	else{
+		return "career";
 	}
 }
 	
