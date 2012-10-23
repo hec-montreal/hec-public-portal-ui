@@ -644,13 +644,13 @@ function filterCatalogDescriptions() {
 	var course = getUrlVars()["cours"];
 	if (typeof (department) !== 'undefined') {
 		$('#par-responsable').addClass('active');
-		$('#par-programme').removeClass('active');
 		$('#tab_responsable').addClass('active');
-		$('#tab_programme').removeClass('active');
 		setCurrentBreadCrumb('department');
 		select_menuitem('department',getUrlVars()["discipline"]);
 		expandListCatalogDescriptions('department',getUrlVars()["discipline"].replace(/[\+]+/g, ","), '#listing_department');
-	} else if (typeof (career) !== 'undefined') {	
+	} else if (typeof (career) !== 'undefined') {
+		$('#par-programme').addClass('active');
+		$('#tab_programme').addClass('active');	
 		setCurrentBreadCrumb('career');
 		select_menuitem('career',getUrlVars()["programme"]);
 		expandListCatalogDescriptions('career',getUrlVars()["programme"].replace(/[\+]+/g, ","), '#listing_career');
