@@ -216,11 +216,10 @@ function getLanguageDescription(code) {
 	
 }
 /**
- * return catalog descriptions associated with the "searchString" criteria passed in parameter 
+ * return catalog descriptions associated with the "words" passed in parameter 
  */
-function searchCatalogDescription(searchString) {
+function searchCatalogDescription(words) {
 	var cdList = new Array();
-	var words= searchString.trim().replace(/[\']+/g, " ").replace(/[ ,]+/g, ",");
 	var scope= $('#search_option_scope').attr('data-select-value');
 	var url= '/direct/catalogDescription.json?searchWords=' + words + '&searchScope=' + scope;
 	
@@ -254,27 +253,38 @@ function bindSearch() {
 			
 	/* click on the search button on the header, visible in all tabs*/		
 	$("#research_global_button").keypress(function(e) {
-        if(e.which == 13) {
-            launchSearch();
-			return false;
+        if(e.which == 13) {	
+			$(location).attr('href',getSearchHref());			
+            return false;	
         }
     });
 	$("#research_global_logo").click(function() {
-			launchSearch();
-			return false;
+			$(location).attr('href',getSearchHref());			
+            return false;	
 		});
+}
+
+/**
+ * Return the url parameter to set in order to make the search
+ */
+ function getSearchHref() {
+			var searchString = $("#research_global_button").val();
+			var words= searchString.trim().replace(/[\']+/g, " ").replace(/[ ,]+/g, "+");	
+			return	'?recherche=' + words;
 }
 
 /**
  * Launch the search with search tab content
  */
-function launchSearch() {
-			var searchText = $("#research_global_button").val();			
+function launchSearch(searchText) {
+			var textTodisplay = searchText.replace(/[\+]+/g, " ");
+			var textToSearch = searchText.replace(/[\+]+/g, ",");
+			var searchText = $("#research_global_button").val(textTodisplay);			
 			$('.menu_tab').removeClass('active');
 			$('.tab-pane').removeClass('active');
 			$('#par-recherche').addClass('active');				
 			initiateSearchFilterStatus();
-			searchCatalogDescription(searchText);	
+			searchCatalogDescription(textToSearch);	
 }
 		
 
@@ -636,6 +646,7 @@ function filterCatalogDescriptions() {
 	var department = getUrlVars()["discipline"];
 	var career = getUrlVars()["programme"];
 	var course = getUrlVars()["cours"];
+	var recherche = getUrlVars()["recherche"];
 	if (typeof (department) !== 'undefined') {
 		$('#par-responsable').addClass('active');
 		$('#tab_responsable').addClass('active');
@@ -653,6 +664,9 @@ function filterCatalogDescriptions() {
 		$('#tab_programme').removeClass('active');
 		expandCatalogDescription(course);	
 		$('#current_breadcrumb').html(course);		
+	}
+	else if (typeof (recherche) !== 'undefined') {
+		launchSearch(recherche);		
 	}
 }
 
