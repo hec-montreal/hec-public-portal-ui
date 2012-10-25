@@ -735,8 +735,10 @@ function openCourseOutlinePDF(courseId) {
 			}
 			return true;
 		},
-		error : function(jqXHR, textStatus, errorThrown) {
-			window.alert(errorThrown);
+		statusCode: {
+			404: function() {
+				window.alert($('#bundleDiv').data("message_no_co"));			
+			}
 		}
 	});
 }
