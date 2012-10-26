@@ -285,7 +285,7 @@ function bindSearch() {
  * Launch the search with search tab content
  */
 function launchSearch(searchText) {
-			var textTodisplay = searchText.replace(/[\+]+/g, " ");
+			var textTodisplay = decodeURIComponent(searchText).replace(/[\+]+/g, " ");
 			var textToSearch = searchText.replace(/[\+]+/g, ",");
 			var searchText = $("#research_global_button").val(textTodisplay);			
 			$('.menu_tab').removeClass('active');
