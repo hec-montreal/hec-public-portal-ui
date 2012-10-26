@@ -592,7 +592,7 @@ function expandCatalogDescription(course) {
 						course.requirements="<span data-bundle-key=\"label_no_requirement\"/>";
 					}
 
-					var div = "<div id=\"\" class=\"accordion-group \"><div class=\"accordion-heading row\"><div class=\"span5\"><a class=\"accordion-toggle\" data-toggle=\"collapse\" href=\"#collapseCourse\"data-parent=\"#accordionCourseSelect\">"
+					var div = "<div id=\"direct_course_div\" class=\"accordion-group \"><div class=\"accordion-heading row\"><div class=\"span5\"><a class=\"accordion-toggle\" data-toggle=\"collapse\" href=\"#collapseCourse\"data-parent=\"#accordionCourseSelect\">"
 							+ course.courseId
 							+ " - "
 							+ course.title
@@ -619,9 +619,9 @@ function expandCatalogDescription(course) {
 							+ "<i class=\"icon-file-pdf icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_pdf_course_outline\"/></a>";
 
 					div += "</div><table class=\"table\"><thead><tr><th class=\"col-co-department\" data-bundle-key=\"label_department\"></th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\"></th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\"></th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\"></th></tr></thead><tbody><tr><td>"
-							+ "<a data-itemName=\"department\" data-itemGroup=\"" + course.departmentGroup + "\" data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#discipline=" + course.departmentGroup + "\" class=\"linkItem\">"
+							+ "<a data-itemName=\"department\" data-itemGroup=\"" + course.departmentGroup + "\" data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#discipline=" + course.departmentGroup + "\" class=\"linkItemUnicCatalogDescription\">"
 							+ course.department
-							+ "</a></td><td><a data-itemName=\"career\" data-itemGroup=\"" + course.careerGroup + "\" data-bundle-key=\"" + career_group_bundle_key + "\" href=\"#programme=" + course.careerGroup + "\" class=\"linkItem\">"
+							+ "</a></td><td><a data-itemName=\"career\" data-itemGroup=\"" + course.careerGroup + "\" data-bundle-key=\"" + career_group_bundle_key + "\" href=\"#programme=" + course.careerGroup + "\" class=\"linkItemUnicCatalogDescription\">"
 							+ course.career
 							+ "</a></td><td>"
 							+ course.credits
@@ -630,7 +630,7 @@ function expandCatalogDescription(course) {
 							+ "</td></tr></tbody></table></div></div></div>";
 
 					$('#my-tab-content').append(div);	
-					bindLinkItem();					
+					bindLinkItemUnicCatalogDescription();					
 					$('#current_breadcrumb').html(course.courseId);
 					updateLabelsFromBundle();					
 					return false;
@@ -659,26 +659,51 @@ function bindItem(itemName, idDiv, itemGroup, selectorIdListingDiv) {
 }
 
 /**
- * Bind the clik event on an item (career/department) to the function that list
- * associated catalog descriptions attributes: -itemName: carrer or department
- * -idDiv: id of the div to bind -itemGroup: id of department/career regroupment associated to the div
- * -selectorIdListingDiv: selector of the div that we will populate with the
- * associated catalog descriptions -serviceGet: service that get the catalog
- * descriptions for a specific deparment/career the departments/carrer
+ * Bind the clik event on the links displayed within the catalog description information table (displaying Department/Career/Credits/Requirements)
+ * when the catalog description belong to a list of catalog description displayed by carrer/department ("By department"/"By career tab")
  */
 function bindLinkItem() {
 	$('.linkItem').click(
 			function() {
 				var itemName = $(this).attr('data-itemName');
+				var dataItemGroup = $(this).attr('data-itemGroup');
+				var href = $(this).attr('href');
+				processLinkItem(itemName, href, dataItemGroup);
+			});
+}
+
+/**
+ * Bind the clik event on the links displayed within the catalog description information table (displaying Department/Career/Credits/Requirements)
+ * when the catalog description is theonly one displayed in the page (direct access to a specific catalog description)
+ */
+function bindLinkItemUnicCatalogDescription() {
+	$('.linkItemUnicCatalogDescription').click(
+			function() {
+				var itemName = $(this).attr('data-itemName');
+				var dataItemGroup = $(this).attr('data-itemGroup');
+				var href = $(this).attr('href');
+				processLinkItem(itemName, href, dataItemGroup);
+				$('#direct_course_div').remove();
+			});
+}
+
+/**
+ * Execute the processing when we clik on a link displayed within the catalog description information table (displaying Department/Career/Credits/Requirements)
+ * attributes: 
+ * -itemName: carrer or department
+ * -href: href of the link 
+ * -data-itemGroup: id of department/career regroupment associated to the div
+ */
+function processLinkItem(itemName, href, dataItemGroup) {
 				var otherItem = getOtherItem(itemName);
 				var selectorPar = '#par-' + getParameterForItem(itemName);
 				var selectorTab = '#tab-' + getParameterForItem(itemName); 
 				var selectorOtherPar = '#par-' + getParameterForItem(otherItem);
 				var selectorOtherTab = '#tab-' + getParameterForItem(otherItem); 
 				var selectorIdListingDiv = '#' + 'listing_' + itemName;
-				expandListCatalogDescriptions(itemName, $(this).attr('data-itemGroup').replace(/[\+]+/g, ","), selectorIdListingDiv);
+				expandListCatalogDescriptions(itemName, dataItemGroup.replace(/[\+]+/g, ","), selectorIdListingDiv);
 				var selectorMenuItem = '#div_' + itemName + ' .menuitem';
-				var selectorMenuItemToSelect = selectorMenuItem + '[href=\"' +  $(this).attr('href') + '\"]';
+				var selectorMenuItemToSelect = selectorMenuItem + '[href=\"' +  href + '\"]';
 				$(selectorMenuItem).removeClass('selected_menuitem');
 				$(selectorMenuItemToSelect).addClass('selected_menuitem');
 				$(selectorOtherPar).removeClass('active');
@@ -687,8 +712,8 @@ function bindLinkItem() {
 				$(selectorTab).addClass('active');
 				var href= '#' + getParameterForItem(itemName);
 				$(location).attr('href',href);
-			});
 }
+
 
 
 /**
@@ -806,8 +831,9 @@ function filterCatalogDescriptions() {
 function bindTabsSwitch() {
 	$('#tabs li > a').click(
 			function() {
-			var itemName = $(this).attr('data-item-type');
+				var itemName = $(this).attr('data-item-type');
 				setCurrentBreadCrumb(itemName);
+				$('#direct_course_div').remove();
 				var href= '#' + getParameterForItem(itemName);
 				var selectorTabMenuSelectedItem = '#div_' + itemName + ' .menuitem.selected_menuitem';
 				var hrefSelectedMenuItem = $(selectorTabMenuSelectedItem).attr('href');
@@ -900,8 +926,7 @@ $(document)
 					initCourseListing('career',
 							'/direct/portalManager/getCareers/' + language + '.json');
 					initCourseListing('department',
-							'/direct/portalManager/getDepartments/' + language + '.json');
-										
+							'/direct/portalManager/getDepartments/' + language + '.json');										
 					filterCatalogDescriptions();
 					bindChangeLanguage();
 					bindTabsSwitch();
