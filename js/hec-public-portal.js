@@ -738,12 +738,24 @@ function isUrlTag(tag) {
  */
 function getLanguage() {
 	var language = getUrlLang();
-	var locale = 'FR';
-	if (typeof (language) !== 'undefined') {
-		locale =  language;
+	if (language.length === 2) {
+		$('#switch_language').attr('data-select-value', getOtherLanguage(language));	
+		return language;
 	}	
-	$('#switch_language').attr('data-select-value', getOtherLanguage(locale));
-	return locale;
+	else{	
+		var hrefsplitted = $(location).attr('href').split('#');
+		var contextHref = hrefsplitted[0];
+		if (typeof (hrefsplitted[1]) !== 'undefined'){
+			var anchorHref = '#' + hrefsplitted[1];
+		}
+		else{
+			var anchorHref = "";
+		}
+		var href=  contextHref + '?FR' + anchorHref;
+		$(location).attr('href',href);
+		return false;
+	}
+	
 }
 
 /**
