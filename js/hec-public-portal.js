@@ -253,14 +253,17 @@ function bindSearch() {
 	/* click on the search button on the header, visible in all tabs*/		
 	$("#research_global_button").keypress(function(e) {
         if(e.which == 13) {	
+			$('#direct_course_div').remove();
 			$(location).attr('href',getSearchHref());
-			launchSearch(getSearchWords());		
+			launchSearch(getSearchWords());				
             return false;	
         }
     });
-	$("#research_global_logo").click(function() {
+	$("#research_global_logo").click(function() {	
+			$('#direct_course_div').remove();
 			$(location).attr('href',getSearchHref());
-			launchSearch(getSearchWords());			
+			launchSearch(getSearchWords());	
+			
             return false;	
 		});
 }
