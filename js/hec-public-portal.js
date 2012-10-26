@@ -212,8 +212,7 @@ function getLanguageDescription(code) {
 	}
 	else{
 		return $('#bundleDiv').data("label_description_unknown");
-	}
-	
+	}	
 }
 /**
  * return catalog descriptions associated with the "words" passed in parameter 
@@ -254,23 +253,32 @@ function bindSearch() {
 	/* click on the search button on the header, visible in all tabs*/		
 	$("#research_global_button").keypress(function(e) {
         if(e.which == 13) {	
-			$(location).attr('href',getSearchHref());			
+			$(location).attr('href',getSearchHref());
+			launchSearch(getSearchWords());		
             return false;	
         }
     });
 	$("#research_global_logo").click(function() {
-			$(location).attr('href',getSearchHref());			
+			$(location).attr('href',getSearchHref());
+			launchSearch(getSearchWords());			
             return false;	
 		});
 }
 
 /**
- * Return the url parameter to set in order to make the search
+ * Return the search words (separed by +) that are in the input box
  */
- function getSearchHref() {
+ function getSearchWords() {
 			var searchString = $("#research_global_button").val();
 			var words= searchString.trim().replace(/[\']+/g, " ").replace(/[ ,]+/g, "+");	
-			return	'?recherche=' + words;
+			return	words;
+}
+
+/**
+ * Return the url parameter to set in order to make the search
+ */
+ function getSearchHref() {	
+			return	'#recherche=' + getSearchWords();
 }
 
 /**
@@ -284,7 +292,8 @@ function launchSearch(searchText) {
 			$('.tab-pane').removeClass('active');
 			$('#par-recherche').addClass('active');				
 			initiateSearchFilterStatus();
-			searchCatalogDescription(textToSearch);	
+			searchCatalogDescription(textToSearch);				
+			setCurrentBreadCrumb('search');
 }
 		
 
@@ -336,10 +345,10 @@ function initCourseListing(itemName, serviceList) {
 				datatype : 'json',
 				success : function(listItems) {				
 					for ( var i = 0; i < listItems.portalManager_collection.length; i++) {
-						var listId = listItems.portalManager_collection[i].listId;
+						var itemGroup = listItems.portalManager_collection[i].itemGroup;
 						var id = itemName + "_" + i;
-						var href= '?' + getParameterForItem(itemName) + "=" + listItems.portalManager_collection[i].itemGroup;
-						var item_group_bundle_key = itemName + '_' + listItems.portalManager_collection[i].itemGroup;
+						var href= '#' + getParameterForItem(itemName) + "=" + itemGroup;
+						var item_group_bundle_key = itemName + '_' + itemGroup;
 						var test = $('#dataDiv').data("selected_menu") ;
 						
 						/* If we filter items from the url (?programme=/?discipline=), we need to select it in the menu*/
@@ -359,6 +368,7 @@ function initCourseListing(itemName, serviceList) {
 						$(selectorIdTabDiv).append(div);
 						
 						var idDiv = '#' + id;
+						bindItem(itemName, idDiv, itemGroup, selectorIdListingDiv);
 						
 						/* We also populate the Carreer/Department filter boxes*/
 						$(selectorSearchSelectBox).append("<li data-select-option=\"" + itemName + "\" data-select-value=\"" + listItems.portalManager_collection[i].itemGroup + "\" class=\"li_select\"><a data-bundle-key=\"" + item_group_bundle_key + "\" href=\"#dropdown1\" data-toggle=\"tab\">" + listItems.portalManager_collection[i].description + "</a></li>");
@@ -395,14 +405,14 @@ function getParameterForItem(itemName) {
 }
 
 /**
- * Return "career" if we pass "department" in parameter and vice versa
+ * Return "FR" if we pass "EN" in parameter and vice versa
  */
-function getOtherItem(itemName) {	
-	if (itemName == "career"){
-		return "department";
+function getOtherLanguage(itemName) {	
+	if (itemName == "FR"){
+		return "EN";
 	}
 	else{
-		return "career";
+		return "FR";
 	}
 }
 	
@@ -414,7 +424,9 @@ function bindChangeLanguage() {
 	$('#switch_language').click(function() {
 	var locale = $(this).attr('data-select-value');
 	$(this).attr('data-select-value', getOtherLanguage(locale));
-	getBundle(locale);
+	var currentHref = $(location).attr('href')
+	var futurHref = currentHref.replace('?' + getOtherLanguage(locale),'?' + locale);
+	$(location).attr('href',futurHref);
 	});
 }
 
@@ -474,9 +486,10 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 					var div = "";
 
 					for ( var i = 0; i < listCourses.catalogDescription_collection.length; i++) {
-					
-						var department_group_bundle_key = 'department_' + listCourses.catalogDescription_collection[i].departmentGroup;
-						var career_group_bundle_key = 'career_' + listCourses.catalogDescription_collection[i].careerGroup;
+						var departmentGroup = listCourses.catalogDescription_collection[i].departmentGroup;
+						var careerGroup = listCourses.catalogDescription_collection[i].careerGroup;
+						var department_group_bundle_key = 'department_' + departmentGroup;
+						var career_group_bundle_key = 'career_' + careerGroup;
 						
 						if(listCourses.catalogDescription_collection[i].description==null){
 							listCourses.catalogDescription_collection[i].description="<span data-bundle-key=\"label_no_description\"/>";
@@ -532,9 +545,10 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 						div += "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\">"
 								+ "<i class=\"icon-file-pdf icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_pdf_course_outline\"/></a>";
 
-						div += "</div><table class=\"table\"><thead><tr><th class=\"col-co-department\"  data-bundle-key=\"label_department\"></th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\"></th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\"></th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\"></th></tr></thead><tbody><tr><td><a data-bundle-key=\"" + department_group_bundle_key + "\" href=\"?discipline=" + listCourses.catalogDescription_collection[i].departmentGroup + "\">"
+						div += "</div><table class=\"table\"><thead><tr><th class=\"col-co-department\"  data-bundle-key=\"label_department\"></th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\"></th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\"></th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\"></th></tr></thead><tbody><tr><td>"
+								+ "<a data-itemName=\"department\" data-itemGroup=\"" + departmentGroup + "\" data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#discipline=" + listCourses.catalogDescription_collection[i].departmentGroup + "\" class=\"linkItem\">"
 								+ listCourses.catalogDescription_collection[i].department
-								+ "</a></td><td><a data-bundle-key=\"" + career_group_bundle_key + "\" href=\"?programme=" + listCourses.catalogDescription_collection[i].careerGroup + "\">"
+								+ "</a></td><td><a data-itemName=\"career\" data-itemGroup=\"" + careerGroup + "\" data-bundle-key=\"" + career_group_bundle_key + "\" href=\"#programme=" + listCourses.catalogDescription_collection[i].careerGroup + "\" class=\"linkItem\">"
 								+ listCourses.catalogDescription_collection[i].career
 								+ "</a></td><td>"
 								+ listCourses.catalogDescription_collection[i].credits
@@ -543,13 +557,15 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 								+ "</td></tr></tbody></table></div></div></div>";
 					}
 
-					$(selectorAccordionCourseDiv).html(div);					
+					$(selectorAccordionCourseDiv).html(div);										
 					bindFilerByItem();
 					bindFilterLanguage();
+					setCurrentBreadCrumb(itemName);
 					updateLabelsFromBundle();		
 					var selectorLoader = '#loader-container_' + itemName;	
-					$(selectorAccordionCourseDiv).fadeIn('fast',function() {$(selectorLoader).fadeOut('fast')});					
+					$(selectorAccordionCourseDiv).fadeIn('fast',function() {$(selectorLoader).fadeOut('fast');bindLinkItem();});										
 					return false;
+					
 				}
 			});		
 		});		
@@ -602,9 +618,9 @@ function expandCatalogDescription(course) {
 					div += "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.courseId + "\')\">"
 							+ "<i class=\"icon-file-pdf icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_pdf_course_outline\"/></a>";
 
-					div += "</div><table class=\"table\"><thead><tr><th class=\"col-co-department\" data-bundle-key=\"label_department\"></th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\"></th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\"></th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\"></th></tr></thead><tbody><tr><td><a data-bundle-key=\"" + department_group_bundle_key + "\" href=\"?discipline=" + course.departmentGroup + "\">"
+					div += "</div><table class=\"table\"><thead><tr><th class=\"col-co-department\" data-bundle-key=\"label_department\"></th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\"></th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\"></th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\"></th></tr></thead><tbody><tr><td><a data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#discipline=" + course.departmentGroup + "\">"
 							+ course.department
-							+ "</a></td><td><a data-bundle-key=\"" + career_group_bundle_key + "\" href=\"?programme=" + course.careerGroup + "\">"
+							+ "</a></td><td><a data-bundle-key=\"" + career_group_bundle_key + "\" href=\"#programme=" + course.careerGroup + "\">"
 							+ course.career
 							+ "</a></td><td>"
 							+ course.credits
@@ -612,23 +628,76 @@ function expandCatalogDescription(course) {
 							+ course.requirements
 							+ "</td></tr></tbody></table></div></div></div>";
 
-					$('#my-tab-content').append(div);
+					$('#my-tab-content').append(div);					
+					$('#current_breadcrumb').html(course);
 					updateLabelsFromBundle();
 					return false;
 				}
 			});
 }
 
+/**
+ * Bind the clik event on an item (career/department) to the function that list
+ * associated catalog descriptions attributes: -itemName: carrer or department
+ * -idDiv: id of the div to bind -itemGroup: id of department/career regroupment associated to the div
+ * -selectorIdListingDiv: selector of the div that we will populate with the
+ * associated catalog descriptions -serviceGet: service that get the catalog
+ * descriptions for a specific deparment/career the departments/carrer
+ */
+function bindItem(itemName, idDiv, itemGroup, selectorIdListingDiv) {
+	$(idDiv).click(
+			function() {
+				expandListCatalogDescriptions(itemName, itemGroup.replace(/[\+]+/g, ","), selectorIdListingDiv);
+				var selectorMenuItem = '#div_' + itemName + ' .menuitem';
+				$(selectorMenuItem).removeClass('selected_menuitem');
+				$(this).addClass('selected_menuitem');
+				var href= '#' + getParameterForItem(itemName) + "=" + itemGroup;
+				$(location).attr('href',href);
+			});
+}
 
 /**
- * Get the GET attributes passed into the url variable. This function is called
+ * Bind the clik event on an item (career/department) to the function that list
+ * associated catalog descriptions attributes: -itemName: carrer or department
+ * -idDiv: id of the div to bind -itemGroup: id of department/career regroupment associated to the div
+ * -selectorIdListingDiv: selector of the div that we will populate with the
+ * associated catalog descriptions -serviceGet: service that get the catalog
+ * descriptions for a specific deparment/career the departments/carrer
+ */
+function bindLinkItem() {
+	$('.linkItem').click(
+			function() {
+				var itemName = $(this).attr('data-itemName');
+				var otherItem = getOtherItem(itemName);
+				var selectorPar = '#par-' + getParameterForItem(itemName);
+				var selectorTab = '#tab-' + getParameterForItem(itemName); 
+				var selectorOtherPar = '#par-' + getParameterForItem(otherItem);
+				var selectorOtherTab = '#tab-' + getParameterForItem(otherItem); 
+				var selectorIdListingDiv = '#' + 'listing_' + itemName;
+				expandListCatalogDescriptions(itemName, $(this).attr('data-itemGroup').replace(/[\+]+/g, ","), selectorIdListingDiv);
+				var selectorMenuItem = '#div_' + itemName + ' .menuitem';
+				var selectorMenuItemToSelect = selectorMenuItem + '[href=\"' +  $(this).attr('href') + '\"]';
+				$(selectorMenuItem).removeClass('selected_menuitem');
+				$(selectorMenuItemToSelect).addClass('selected_menuitem');
+				$(selectorOtherPar).removeClass('active');
+				$(selectorOtherTab).removeClass('active');
+				$(selectorPar).addClass('active');
+				$(selectorTab).addClass('active');
+				var href= '#' + getParameterForItem(itemName);
+				$(location).attr('href',href);
+			});
+}
+
+
+/**
+ * Get the "anchor" attributes passed into the url variable(ex:#discipline=INTERNAT). This function is called
  * when we used a specific url to display catalog descriptions of a specific
  * department/career/course
  */
-function getUrlVars() {
+function getUrlAnchorVars() {
 	var vars = [], hash;
 	var hashes = window.location.href.slice(
-			window.location.href.indexOf('?') + 1).split('&');
+			window.location.href.indexOf('#') + 1).split('#');
 	for ( var i = 0; i < hashes.length; i++) {
 		hash = hashes[i].split('=');
 		vars.push(hash[0]);
@@ -638,35 +707,82 @@ function getUrlVars() {
 }
 
 /**
+ * Get the "lang" variables passed into the url variable(ex:?FR). This function is called
+ * when we want to get the language to display for the portal
+ */
+function getUrlLang() {
+	var vars = [], hash;
+	var hashes = window.location.href.slice(
+	window.location.href.indexOf('?') + 1).split('#');
+	return hashes[0];
+}
+
+/**
+ * Determine if the tag is present in the url  (ex:#programme). This function is called
+ * when we used a specific url to access portal
+ */
+function isUrlTag(tag) {
+	var vars = [], hash;
+	var hashes = window.location.href.slice(
+			window.location.href.indexOf('#') + 1).split('#');
+	for ( var i = 0; i < hashes.length; i++) {
+		if (tag == hashes[i]){
+			return 1;
+		}
+	}
+	return 0;
+}
+
+/**
+ * Get the language we use for portail labels (default is french) 
+ */
+function getLanguage() {
+	var language = getUrlLang();
+	var locale = 'FR';
+	if (typeof (language) !== 'undefined') {
+		locale =  language;
+	}	
+	$('#switch_language').attr('data-select-value', getOtherLanguage(locale));
+	return locale;
+}
+
+/**
  * Check whether we used a specific url to display catalog descriptions of a
  * specific department/career/course and display catalog descriptions according
  * to the GET attributes passed into the url.
  */
 function filterCatalogDescriptions() {
-	var department = getUrlVars()["discipline"];
-	var career = getUrlVars()["programme"];
-	var course = getUrlVars()["cours"];
-	var recherche = getUrlVars()["recherche"];
+	var department = getUrlAnchorVars()["discipline"];
+	var career = getUrlAnchorVars()["programme"];
+	var course = getUrlAnchorVars()["cours"];
+	var recherche = getUrlAnchorVars()["recherche"];
 	if (typeof (department) !== 'undefined') {
-		$('#par-responsable').addClass('active');
-		$('#tab_responsable').addClass('active');
-		setCurrentBreadCrumb('department');
-		select_menuitem('department',getUrlVars()["discipline"]);
-		expandListCatalogDescriptions('department',getUrlVars()["discipline"].replace(/[\+]+/g, ","), '#listing_department');
+		$('#par-discipline').addClass('active');
+		$('#tab-discipline').addClass('active');
+		select_menuitem('department',getUrlAnchorVars()["discipline"]);
+		expandListCatalogDescriptions('department',getUrlAnchorVars()["discipline"].replace(/[\+]+/g, ","), '#listing_department');
 	} else if (typeof (career) !== 'undefined') {
 		$('#par-programme').addClass('active');
-		$('#tab_programme').addClass('active');	
-		setCurrentBreadCrumb('career');
-		select_menuitem('career',getUrlVars()["programme"]);
-		expandListCatalogDescriptions('career',getUrlVars()["programme"].replace(/[\+]+/g, ","), '#listing_career');
+		$('#tab-programme').addClass('active');	
+		select_menuitem('career',getUrlAnchorVars()["programme"]);
+		expandListCatalogDescriptions('career',getUrlAnchorVars()["programme"].replace(/[\+]+/g, ","), '#listing_career');
 	} else if (typeof (course) !== 'undefined') {
 		$('#par-programme').removeClass('active');
-		$('#tab_programme').removeClass('active');
-		expandCatalogDescription(course);	
-		$('#current_breadcrumb').html(course);		
+		$('#tab-programme').removeClass('active');
+		expandCatalogDescription(course);			
 	}
 	else if (typeof (recherche) !== 'undefined') {
 		launchSearch(recherche);		
+	}
+	else if (isUrlTag("discipline")) {
+		$('#tab-discipline').addClass('active');
+		$('#par-discipline').addClass('active');
+		setCurrentBreadCrumb('department');		
+	}
+	else if (isUrlTag("programme")) {
+		$('#tab-programme').addClass('active');	
+		$('#par-programme').addClass('active');			
+		setCurrentBreadCrumb('career');
 	}
 }
 
@@ -676,7 +792,17 @@ function filterCatalogDescriptions() {
 function bindTabsSwitch() {
 	$('[data-toggle="tab"]').click(
 			function() {
-				setCurrentBreadCrumb($(this).attr('data-item-type'));
+			var itemName = $(this).attr('data-item-type');
+				setCurrentBreadCrumb(itemName);
+				var href= '#' + getParameterForItem(itemName);
+				var selectorTabMenuSelectedItem = '#div_' + itemName + ' .menuitem.selected_menuitem';
+				var hrefSelectedMenuItem = $(selectorTabMenuSelectedItem).attr('href');
+				
+				if (typeof (hrefSelectedMenuItem) !== 'undefined') {
+					href = hrefSelectedMenuItem;
+				}
+				
+				$(location).attr('href',href);
 			});
 }
 
@@ -750,16 +876,17 @@ function openCourseOutlinePDF(courseId) {
 $(document)
 		.ready(
 				function() {			
-					
+					var language = getLanguage();
 					$('#tabs').tab();
 					$('.collapse').collapse('toggle');
-					$('.dropdown-toggle').dropdown();									
-					getBundle('FR');
+					$('.dropdown-toggle').dropdown();
+					
+					getBundle(language);
 					bindSearch();		
 					initCourseListing('career',
-							'/direct/portalManager/getCareers/FR.json');
+							'/direct/portalManager/getCareers/' + language + '.json');
 					initCourseListing('department',
-							'/direct/portalManager/getDepartments/FR.json');
+							'/direct/portalManager/getDepartments/' + language + '.json');
 										
 					filterCatalogDescriptions();
 					bindChangeLanguage();
