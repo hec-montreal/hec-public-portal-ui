@@ -631,7 +631,7 @@ function expandCatalogDescription(course) {
 
 					$('#my-tab-content').append(div);	
 					bindLinkItem();					
-					$('#current_breadcrumb').html(course);
+					$('#current_breadcrumb').html(course.courseId);
 					updateLabelsFromBundle();					
 					return false;
 				}
