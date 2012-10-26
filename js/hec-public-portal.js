@@ -802,7 +802,7 @@ function filterCatalogDescriptions() {
  * Bind click event on tas in order to change the breadcumb value when we switch tabs
  */
 function bindTabsSwitch() {
-	$('[data-toggle="tab"]').click(
+	$('#tabs li > a').click(
 			function() {
 			var itemName = $(this).attr('data-item-type');
 				setCurrentBreadCrumb(itemName);
