@@ -565,6 +565,7 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 					$(selectorAccordionCourseDiv).html(div);										
 					bindFilerByItem();
 					bindFilterLanguage();
+					bindCollapseProcessing();
 					setCurrentBreadCrumb(itemName);
 					updateLabelsFromBundle();		
 					var selectorLoader = '#loader-container_' + itemName;	
@@ -884,7 +885,23 @@ function bindTabsSwitch() {
 			});
 }
 
-
+/**
+ * Bind the click event on the accordion header (in order to collapse course informations box) to the processing that changes the css of the collapsed row
+ */
+function bindCollapseProcessing() {
+	$('.accordion-heading.row').click(
+			function() {				
+				if ($(this).next().hasClass('in')){				
+					$(this).parent().removeClass("collapsedRow");
+					$(this).removeClass("collapsedRow");
+				}
+				else{		
+					$(this).parents('.span9').find('.collapsedRow').removeClass("collapsedRow");
+					$(this).parent().addClass("collapsedRow");
+					$(this).addClass("collapsedRow");
+				}
+			});
+}
 
 /**
  * higlight in the menu tab the career/department that is currently displayed
