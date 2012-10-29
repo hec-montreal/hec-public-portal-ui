@@ -639,6 +639,18 @@ function expandCatalogDescription(course) {
 					$('#current_breadcrumb').html(course.courseId);
 					updateLabelsFromBundle();					
 					return false;
+				},
+				statusCode: {
+					404: function() {
+						var div = "<div id=\"direct_course_div\" class=\"accordion-group \"><div class=\"accordion-heading row\"><div class=\"span5\"><a class=\"accordion-toggle\" style=\"cursor:auto\">"
+							+ $('#bundleDiv').data("label_no_description")
+							+ "</a></div></div></div>";
+						
+						$('#my-tab-content').append(div);	
+						$('#current_breadcrumb').html(course);
+						updateLabelsFromBundle();					
+						return false;
+					}
 				}
 			});
 }
