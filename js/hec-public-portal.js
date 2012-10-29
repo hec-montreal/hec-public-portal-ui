@@ -651,14 +651,30 @@ function expandCatalogDescription(course) {
  */
 function bindItem(itemName, idDiv, itemGroup, selectorIdListingDiv) {
 	$(idDiv).click(
-			function() {
+			function() {								
+				initiateFilter(itemName);
 				expandListCatalogDescriptions(itemName, itemGroup.replace(/[\+]+/g, ","), selectorIdListingDiv);
 				var selectorMenuItem = '#div_' + itemName + ' .menuitem';
 				$(selectorMenuItem).removeClass('selected_menuitem');
 				$(this).addClass('selected_menuitem');
 				var href= '#' + getParameterForItem(itemName) + "=" + itemGroup;
-				$(location).attr('href',href);
+				$(location).attr('href',href); 
 			});
+}
+
+/**
+ * Reinitiate the filter (used when we click on a menu link).
+ * parameter: -itemName: carrer or department
+ */	
+function initiateFilter(itemName) {	
+	var selectorLangFilter = '#filter_by_lang_for_tab_' + itemName;
+	var selectorItemFilter = '#filter_by_' + getOtherItem(itemName);
+	var selectorLangFilterSpan = selectorLangFilter + ' span';
+	var selectorItemFilterSpan = selectorItemFilter + ' span';		
+	$(selectorLangFilter).attr('data-select-value', '*');
+	$(selectorItemFilter).attr('data-select-value', '*');
+	$(selectorLangFilterSpan).attr('data-bundle-key', 'button_filter_language');
+	$(selectorItemFilterSpan).attr('data-bundle-key', 'button_filter_for_' + itemName);
 }
 
 /**
