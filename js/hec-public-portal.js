@@ -184,8 +184,9 @@ function displayResultCatalogDescriptionSearch(cdList) {
 		var language_bundle_key = 'label_description_' + cdList[i].language.toLowerCase();
 						
 		var cdRow = "<tr class=\"search_row\" data-career=\"" + cdList[i].careerGroup + "\" data-department=\"" + cdList[i].departmentGroup + "\" data-language=\"" + cdList[i].language + "\">";
-		cdRow += "<td class=\"col-sigle\">" + cdList[i].courseid + "</td>";
-		cdRow += "<td class=\"col-nom\">" + cdList[i].coursetitle + "</td>";
+		/* Modif temp JIRA178 cdRow += "<td class=\"col-sigle\">" + cdList[i].courseid + "</td>";
+		cdRow += "<td class=\"col-nom\">" + cdList[i].coursetitle + "</td>"; */
+		cdRow += "<td class=\"col-course\">" + cdList[i].course + "</td>";
 		cdRow += "<td class=\"col-co\" style=\"text-align:center\"><div class=\"btn-toolbar\">"
 		//Button HTML
 		 + "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + cdList[i].courseid + "\')\"><i class=\"icon-star icon_button_img\"/>  <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\"/></a>"
@@ -230,8 +231,9 @@ function searchCatalogDescription(words) {
 					for ( var i = 0; i < listCourses.catalogDescription_collection.length; i++) {
 					
 						var cours= new Array();
-						cours["courseid"] = listCourses.catalogDescription_collection[i].courseId;
-						cours["coursetitle"] = listCourses.catalogDescription_collection[i].title;
+						/* Modif temp JIRA178  cours["courseid"] = listCourses.catalogDescription_collection[i].courseId;
+						cours["coursetitle"] = listCourses.catalogDescription_collection[i].title; */
+						cours["course"] = listCourses.catalogDescription_collection[i].courseId + " - " + listCourses.catalogDescription_collection[i].title;
 						cours["career"] = listCourses.catalogDescription_collection[i].career;
 						cours["department"] = listCourses.catalogDescription_collection[i].department;
 						cours["careerGroup"] = listCourses.catalogDescription_collection[i].careerGroup;
