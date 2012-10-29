@@ -137,18 +137,7 @@ margin: 0 0 9px 25px;
 #navbar-search {
   position: relative;
   float: right;
-  margin-top: 6px;
-  margin-bottom: 0;
-}
-
-/***** search bar ***/
-#research_global_button {
-  padding: 4px 9px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 13px;
-  font-weight: normal;
-  line-height: 1;
-  color: rgb(255, 255, 255);
+  margin-top: 8px;
   background-color: rgb(208, 209, 211);
   border:none;
   -webkit-transition: none;
@@ -156,31 +145,52 @@ margin: 0 0 9px 25px;
   -ms-transition: none;
   -o-transition: none;
   transition: none;
-  margin-bottom: 0;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
-  border-radius: 8px;
+  border-radius: 8px;  
+  height:22px;
 }
 
-/***** search bar placeholder (text displayed when empty) for chrome and firefox ***/
-#research_global_button:-moz-placeholder {  color: rgb(255, 255, 255);}
-#research_global_button::-webkit-input-placeholder {  color: rgb(255, 255, 255);}
+/***** search bar ***/
+#research_global_button {
+  display:inline-block;
+  background-color: transparent;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  color: rgb(255, 255, 255);  
+  border: none;
+  margin-bottom:35px;
+  margin-left:5px;
+}
 
 /***** search bar when focus or mouse over ***/
-#research_global_button:hover , #research_global_button:focus {
+#navbar-search:hover , #navbar-search:focus {
   background-color: rgba(208, 209, 211,0.2);
+  color: rgb(255, 255, 255);  
 }
-#research_global_button:focus {  
+#navbar-search:focus, #research_global_button:focus {  
   color: #333333;
 }
 
 /***** search bar logo (fire search when cliked)***/
 #research_global_logo{
-	position:relative;
-	left:5px;
-	padding-top: 12px;
-	padding-bottom: 0px;
+	display:inline-block;
+	height:16px;
 }
+
+/***** search bar logo (fire search when cliked)***/
+#research_global_logo a{	
+	background-image: url("../plugins/bootstrap-2.0.3/img/glyphicons-halflings-white.png");	
+	margin-top:4px;
+	margin-right:6px;
+}
+
+#research_global_logo a:hover{
+	background-image: url("../plugins/bootstrap-2.0.3/img/glyphicons-halflings.png");
+}
+
+
 
 /***** div that contains the dropdown filtering options within search datatable headers(career, department or language)***/
 .search_options{
