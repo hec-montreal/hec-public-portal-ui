@@ -523,11 +523,11 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 								+ "</a><div class=\"toolsWrapper\">";
 						
 						//Button HTML
-						div += "<a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" onMouseDown=\"return openCourseOutlineHTML(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\">"
+						div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_html_course_outline") + "\" class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" onMouseDown=\"return openCourseOutlineHTML(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\">"
 								+ "<i class=\"icon-star icon_header_img\"></i></a>";
 						
 						// Button PDF
-						div += "<a href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\" "
+						div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_pdf_course_outline") + "\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\" "
 								+ "data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf icon_header_img\"></i></a>";
 
 						div += "</div></div></div><div id=\"collapseCourse"
@@ -602,10 +602,10 @@ function expandCatalogDescription(course) {
 							+ "</a><div class=\"toolsWrapper\">";
 
 					//Button HTML
-					div += "<a class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.courseIf + "\')\"><i class=\"icon-star icon_header_img\"></i></a>";
+					div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_html_course_outline") + "\" class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.courseIf + "\')\"><i class=\"icon-star icon_header_img\"></i></a>";
 							
 					//Button PDF
-					div += "<a href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.courseId + "\')\" "
+					div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_pdf_course_outline") + "\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.courseId + "\')\" "
 							+ "data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf\"></i></a>";
 
 					div += "<a class=\"icon-button-right button-microapp\" data-original-title=\"cours archivé\" data-toggle=\"\" href=\"archive.html\"></a></div></div></div><div id=\"collapseCourse\" class=\"accordion-body in collapse\"><div class=\"accordion-inner\"><h4 data-bundle-key=\"label_description\"></h4>"
@@ -793,15 +793,20 @@ function getLanguage() {
 		var contextHref = hrefsplitted[0];
 		if (typeof (hrefsplitted[1]) !== 'undefined'){
 			var anchorHref = '#' + hrefsplitted[1];
+			var href=  contextHref + '?FR' + anchorHref;
+			$(location).attr('href',href);
+			return false;
+		}
+		else if (contextHref.indexOf("?") === -1){
+			var anchorHref = "";
+			var href=  contextHref + '?FR' + anchorHref;
+			$(location).attr('href',href);
+			return false;
 		}
 		else{
-			var anchorHref = "";
+			return false;
 		}
-		var href=  contextHref + '?FR' + anchorHref;
-		$(location).attr('href',href);
-		return false;
 	}
-	
 }
 
 /**
