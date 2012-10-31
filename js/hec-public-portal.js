@@ -189,10 +189,10 @@ function displayResultCatalogDescriptionSearch(cdList) {
 		cdRow += "<td class=\"col-course\">" + cdList[i].course + "</td>";
 		cdRow += "<td class=\"col-co\" style=\"text-align:center\"><div class=\"btn-toolbar\">"
 		//Button HTML
-		 + "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + cdList[i].courseid + "\')\"><i class=\"icon-star icon_button_img\"/>  <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\"/></a>"
+		 + "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + cdList[i].courseid + "\')\"><i class=\"icon-star icon_button_img\"></i></a>"
 		//Button PDF
 		+ "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + cdList[i].courseid + "\')\">"
-		+ "<i class=\"icon-file-pdf icon_button_img\"></i> <span class=\"icon_button_label\"/></a>";
+		+ "<i class=\"icon-file-pdf icon_button_img\"></i></a>";
 		+ "<a href=\"#\" class=\"button-microapp\" data-original-title=\"\"><i class=\"icon-file-pdf\"></i></a></div></td>";		
 		cdRow += "<td class=\"col-department\" data-bundle-key=\"" + department_group_bundle_key + "\">" + cdList[i].department + "</td>";
 		cdRow += "<td class=\"col-career\" data-bundle-key=\"" + career_group_bundle_key + "\">" + cdList[i].career + "</td>";	
@@ -200,6 +200,9 @@ function displayResultCatalogDescriptionSearch(cdList) {
 		$('#searchTable tbody').append(cdRow);
 	}
 		$('#loader-container_search').fadeOut('fast');
+		 if ($.browser.mozilla) {
+    $('#searchTable').addClass("isfirefox");
+  }
 }
 
 /**
@@ -274,8 +277,8 @@ function bindSearch() {
  * Return the search words (separed by +) that are in the input box
  */
  function getSearchWords() {
-			var searchString = $("#research_global_button").val();
-			var words= searchString.trim().replace(/[\']+/g, " ").replace(/[ ,]+/g, "+");	
+			var searchString = $.trim($("#research_global_button").val());
+			var words= searchString.replace(/[\']+/g, " ").replace(/[ ,]+/g, "+");	
 			return	words;
 }
 
@@ -332,15 +335,15 @@ function initCourseListing(itemName, serviceList) {
 			+ idListingDiv
 			+ "\" class=\" in \" style=\"display: none; \">"
 			+ "<div class=\"filter_bar  navbar\"><div class=\"btn-group \" style=\"\"><div class=\"dropdown\"><a href=\"#\"  data-toggle=\"dropdown\" class=\"dropdown-toggle\"  id=\"filter_by_" + getOtherItem(itemName) + "\" data-select-value=\"*\">"
-			+ "<span data-bundle-key=\"button_filter_for_" + itemName + "\"/><b class=\"caret\"></a></b><ul class=\"dropdown-menu pull-right\" id=\"dropdown_filter_" + itemName + "\">"
+			+ "<span data-bundle-key=\"button_filter_for_" + itemName + "\"></span><b class=\"caret\"></b></a><ul class=\"dropdown-menu pull-right\" id=\"dropdown_filter_" + itemName + "\">"
 			+ "<li data-select-option=\"" + getOtherItem(itemName) + "\" data-select-value=\"*\" class=\"li_filter_list_by_item active\"><a href=\"#dropdown1\" data-toggle=\"tab\" data-bundle-key=\"button_filter_all\"></a></li>"					
 			+"</ul></div></div>"
-			+ "<div class=\"btn-group \" style=\"\"><div class=\"dropdown\"><a href=\"#\"  data-toggle=\"dropdown\" class=\"dropdown-toggle \" id=\"filter_by_lang_for_tab_" + itemName + "\" data-select-value=\"*\"><span data-bundle-key=\"button_filter_language\"/><b class=\"caret\"></b></a><ul class=\"dropdown-menu\">"
+			+ "<div class=\"btn-group \" style=\"\"><div class=\"dropdown\"><a href=\"#\"  data-toggle=\"dropdown\" class=\"dropdown-toggle \" id=\"filter_by_lang_for_tab_" + itemName + "\" data-select-value=\"*\"><span data-bundle-key=\"button_filter_language\"></span><b class=\"caret\"></b></a><ul class=\"dropdown-menu\">"
 			+ "<li class=\"li_filter_by_language active\" data-select-value=\"*\" data-select-option=\"" + itemName + "\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"button_filter_all\"></a></li>"
 			+ "<li class=\"li_filter_by_language\" data-select-value=\"FR\" data-select-option=\"" + itemName + "\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"button_filter_fr\"></a></li>"
 			+ "<li class=\"li_filter_by_language\" data-select-value=\"AN\" data-select-option=\"" + itemName + "\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"button_filter_en\"></a></li>"
 			+ "<li class=\"li_filter_by_language\" data-select-value=\"ES\" data-select-option=\"" + itemName + "\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"button_filter_es\"></a></li>"
-			+ "</ul></div></div></div><!--  courses --><div class=\"accordion \" id=\"accordionCourseSelect_"	+ itemName + "\"></div><!-- loader --><div id=\"loader-container_" + itemName + "\" class=\"loader-container\"><span data-bundle-key=\"message_loading\"/><i class=\"icon-loader\"></i></div>";
+			+ "</ul></div></div></div><!--  courses --><div class=\"accordion \" id=\"accordionCourseSelect_"	+ itemName + "\"></div><!-- loader --><div id=\"loader-container_" + itemName + "\" class=\"loader-container\"><span data-bundle-key=\"message_loading\"></span><i class=\"icon-loader\"></i></div>";
 			
 	$(selectorIdMainDiv).html(div);
 
@@ -497,10 +500,10 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 						var career_group_bundle_key = 'career_' + careerGroup;
 						
 						if(listCourses.catalogDescription_collection[i].description==null){
-							listCourses.catalogDescription_collection[i].description="<span data-bundle-key=\"label_no_description\"/>";
+							listCourses.catalogDescription_collection[i].description="<span data-bundle-key=\"label_no_description\"></span>";
 						}
 						if(listCourses.catalogDescription_collection[i].requirements==null){
-							listCourses.catalogDescription_collection[i].requirements="<span data-bundle-key=\"label_no_requirement\"/>";
+							listCourses.catalogDescription_collection[i].requirements="<span data-bundle-key=\"label_no_requirement\"></span>";
 						}									
 									
 						div += "<div id=\"\" data-courseId=\""
@@ -544,11 +547,11 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 								+ "<div class=\"btn-toolbar\">";
 								
 						//Button HTML
-						div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\"><i class=\"icon-star icon_button_img\"/>  <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\"/></a>";
+						div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\"><i class=\"icon-star icon_button_img\"></i>  <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\"></span></a>";
 
 						//Button PDF
 						div += "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\">"
-								+ "<i class=\"icon-file-pdf icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_pdf_course_outline\"/></a>";
+								+ "<i class=\"icon-file-pdf icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_pdf_course_outline\"></span></a>";
 
 						div += "</div><table class=\"table\"><thead><tr><th class=\"col-co-department\"  data-bundle-key=\"label_department\"></th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\"></th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\"></th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\"></th></tr></thead><tbody><tr><td>"
 								+ "<a data-itemName=\"department\" data-itemGroup=\"" + departmentGroup + "\" data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#discipline=" + listCourses.catalogDescription_collection[i].departmentGroup + "\" class=\"linkItem\">"
@@ -592,10 +595,10 @@ function expandCatalogDescription(course) {
 					var career_group_bundle_key = 'career_' + course.careerGroup;						
 					
 					if(course.description==null){
-						course.description="<span data-bundle-key=\"label_no_description\"/>";
+						course.description="<span data-bundle-key=\"label_no_description\"></span>";
 					}
 					if(course.requirements==null){
-						course.requirements="<span data-bundle-key=\"label_no_requirement\"/>";
+						course.requirements="<span data-bundle-key=\"label_no_requirement\"></span>";
 					}
 
 					var div = "<div id=\"direct_course_div\" class=\"accordion-group \"><div class=\"accordion-heading row\"><div class=\"span5\"><a class=\"accordion-toggle\" data-toggle=\"collapse\" href=\"#collapseCourse\"data-parent=\"#accordionCourseSelect\">"
@@ -618,11 +621,11 @@ function expandCatalogDescription(course) {
 							+ "<div class=\"btn-toolbar\">";
 
 					// Button HTML
-					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.courseIf + "\')\"><i class=\"icon-star icon_button_img\"/> <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\"/></a>";
+					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.courseIf + "\')\"><i class=\"icon-star icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\"></span></a>";
 
 					// Button PDF
 					div += "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.courseId + "\')\">"
-							+ "<i class=\"icon-file-pdf icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_pdf_course_outline\"/></a>";
+							+ "<i class=\"icon-file-pdf icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_pdf_course_outline\"></span></a>";
 
 					div += "</div><table class=\"table\"><thead><tr><th class=\"col-co-department\" data-bundle-key=\"label_department\"></th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\"></th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\"></th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\"></th></tr></thead><tbody><tr><td>"
 							+ "<a data-itemName=\"department\" data-itemGroup=\"" + course.departmentGroup + "\" data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#discipline=" + course.departmentGroup + "\" class=\"linkItemUnicCatalogDescription\">"
