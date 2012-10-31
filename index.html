@@ -2,21 +2,25 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>HEC Montréal - Zone Cours 2 /Public</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
+	<!--[if lt IE 9]>
+   <script>
+      document.createElement('header');
+      document.createElement('nav');
+      document.createElement('section');
+      document.createElement('article');
+      document.createElement('aside');
+      document.createElement('footer');
+   </script>
+<![endif]-->
     
 	<link href="css/hec-public-portal.css" rel="stylesheet">    
 
-
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="plugins/html5shiv.js"></script>
-      <link rel="stylesheet" type="text/css" href="css/hec-public-portal-ie8.css" />
-    <![endif]-->
 
     <!-- Le fav and touch icons -->
     <link rel="shortcut icon" href="../assets/ico/favicon.ico">
@@ -35,20 +39,20 @@
       <div class="navbar-inner">
 		<div class="container">
 			<a id="brand" href="#">
-				<img style="border: none" src="images/HECMontreal_bleu-med.png" alt="HECMontreal_bleu-med" />
+				<img style="border: none" src="images/HECMontreal_bleu-med.png" alt="HECMontreal_bleu-med"></img>
 			</a>			
 			<!--.nav-collapse -->
 			<div class="nav-collapse">
 				<ul class="nav">	
 					<!-- use for i18n -->
-					<div id ="bundleDiv"/>
+					<div id ="bundleDiv"></div>
 					<!-- use to store other data -->
-					<div id ="dataDiv"/>
+					<div id ="dataDiv"></div>
 				</ul>
 				<ul class="nav pull-right">
 					<li class="dropdown" id="menu1">
 						<a id="switch_language" class="dropdown-toggle" data-toggle="dropdown" href="#menu1" data-select-value="EN">
-							<span class="icon-flag icon-white "></span> <span data-bundle-key="label_portal_language"/>
+							<span class="icon-flag icon-white "></span> <span data-bundle-key="label_portal_language"></span>
 						</a>
 					</li>
 					<li>
@@ -112,8 +116,8 @@
 								<input type="hidden" id="search_option_scope" data-select-value="title,description">
 								
 						<div class="navbar search-toolbar">							
-						<table class="table table-striped tablesorter"  id="searchTable">
-							<thead>
+						<table  id="searchTable">
+							 <thead>
 								<tr>
 						            <!-- Modif temp JIRA178 <th class="col-sigle">
 								        <span class="span_label_static" data-bundle-key="label_course"></span>
@@ -128,53 +132,59 @@
 								        <span class="span_label_static" data-bundle-key="label_course_outline"></span>
 								    </th>
 						            <th class="col-department">
-										<span class="span_label" data-bundle-key="label_department"></span>
-								        <div class="nav search_options">
-										  <div class="dropdown" id="dropdown_department">
-											<a  href="#" class="dropdown-toggle search_options_label" data-toggle="dropdown">
-												  <span class="span_filter" id="search_option_department" data-select-value="*" data-bundle-key="label_filter_all_department"></span>
-												  <b class="caret"></b>
-											</a>
-											<ul id="dropdown-menu_department" class="dropdown-menu pull-right">
-												<li data-select-option="department" data-select-value="*" class="li_select active"><a href="#dropdown1" data-toggle="tab" data-bundle-key="label_filter_all_department"></a></li>
-											</ul>
-										  </div>
-										</div>	
+										<div class="div_column_filterable">
+											<span class="span_label" data-bundle-key="label_department"></span>
+											<div class="nav search_options">
+											  <div class="dropdown" id="dropdown_department">
+												<a  href="#" class="dropdown-toggle search_options_label" data-toggle="dropdown">
+													  <span class="span_filter" id="search_option_department" data-select-value="*" data-bundle-key="label_filter_all_department"></span>
+													  <b class="caret"></b>
+												</a>
+												<ul id="dropdown-menu_department" class="dropdown-menu pull-right">
+													<li data-select-option="department" data-select-value="*" class="li_select active"><a href="#dropdown1" data-toggle="tab" data-bundle-key="label_filter_all_department"></a></li>
+												</ul>
+											  </div>
+											</div>
+										</div>											
 								    </th>
 									 <th class="col-career">
-										<span class="span_label" data-bundle-key="label_academic_career"></span>
-								        <div class="nav search_options">
-										  <div class="dropdown" id="dropdown_career">
-											<a  href="#" class="dropdown-toggle search_options_label" data-toggle="dropdown">
-												  <span class="span_filter" id="search_option_career" data-select-value="*" data-bundle-key="label_filter_all_career"></span>
-												  <b class="caret"></b>
-											</a>
-											<ul id="dropdown-menu_career" class="dropdown-menu pull-right">
-												<li data-select-option="career" data-select-value="*" class="li_select active"><a href="#dropdown1" data-toggle="tab" data-bundle-key="label_filter_all_career"></a></li>
-											</ul>
-										  </div>
-										</div>	
+										<div class="div_column_filterable">
+											<span class="span_label" data-bundle-key="label_academic_career"></span>
+											<div class="nav search_options">
+											  <div class="dropdown" id="dropdown_career">
+												<a  href="#" class="dropdown-toggle search_options_label" data-toggle="dropdown">
+													  <span class="span_filter" id="search_option_career" data-select-value="*" data-bundle-key="label_filter_all_career"></span>
+													  <b class="caret"></b>
+												</a>
+												<ul id="dropdown-menu_career" class="dropdown-menu pull-right">
+													<li data-select-option="career" data-select-value="*" class="li_select active"><a href="#dropdown1" data-toggle="tab" data-bundle-key="label_filter_all_career"></a></li>
+												</ul>
+											  </div>
+											</div>
+										</div>
 								    </th>
 									<th class="col-lang">
-										<span class="span_label" data-bundle-key="label_language"></span>
-								        <div class="nav search_options">
-										  <div class="dropdown" id="dropdown_language">
-											<a  href="#" class="dropdown-toggle search_options_label" data-toggle="dropdown">
-												  <span class="span_filter" id="search_option_language" data-select-value="*" data-bundle-key="label_filter_all_language"></span>
-												  <b class="caret"></b>
-											</a>
-											<ul id="dropdown-menu_language" class="dropdown-menu pull-right">
-												<li class="li_select active" data-select-option="language" data-select-value="*"><a href="#dropdown2" data-toggle="tab"  data-bundle-key="label_filter_all_language"></a></li>
-												<li class="li_select" data-select-option="language" data-select-value="FR"><a href="#dropdown2" data-toggle="tab"  data-bundle-key="button_filter_fr"></a></li>
-												<li class="li_select" data-select-option="language" data-select-value="AN"><a href="#dropdown2" data-toggle="tab"  data-bundle-key="button_filter_en"></a></li>
-												<li class="li_select" data-select-option="language" data-select-value="ES"><a href="#dropdown2" data-toggle="tab"  data-bundle-key="button_filter_es"></a></li>			
-											</ul>
-										  </div>
-										</div>	
+										<div class="div_column_filterable">
+											<span class="span_label" data-bundle-key="label_language"></span>
+											<div class="nav search_options">
+											  <div class="dropdown" id="dropdown_language">
+												<a  href="#" class="dropdown-toggle search_options_label" data-toggle="dropdown">
+													  <span class="span_filter" id="search_option_language" data-select-value="*" data-bundle-key="label_filter_all_language"></span>
+													  <b class="caret"></b>
+												</a>
+												<ul id="dropdown-menu_language" class="dropdown-menu pull-right">
+													<li class="li_select active" data-select-option="language" data-select-value="*"><a href="#dropdown2" data-toggle="tab"  data-bundle-key="label_filter_all_language"></a></li>
+													<li class="li_select" data-select-option="language" data-select-value="FR"><a href="#dropdown2" data-toggle="tab"  data-bundle-key="button_filter_fr"></a></li>
+													<li class="li_select" data-select-option="language" data-select-value="AN"><a href="#dropdown2" data-toggle="tab"  data-bundle-key="button_filter_en"></a></li>
+													<li class="li_select" data-select-option="language" data-select-value="ES"><a href="#dropdown2" data-toggle="tab"  data-bundle-key="button_filter_es"></a></li>			
+												</ul>
+											  </div>
+											</div>
+										</div>
 								    </th>
 						        </tr>
 						    </thead>
-					        <tbody/>
+					        <tbody></tbody>
 						</table>
 						<!-- loader --><div id="loader-container_search" class="loader-container"><span data-bundle-key="message_loading"></span><i class="icon-loader"></i></div>
 					</div>
