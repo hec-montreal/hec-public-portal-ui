@@ -749,6 +749,7 @@ function processLinkItem(itemName, href, dataItemGroup) {
 				$(selectorTab).addClass('active');
 				var href= '#' + getParameterForItem(itemName);
 				$(location).attr('href',href);
+				$('html, body').animate({ scrollTop: 0 }, 0);
 }
 
 
@@ -892,16 +893,16 @@ function bindTabsSwitch() {
  * Bind the click event on the accordion header (in order to collapse course informations box) to the processing that changes the css of the collapsed row
  */
 function bindCollapseProcessing() {
-	$('.accordion-heading.row').click(
+	$('.accordion-heading.row > .span5 > .accordion-toggle').click(
 			function() {				
-				if ($(this).next().hasClass('in')){				
+				if ($(this).parent().parent().next().hasClass('in')){				
+					$(this).parent().parent().removeClass("collapsedRow");
 					$(this).parent().removeClass("collapsedRow");
-					$(this).removeClass("collapsedRow");
 				}
 				else{		
 					$(this).parents('.span9').find('.collapsedRow').removeClass("collapsedRow");
+					$(this).parent().parent().addClass("collapsedRow");
 					$(this).parent().addClass("collapsedRow");
-					$(this).addClass("collapsedRow");
 				}
 			});
 }
