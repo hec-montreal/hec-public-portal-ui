@@ -462,7 +462,6 @@ float: left;
 
 .navbar {
 overflow: visible;
-margin-bottom: 18px;
 }
 /***** list (ul tag with "nav" class) under a navbar ***/
 .navbar .nav {
