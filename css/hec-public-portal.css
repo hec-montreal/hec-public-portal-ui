@@ -1205,9 +1205,22 @@ display: table;
 content: "";
 }
 
+/**************************************
+ *******  Ajax Failure error div ******
+ **************************************/
+#error {
+	border: 1px solid red;
+	color: red;
+	padding: 3em;
+	text-align: center;
+	
+	position: relative;
+	top: 200px;
+}
+
 /******************************
-*******  Course Outline ******
-*****************************/
+ *******  Course Outline ******
+ *****************************/
 .courseOutline #HEC-header {
 	border-bottom: 1px solid black;
 }

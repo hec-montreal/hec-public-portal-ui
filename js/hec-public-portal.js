@@ -344,8 +344,7 @@ function initCourseListing(itemName, serviceList) {
 			
 	$(selectorIdMainDiv).html(div);
 
-	$
-			.ajax({
+	$.ajax({
 				url : serviceList,
 				datatype : 'json',
 				success : function(listItems) {				
@@ -354,7 +353,6 @@ function initCourseListing(itemName, serviceList) {
 						var id = itemName + "_" + i;
 						var href= '#' + getParameterForItem(itemName) + "=" + itemGroup;
 						var item_group_bundle_key = itemName + '_' + itemGroup;
-						var test = $('#dataDiv').data("selected_menu") ;
 						
 						/* If we filter items from the url (?programme=/?discipline=), we need to select it in the menu*/
 						var classSelected='';
@@ -838,13 +836,13 @@ function filterCatalogDescriptions() {
 	if (typeof (department) !== 'undefined') {
 		$('#par-discipline').addClass('active');
 		$('#tab-discipline').addClass('active');
-		select_menuitem('department',getUrlAnchorVars()["discipline"]);
-		expandListCatalogDescriptions('department',getUrlAnchorVars()["discipline"].replace(/[\+]+/g, ","), '#listing_department');
+		select_menuitem('department', department);
+		expandListCatalogDescriptions('department',department.replace(/[\+]+/g, ","), '#listing_department');
 	} else if (typeof (career) !== 'undefined') {
 		$('#par-programme').addClass('active');
 		$('#tab-programme').addClass('active');	
-		select_menuitem('career',getUrlAnchorVars()["programme"]);
-		expandListCatalogDescriptions('career',getUrlAnchorVars()["programme"].replace(/[\+]+/g, ","), '#listing_career');
+		select_menuitem('career', career);
+		expandListCatalogDescriptions('career', career.replace(/[\+]+/g, ","), '#listing_career');
 	} else if (typeof (course) !== 'undefined') {
 		$('#par-programme').removeClass('active');
 		$('#tab-programme').removeClass('active');
@@ -924,6 +922,7 @@ function setCurrentBreadCrumb(itemName) {
 
 /**
  * open the html version of the course outline, otherwise popup an error
+ * use a HEAD request to verify that the syllabus exists
  */
 function openCourseOutlineHTML(courseId) {
 	var url = '/direct/portalManager/' + courseId + '/public_syllabus.html';
@@ -988,3 +987,8 @@ $(document)
 					bindTabsSwitch();
 					updateLabelsFromBundle();
 				});
+
+$('#main').ajaxError(function(event, request, settings) {
+	if (request.status != 404)
+		$(this).html('<div id="error"><h3>Il y a un problème avec le serveur. Veuillez réessayer plus tard.</h3><h3>We are experiencing technical difficulties. Please try again later.</h3></div>');
+});
