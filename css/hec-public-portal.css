@@ -142,7 +142,7 @@ thead * {
 
 table .col-co-department{text-align:left;white-space: nowrap;width: 25% !important;}
 table .col-co-career {text-align:left;width: 25% !important;}
-table .col-co-credits {text-align:center;width: 10% !important;}
+table .col-co-credits {text-align:left;width: 10% !important;}
 table .col-co-requirements{text-align:left;width: 40% !important;}
 
 
@@ -310,6 +310,11 @@ width: 100%;
 #searchTable  thead tr {
 	width: 100%;	
 }
+.search_row  td{
+	border-bottom: solid 1px #D0D1D3;
+}
+
+
 
 #searchTable  .col-course{text-align:left;width:100%;min-width: 100%;}
 #searchTable  .col-co {text-align:center;width: 110px;min-width: 110px !important;}
