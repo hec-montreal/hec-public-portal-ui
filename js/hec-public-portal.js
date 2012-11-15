@@ -548,7 +548,7 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 								+ "data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf icon_header_img\"></i></a>";
 
 							div += "</div></div></div></div></div>";
-					}
+					}}
 					
 					$(selectorAccordionCourseDiv).html(div);										
 					bindFilerByItem();
@@ -556,14 +556,13 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 					bindCollapseProcessing();
 
 					setCurrentBreadCrumb(itemName);
-					updateLabelsFromBundle();		
-
-					var selectorLoader = '#loader-container_' + itemName;
+					updateLabelsFromBundle();	
+					
 					$(selectorAccordionCourseDiv).fadeIn('fast',function() {$(selectorLoader).fadeOut('fast');bindLinkItem();});
 
 					return false;
 					}
-				}});		
+				});		
 			});		
 		});	
 }
