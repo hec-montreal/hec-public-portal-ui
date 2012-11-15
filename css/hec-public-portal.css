@@ -320,7 +320,7 @@ width: 100%;
 #searchTable  .col-co {text-align:center;width: 110px;min-width: 110px !important;}
 #searchTable  .col-department{text-align:left;width: 220px;min-width: 220px;}
 #searchTable  .col-career {text-align:left;width: 220px;min-width: 220px;}
-#searchTable  .col-lang{text-align:center;width: 100px;min-width: 100px !important;}
+#searchTable  .col-lang{text-align:center;width: 100px;min-width: 115px !important;}
 
 
 /***** cell content within search result datatable ***/
