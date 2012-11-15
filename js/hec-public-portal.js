@@ -194,9 +194,9 @@ function displayResultCatalogDescriptionSearch(cdList) {
 		cdRow += "<td class=\"col-course\">" + cdList[i].course + "</td>";
 		cdRow += "<td class=\"col-co\" style=\"text-align:center\"><div class=\"btn-toolbar\">"
 		//Button HTML
-		 + "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + cdList[i].courseid + "\')\"><i class=\"icon-star icon_button_img\"></i></a>"
+		 + "<a title=\"" + $('#bundleDiv').data("tooltip_icon_html_course_outline") + "\" class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + cdList[i].courseid + "\')\"><i class=\"icon-star icon_button_img\"></i></a>"
 		//Button PDF
-		+ "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + cdList[i].courseid + "\')\">"
+		+ "<a title=\"" + $('#bundleDiv').data("tooltip_icon_pdf_course_outline") + "\" class=\"btn\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + cdList[i].courseid + "\')\">"
 		+ "<i class=\"icon-file-pdf icon_button_img\"></i></a>";
 		+ "<a href=\"#\" class=\"button-microapp\" data-original-title=\"\"><i class=\"icon-file-pdf\"></i></a></div></td>";		
 		cdRow += "<td class=\"col-department\" data-bundle-key=\"" + department_group_bundle_key + "\">" + cdList[i].department + "</td>";
@@ -341,10 +341,10 @@ function initCourseListing(itemName, serviceList) {
 			+ "\" class=\" in \" style=\"display: none; \">"
 			+ "<div class=\"filter_bar  navbar\"><div class=\"btn-group \" style=\"\"><div class=\"dropdown\"><a href=\"#\"  data-toggle=\"dropdown\" class=\"dropdown-toggle\"  id=\"filter_by_" + getOtherItem(itemName) + "\" data-select-value=\"*\">"
 			+ "<span data-bundle-key=\"button_filter_for_" + itemName + "\"></span><b class=\"caret\"></b></a><ul class=\"dropdown-menu pull-right\" id=\"dropdown_filter_" + itemName + "\">"
-			+ "<li data-select-option=\"" + getOtherItem(itemName) + "\" data-select-value=\"*\" class=\"li_filter_list_by_item active\"><a href=\"#dropdown1\" data-toggle=\"tab\" data-bundle-key=\"button_filter_all\"></a></li>"					
+			+ "<li data-select-option=\"" + getOtherItem(itemName) + "\" data-select-value=\"*\" class=\"li_filter_list_by_item active\"><a href=\"#dropdown1\" data-toggle=\"tab\" data-bundle-key=\"label_filter_all_" +  getOtherItem(itemName) + "\"></a></li>"	
 			+"</ul></div></div>"
 			+ "<div class=\"btn-group \" style=\"\"><div class=\"dropdown\"><a href=\"#\"  data-toggle=\"dropdown\" class=\"dropdown-toggle \" id=\"filter_by_lang_for_tab_" + itemName + "\" data-select-value=\"*\"><span data-bundle-key=\"button_filter_language\"></span><b class=\"caret\"></b></a><ul class=\"dropdown-menu\">"
-			+ "<li class=\"li_filter_by_language active\" data-select-value=\"*\" data-select-option=\"" + itemName + "\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"button_filter_all\"></a></li>"
+			+ "<li class=\"li_filter_by_language active\" data-select-value=\"*\" data-select-option=\"" + itemName + "\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"label_filter_all_language\"></a></li>"
 			+ "<li class=\"li_filter_by_language\" data-select-value=\"FR\" data-select-option=\"" + itemName + "\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"button_filter_fr\"></a></li>"
 			+ "<li class=\"li_filter_by_language\" data-select-value=\"AN\" data-select-option=\"" + itemName + "\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"button_filter_en\"></a></li>"
 			+ "<li class=\"li_filter_by_language\" data-select-value=\"ES\" data-select-option=\"" + itemName + "\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"button_filter_es\"></a></li>"
@@ -547,35 +547,7 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 							div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_pdf_course_outline") + "\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\" "
 								+ "data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf icon_header_img\"></i></a>";
 
-							div += "</div></div></div><div id=\"collapseCourse"
-								+ "_"
-								+ itemCleaned
-								+ "_"
-								+ i
-								+ "\"class=\"accordion-body collapse\"><div class=\"accordion-inner\"><h4  data-bundle-key=\"label_description\"></h4>"
-								+ "<br>"
-								+ listCourses.catalogDescription_collection[i].description
-								+ "<br><br>"
-								+ "<div class=\"btn-toolbar\">";
-								
-							//Button HTML
-							div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\"><i class=\"icon-star icon_button_img\"></i>  <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\"></span></a>";
-
-							//Button PDF
-							div += "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\">"
-								+ "<i class=\"icon-file-pdf icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_pdf_course_outline\"></span></a>";
-
-							div += "</div><table class=\"table\"><thead><tr><th class=\"col-co-department\"  data-bundle-key=\"label_department\"></th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\"></th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\"></th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\"></th></tr></thead><tbody><tr><td>"
-								+ "<a data-itemName=\"department\" data-itemGroup=\"" + departmentGroup + "\" data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#discipline=" + listCourses.catalogDescription_collection[i].departmentGroup + "\" class=\"linkItem\">"
-								+ listCourses.catalogDescription_collection[i].department
-								+ "</a></td><td><a data-itemName=\"career\" data-itemGroup=\"" + careerGroup + "\" data-bundle-key=\"" + career_group_bundle_key + "\" href=\"#programme=" + listCourses.catalogDescription_collection[i].careerGroup + "\" class=\"linkItem\">"
-								+ listCourses.catalogDescription_collection[i].career
-								+ "</a></td><td>"
-								+ listCourses.catalogDescription_collection[i].credits
-								+ "</td><td>"
-								+ listCourses.catalogDescription_collection[i].requirements
-								+ "</td></tr></tbody></table></div></div></div>";
-						}
+							div += "</div></div></div></div></div>";
 					}
 					
 					$(selectorAccordionCourseDiv).html(div);										
@@ -587,13 +559,13 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 					updateLabelsFromBundle();		
 
 					var selectorLoader = '#loader-container_' + itemName;
-					$(selectorLoader).hide(0, function() {$(selectorAccordionCourseDiv).fadeIn('fast');bindLinkItem();});										
+					$(selectorAccordionCourseDiv).fadeIn('fast',function() {$(selectorLoader).fadeOut('fast');bindLinkItem();});
 
 					return false;
-				}
+					}
+				}});		
 			});		
-		});		
-	});	
+		});	
 }
 
 /**
@@ -910,16 +882,83 @@ function bindTabsSwitch() {
 function bindCollapseProcessing() {
 	$('.accordion-heading.row > .span5 > .accordion-toggle').click(
 			function() {				
-				if ($(this).parent().parent().next().hasClass('in')){				
+					
+				if ($(this).parent().parent().next().hasClass('in')){
+					$(this).parent().parent().next().remove();
 					$(this).parent().parent().removeClass("collapsedRow");
 					$(this).parent().removeClass("collapsedRow");
-				}
-				else{		
+			
+			}
+				else{
+					$(this).parents('.span9').find('.accordion-body.in.collapse').remove();
 					$(this).parents('.span9').find('.collapsedRow').removeClass("collapsedRow");
 					$(this).parent().parent().addClass("collapsedRow");
 					$(this).parent().addClass("collapsedRow");
+					
+					
+				var courseid = $(this).parent().parent().parent().attr("data-courseid");
+					var courseHeader = $(this).parent().parent();	
+					$.ajax({
+				url : '/direct/catalogDescription/' + courseid + '.json',
+				datatype : 'json',
+				success : function(course) {
+				console.log(course);
+					var department_group_bundle_key = 'department_' + course.departmentGroup;
+					var career_group_bundle_key = 'career_' + course.careerGroup;						
+					
+					if(course.description==null){
+						course.description="<span data-bundle-key=\"label_no_description\">" + $('#bundleDiv').data("label_no_description")+ "</span>";
+					}
+					if(course.requirements==null){
+						course.requirements="<span data-bundle-key=\"label_no_requirement\">" + $('#bundleDiv').data("label_no_requirement")+ "</span>";
+					}
+
+					var div = "<div id=\"collapseCourse\" class=\"accordion-body in collapse\"><div class=\"accordion-inner\"><h4 data-bundle-key=\"label_description\">" + $('#bundleDiv').data("label_description")+ "</h4>"
+							+"<br>"
+							+ course.description
+							+"<br><br>"
+							+ "<div class=\"btn-toolbar\">";
+
+					// Button HTML
+					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.courseId + "\')\"><i class=\"icon-star icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\">" + $('#bundleDiv').data("label_html_course_outline")+ "</span></a>";
+
+					// Button PDF
+					div += "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.courseId + "\')\">"
+							+ "<i class=\"icon-file-pdf icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_pdf_course_outline\">" + $('#bundleDiv').data("label_pdf_course_outline")+ "</span></a>";
+
+					div += "</div><table class=\"table\"><thead><tr><th class=\"col-co-department\" data-bundle-key=\"label_department\">" + $('#bundleDiv').data("label_department")+ "</th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\">" + $('#bundleDiv').data("label_academic_career")+ "</th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\">" + $('#bundleDiv').data("label_credits")+ "</th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\">" + $('#bundleDiv').data("label_requirements")+ "</th></tr></thead><tbody><tr><td>"
+							+ "<a data-itemName=\"department\" data-itemGroup=\"" + course.departmentGroup + "\" data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#discipline=" + course.departmentGroup + "\" class=\"linkItemUnicCatalogDescription\">"
+							+ course.department
+							+ "</a></td><td><a data-itemName=\"career\" data-itemGroup=\"" + course.careerGroup + "\" data-bundle-key=\"" + career_group_bundle_key + "\" href=\"#programme=" + course.careerGroup + "\" class=\"linkItemUnicCatalogDescription\">"
+							+ course.career
+							+ "</a></td><td>"
+							+ course.credits
+							+ "</td><td>"
+							+ course.requirements
+							+ "</td></tr></tbody></table></div>";
+						console.log(div);
+						courseHeader.after(div);
+						bindLinkItemUnicCatalogDescription();
+					
+					return false;
+				},
+				statusCode: {
+					404: function() {
+						var div = "<div id=\"direct_course_div\" class=\"accordion-group \"><div class=\"accordion-heading row\"><div class=\"span5\"><a class=\"accordion-toggle\" style=\"cursor:auto\">"
+							+ $('#bundleDiv').data("label_no_description")
+							+ "</a></div></div></div>";
+						
+						$('#my-tab-content').append(div);	
+						$('#current_breadcrumb').html(course);
+						updateLabelsFromBundle();					
+						return false;
+					}
 				}
 			});
+					
+		}
+		
+	});
 }
 
 /**
