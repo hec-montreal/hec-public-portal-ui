@@ -901,7 +901,6 @@ function bindCollapseProcessing() {
 				url : '/direct/catalogDescription/' + courseid + '.json',
 				datatype : 'json',
 				success : function(course) {
-				console.log(course);
 					var department_group_bundle_key = 'department_' + course.departmentGroup;
 					var career_group_bundle_key = 'career_' + course.careerGroup;						
 					
@@ -935,7 +934,6 @@ function bindCollapseProcessing() {
 							+ "</td><td>"
 							+ course.requirements
 							+ "</td></tr></tbody></table></div>";
-						console.log(div);
 						courseHeader.after(div);
 						bindLinkItemUnicCatalogDescription();
 					
