@@ -7,7 +7,6 @@ body {
 margin: 0;
 font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 13px;
-line-height: 18px;
 color: #333;
 background-color: white;
 text-align: center;
@@ -74,9 +73,6 @@ header, nav, section, article, aside, footer {
 /***** Div that wrap the frame containing the content (everything but header and footer) ***/
 #main
 {
-	overflow: visible;
-	padding-bottom:50px; /* this needs to be bigger than footer height*/
-	padding-top: 40px;
 	text-align: left;
 }
 
@@ -88,48 +84,88 @@ header, nav, section, article, aside, footer {
 	color: #97C8F1;
 }
 
-/***** logo HEC Montréal ***/
-#brand 
-{	
-  display: block;
-  float: left;
-  font-size: 20px;
-  font-weight: 200;
-  line-height: 1;
-  color: #999999;
-}
-
-/***** Button that changes language ***/
-#switch_language 
-{	
-  color: #999999;
-  float:right;
-  line-height: 23px !important;
-}
-
-
-
 /***** Container of web page tab ***/
 #my-tab-content{
 	overflow: visible;	
 	scroll:no;
 	}
 	
-/***** Header ***/	
-#HEC-header{
-	position: fixed;
-	top: 0;
-	right: 0;
-	left: 0;
-	z-index: 1030;	
-	background-color: rgb(255,255,255);/* newlookhec*/
-}
-
-
 #par-recherche  > div{
 	min-height: 300px;
 }
-
+/***************************************************************************************************/
+/************************* Style associated with HEC header (from hec.ca) **************************/
+/***************************************************************************************************/
+.hCB {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #000000;
+    margin: 0 auto;
+    max-width: 963px;
+    padding: 0;
+    position: relative;
+	font-family: Arial,"sans serif";
+}
+#hHEouter {
+    height: 65px;
+    text-transform: uppercase;
+}
+#hHEinner {
+    height: 55px;
+    margin: 24px 0 0;
+}
+#hHEouter #hLogo {
+    float: left;
+    padding: 0 0 0 20px;
+}
+#hHEouter #hHErightstuff {
+    font-size: 10px;
+    height: 50px;
+    padding: 0 20px 0 0;
+    text-align: right;
+}
+#hLoupe {
+    background-color: #E0E0E0;
+    border-bottom: 1px solid #CFCFCF;
+    border-right: 1px solid #BFBFBF;
+    margin: 0;
+    padding: 3px 3px 2px;
+    vertical-align: top;
+}
+#hHEouter ul {
+    font-size: 10px;
+    margin: 2px 0 4px;
+    padding: 0;
+}
+#hHEouter ul li {
+    display: inline-block;
+    list-style-type: none;
+    margin: 0;
+    padding: 0 0 0 15px;
+}
+#hHEouter a:link {
+    color: #000000;
+    text-decoration: none;
+}
+#hHEouter a:visited {
+    color: #000000;
+    text-decoration: none;
+}
+#hHEouter a[href]:hover {
+    color: #00ACEC;
+    text-decoration: underline;
+}
+#hHEouter ul li > a:link {
+    color: #063871;
+    text-decoration: none;
+}
+#hHEouter li > a:visited {
+    color: #063871;
+    text-decoration: none;
+}
+#hHEouter li > a[href]:hover {
+    color: #00ACEC;
+    text-decoration: underline;
+}
 
 /******************************************************************************************************************************************************/
 /********************** table results ******************/
@@ -151,73 +187,6 @@ table .col-co-requirements{text-align:left;width: 36% !important;}
  	left: inherit;
  	right: 0;
 } 
-
-
-
-/******************************************************************************************************************************************************/
-/*********************************************************** Search styles ***********************************************************/
-/******************************************************************************************************************************************************/
-
-/***** search bar container ***/
-#navbar-search {
-  position: relative;
-  float: right;
-  margin-top: 8px;
-  background-color: rgb(208, 209, 211);
-  border:none;
-  -webkit-transition: none;
-  -moz-transition: none;
-  -ms-transition: none;
-  -o-transition: none;
-  transition: none;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;  
-  height:22px;
-  padding-bottom: 2px;
-}
-
-/***** search bar ***/
-#research_global_button {
-  display:inline-block;
-  background-color: transparent;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 13px;
-  font-weight: normal;
-  color: rgb(255, 255, 255);  
-  border: none;
-  margin-bottom:35px;
-  margin-left:5px;
-  height:20px;
-}
-
-/***** search bar when focus or mouse over ***/
-#navbar-search:hover , #navbar-search:focus {
-  background-color: rgba(208, 209, 211,0.2);
-  color: rgb(255, 255, 255);  
-}
-#navbar-search:focus, #research_global_button:focus {  
-  color: #333333;
-}
-
-/***** search bar logo (fire search when cliked)***/
-#research_global_logo{
-	display:inline-block;
-	height:16px;
-}
-
-/***** search bar logo (fire search when cliked)***/
-#research_global_logo a{	
-	background-image: url("../plugins/bootstrap-2.0.3/img/glyphicons-halflings-white.png");	
-	margin-top:4px;
-	margin-right:6px;
-}
-
-#research_global_logo a:hover{
-	background-image: url("../plugins/bootstrap-2.0.3/img/glyphicons-halflings.png");
-}
-
-
 
 /***** div that contains the dropdown filtering options within search datatable headers(career, department or language)***/
 .search_options{
@@ -596,11 +565,12 @@ width: 940px;
 
 /***** style for the menu tabs (behaviour when clicked, mouseover, etc...) ***/
 #tabs {
-  border-bottom: 1px solid #DDD;
+/*  border-bottom: 1px solid #DDD; */
   list-style: none;
   margin-left: 0;
   margin-bottom: 18px;
-  background-color: rgb(52,51,52);
+  background-color: black;
+  color: #FFFFFF;
 }
 #tabs > li {
   float: left;
@@ -1186,7 +1156,7 @@ float: left;
   h2, h3 { page-break-after: avoid; }  
 
   /*we don't display header and footer when we print*/
-  #HEC-header, #printSelection {display: none}
+  #hHEouter, #printSelection {display: none}
   .breadcrumb {display: none}
   
   #footerLinks {visibility:hidden }  

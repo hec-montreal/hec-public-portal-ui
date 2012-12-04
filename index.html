@@ -20,52 +20,43 @@
 <![endif]-->
     
 	<link href="css/hec-public-portal.css" rel="stylesheet">    
-
-
     <!-- Le fav and touch icons -->
     <link rel="shortcut icon" href="../assets/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
-    
-
- 	
   </head>
 
 <body>
 <div id="wrap">
+	<div id ="bundleDiv"></div>
+	<div id ="dataDiv"></div>
+
 	<!-- Header -->
-	<div id="HEC-header" class="navbar">
-      <div class="navbar-inner">
-		<div class="container">
+	<div class="hCB" id="hHEouter">
+		<div id="hHEinner">
 			<a id="brand" href="#">
-				<img style="border: none" src="images/HECMontreal_bleu-med.png" alt="HECMontreal_bleu-med"></img>
-			</a>			
-			<!--.nav-collapse -->
-			<div class="nav-collapse">
-				<ul class="nav">	
-					<!-- use for i18n -->
-					<div id ="bundleDiv"></div>
-					<!-- use to store other data -->
-					<div id ="dataDiv"></div>
+				<img id="hLogo" src="images/h-logo.png" width="269" height="34" alt="Logo HEC Montréal" title="Logo HEC Montréal"/>
+			</a>
+			<div id="hHErightstuff">
+				<a id="switch_language" class="dropdown-toggle" data-toggle="dropdown" href="#menu1" data-select-value="EN"><span data-bundle-key="label_portal_language"/></a><br/>
+				<ul>
+					<li><a href='http://www.hec.ca/nous_joindre/index.html'><span data-bundle-key="label_header_contact"/></a></li>
+					<li><a href="http://www.hec.ca/biblio/index.html"><span data-bundle-key="label_header_library"/></a></li>
+					<li><a href='http://www.hec.ca/salle_de_presse/index.html'><span data-bundle-key="label_header_press"/></a></li>
+					<li><a href='http://www.hec.ca/offres_emploi/index.html'><span data-bundle-key="label_header_jobs"/></a></li>
+					<li><a href="http://www.hec.ca/repert/"><span data-bundle-key="label_header_personnel"/></a></li>
 				</ul>
-				<ul class="nav pull-right">
-					<li class="dropdown" id="menu1">
-						<a id="switch_language" class="dropdown-toggle" data-toggle="dropdown" href="#menu1" data-select-value="EN">
-							<span class="icon-flag icon-white "></span> <span data-bundle-key="label_portal_language"></span>
-						</a>
-					</li>
-					<li>
-						<form id="navbar-search" action="">
-							<input type="text" class="span2" id="research_global_button">
-							<div id="research_global_logo"><a class="icon-search"></a></div>							
-						</form>
-					</li>
-				</ul>
+				<div style="padding:2px 0px 0px 0px;margin:0px;">
+					<form id="navbar-search" action="" style="padding:0px 0px 0px 0px;margin:0px;">
+						<fieldset style="border-style: none;padding:0px 0px 0px 0px;margin:0px;" title="Recherche">
+							<input type="textarea" class="span2" id="research_global_button" size="28" style="padding:0px 0px 0px 0px;margin:0px;background-color:#E0E0E0" /><img id="hLoupe" src="images/h-loupe.png" width="13px" height="12px" title="Recherche"/>
+						</fieldset>
+					</form>
+				</div>
 			</div>
 		</div>
-      </div>
-    </div>
+	</div>
 	<!-- /Header -->
 	
 	
