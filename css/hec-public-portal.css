@@ -9,7 +9,6 @@ font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 13px;
 color: #333;
 background-color: white;
-text-align: center;
 }
 
 html,body
@@ -64,10 +63,6 @@ header, nav, section, article, aside, footer {
 /***** Div that wrap of the web page ***/
 #wrap
 {
-	min-height: 100%;
-	height: auto !important;
-	height: 100%;
-	margin: 0/*40px*/ auto -40px;
 }
 
 /***** Div that wrap the frame containing the content (everything but header and footer) ***/
@@ -154,7 +149,7 @@ header, nav, section, article, aside, footer {
     color: #00ACEC;
     text-decoration: underline;
 }
-#hHEouter ul li > a:link {
+#hHEouter li > a:link {
     color: #063871;
     text-decoration: none;
 }
@@ -167,11 +162,57 @@ header, nav, section, article, aside, footer {
     text-decoration: underline;
 }
 
+/***************************************************************************************************/
+/************************* Style associated with HEC footer (from hec.ca) **************************/
+/***************************************************************************************************/
+#footer {
+	font-family: Arial,"sans serif";
+	font-size: 11px;
+    background: none repeat scroll 0 0 #FFFFFF;
+    margin: 0 auto;
+	padding: 1em 0;
+	border-top: 1px solid #DDDDDD;
+    width: 923px;	
+}
+.hColh1, .hColLast {
+    float: left;
+    margin: 0 20px 0 0;
+    padding: 0;
+}
+.hColh1 {
+    color: #12558C;
+    width: 685px;
+}
+.hColLast {
+    margin: 0;
+    width: 215px;
+}
+#footer ul {
+    margin: 0;
+    padding: 0;
+}
+#footer ul li {
+    display: inline;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+#footer li > a:link {
+    color: #063871;
+    text-decoration: none;
+}
+#footer li > a:visited {
+    color: #063871;
+    text-decoration: none;
+}
+#footer li > a[href]:hover {
+    color: #00ACEC;
+    text-decoration: underline;
+}
+
 /******************************************************************************************************************************************************/
 /********************** table results ******************/
 /******************************************************************************************************************************************************/
-
-
 thead * {
 	font-size: 11px;
 }
