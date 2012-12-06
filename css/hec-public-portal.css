@@ -88,6 +88,13 @@ header, nav, section, article, aside, footer {
 #par-recherche  > div{
 	min-height: 300px;
 }
+
+img.center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 /***************************************************************************************************/
 /************************* Style associated with HEC header (from hec.ca) **************************/
 /***************************************************************************************************/
@@ -608,8 +615,7 @@ width: 940px;
 #tabs {
 /*  border-bottom: 1px solid #DDD; */
   list-style: none;
-  margin-left: 0;
-  margin-bottom: 18px;
+  margin: 0;
   background-color: black;
   color: #FFFFFF;
 }
