@@ -98,6 +98,21 @@ img.center {
 /***************************************************************************************************/
 /************************* Style associated with HEC header (from hec.ca) **************************/
 /***************************************************************************************************/
+.header_link{
+	display: inline !important;
+}
+
+#breadcrumb_container{
+display: inline-block !important;
+width:100%;
+padding-top: 14px;
+}
+
+#navbar-search {
+    font-size: 10px;
+    float: right;
+}
+
 .hCB {
     background: none repeat scroll 0 0 #FFFFFF;
     color: #000000;
@@ -132,6 +147,7 @@ img.center {
     margin: 0;
     padding: 3px 3px 2px;
     vertical-align: top;
+	cursor: pointer;
 }
 #hHEouter ul {
     font-size: 10px;
@@ -594,7 +610,7 @@ background-color: transparent;
 .container {
 margin-left: auto;
 margin-right: auto;
-width: 940px;
+width: 960px;
 }
 
 
@@ -613,7 +629,6 @@ width: 940px;
 
 /***** style for the menu tabs (behaviour when clicked, mouseover, etc...) ***/
 #tabs {
-/*  border-bottom: 1px solid #DDD; */
   list-style: none;
   margin: 0;
   background-color: black;
@@ -1068,9 +1083,10 @@ box-shadow: inset 1px 0px 2px rgba(0, 0, 0, 0.05);
 ****************************/
 
 .breadcrumb {
-padding: 7px 14px;
+padding: 0px 14px;
 list-style: none;
 margin-left: 30px;
+float:left;
 }
 
 .breadcrumb li {

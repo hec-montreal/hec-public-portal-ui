@@ -269,7 +269,7 @@ function bindSearch() {
             return false;	
         }
     });
-	$("#research_global_logo").click(function() {	
+	$("#hLoupe").click(function() {	
 			$('#direct_course_div').remove();
 			$(location).attr('href',getSearchHref());
 			launchSearch(getSearchWords());	
