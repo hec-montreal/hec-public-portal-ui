@@ -113,11 +113,22 @@ padding-top: 14px;
     float: right;
 }
 
+#container_image_portail{
+	background-color: #F0F0F0;
+}
+
+#research_global_button{
+	padding:0px 0px 0px 0px;
+	margin:0px;
+	background-color:#E0E0E0;
+	border-bottom:none;
+}
+
 .hCB {
     background: none repeat scroll 0 0 #FFFFFF;
     color: #000000;
     margin: 0 auto;
-    max-width: 963px;
+	width:960px;
     padding: 0;
     position: relative;
 	font-family: Arial,"sans serif";
@@ -195,20 +206,20 @@ padding-top: 14px;
     margin: 0 auto;
 	padding: 1em 0;
 	border-top: 1px solid #DDDDDD;
-    width: 923px;	
+    width: 960px;	
 }
 .hColh1, .hColLast {
     float: left;
     margin: 0 20px 0 0;
-    padding: 0;
+    padding-left: 20px;
 }
 .hColh1 {
     color: #12558C;
-    width: 685px;
 }
 .hColLast {
+	float: right;
     margin: 0;
-    width: 215px;
+	padding-right: 20px;
 }
 #footer ul {
     margin: 0;
@@ -675,7 +686,7 @@ clear: both;
 	background: rgb(0,172,236);
 	min-height: 20px;
 	margin-left: 0;
-	margin-top: 13px;
+	margin-top: 5px;
   margin-bottom: 20px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
      -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
@@ -828,7 +839,7 @@ a.button-microap i, a.button-option i {
 .filter_bar {
 	text-align: center;
 	padding: 6px 4px 0 4px;
-	margin-top: 12px;	
+	margin-top: 5px;	
 	min-height: 25px;
   margin-bottom: 9px;
   background-color: rgba(0, 0, 0,0.02);
@@ -838,9 +849,9 @@ a.button-microap i, a.button-option i {
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
      -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
           box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-		  -webkit-border-radius: 4px;
--moz-border-radius: 4px;
-border-radius: 4px;
+		  -webkit-border-radius: 2px;
+-moz-border-radius: 2px;
+border-radius: 2px;
 }
 .filter_bar .btn-group {
   display: inline-block;
@@ -1199,9 +1210,10 @@ float: left;
 
 /*when we have a big enought resolution*/
 @media (min-width: 1200px){
-	.container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
+	.container, .navbar-fixed-top .container, .navbar-fixed-bottom .container, #footer, .hCB  {
 	width: 1170px;
 	}
+
 }
 /*when we print page*/
 @media print {
