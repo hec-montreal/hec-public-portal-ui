@@ -114,7 +114,7 @@ padding-top: 14px;
 }
 
 #container_image_portail{
-	background-color: #F0F0F0;
+	background-color: #F5F0ED;
 }
 
 #research_global_button{
@@ -135,7 +135,7 @@ padding-top: 14px;
 	font-family: Arial,"sans serif";
 }
 #hHEouter {
-    height: 65px;
+    height: 53px;
     text-transform: uppercase;
 }
 #hHEinner {
@@ -145,6 +145,7 @@ padding-top: 14px;
 #hHEouter #hLogo {
     float: left;
     padding: 0 0 0 20px;
+	border:0;
 }
 #hHEouter #hHErightstuff {
     font-size: 10px;
@@ -244,6 +245,10 @@ padding-top: 14px;
 #footer li > a[href]:hover {
     color: #00ACEC;
     text-decoration: underline;
+}
+
+#footer img{
+    border:0;
 }
 
 /******************************************************************************************************************************************************/
