@@ -284,7 +284,7 @@ function bindSearch() {
  function getSearchWords() {
 			var searchString = $.trim($("#research_global_button").val());
 			var words= searchString.replace(/[\']+/g, " ").replace(/[ ,]+/g, "+");	
-			return	words;
+			return words;
 }
 
 /**
@@ -300,6 +300,7 @@ function bindSearch() {
 function launchSearch(searchText) {
 			var textTodisplay = decodeURIComponent(searchText).replace(/[\+]+/g, " ");
 			var textToSearch = searchText.replace(/[\+]+/g, ",");
+			var textToSearch = textToSearch.replace("*", "");
 			var searchText = $("#research_global_button").val(textTodisplay);			
 			$('.menu_tab').removeClass('active');
 			$('.tab-pane').removeClass('active');
@@ -308,11 +309,8 @@ function launchSearch(searchText) {
 			searchCatalogDescription(textToSearch);				
 			setCurrentBreadCrumb('search');
 }
-		
-
 
 /***************************** END "Search tab" specific functions *******************************/		
-	
 
 /***************************** Other functions *******************************/	
 
