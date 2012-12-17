@@ -300,7 +300,8 @@ function bindSearch() {
 function launchSearch(searchText) {
 			var textTodisplay = decodeURIComponent(searchText).replace(/[\+]+/g, " ");
 			var textToSearch = searchText.replace(/[\+]+/g, ",");
-			var textToSearch = textToSearch.replace("*", "");
+			// probably better to encode the string before adding it to the url, but this will work for now.
+			var textToSearch = textToSearch.replace("*", "").replace("(", "").replace(")", "").replace("%", "");
 			var searchText = $("#research_global_button").val(textTodisplay);			
 			$('.menu_tab').removeClass('active');
 			$('.tab-pane').removeClass('active');
