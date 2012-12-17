@@ -466,6 +466,13 @@ function updateLabelsFromBundle() {
 					var text = $('#bundleDiv').data(key);
 					$(this).text(text);
 				});
+				
+	// set the urls depending on the language
+	$('[data-bundle-url-key]').each(function(index, value){
+					var key = $(this).attr('data-bundle-url-key');
+					var url = $('#bundleDiv').data(key);
+					$(this).attr('href', url);
+				});
 }
 
 
