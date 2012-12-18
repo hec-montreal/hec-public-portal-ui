@@ -230,7 +230,7 @@ function getLanguageDescription(code) {
 function searchCatalogDescription(words) {
 	var cdList = new Array();
 	var scope= $('#search_option_scope').attr('data-select-value');
-	var url= '/direct/catalogDescription.json?searchWords=' + words + '&searchScope=' + scope;
+	var url= '/direct/catalogDescription.json?searchWords=' + encodeURIComponent(words) + '&searchScope=' + scope;
 	
 	$.ajax({
 		url : url,
@@ -291,7 +291,7 @@ function bindSearch() {
  * Return the url parameter to set in order to make the search
  */
  function getSearchHref() {	
-			return	'#recherche=' + getSearchWords();
+			return	'#recherche=' + encodeURIComponent(getSearchWords());
 }
 
 /**
@@ -300,8 +300,6 @@ function bindSearch() {
 function launchSearch(searchText) {
 			var textTodisplay = decodeURIComponent(searchText).replace(/[\+]+/g, " ");
 			var textToSearch = searchText.replace(/[\+]+/g, ",");
-			// probably better to encode the string before adding it to the url, but this will work for now.
-			var textToSearch = textToSearch.replace("*", "").replace("(", "").replace(")", "").replace("%", "");
 			var searchText = $("#research_global_button").val(textTodisplay);			
 			$('.menu_tab').removeClass('active');
 			$('.tab-pane').removeClass('active');
