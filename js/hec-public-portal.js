@@ -298,9 +298,7 @@ function bindSearch() {
  * Launch the search with search tab content
  */
 function launchSearch(searchText) {
-			var textTodisplay = decodeURIComponent(searchText).replace(/[\+]+/g, " ");
 			var textToSearch = searchText.replace(/[\+]+/g, ",");
-			var searchText = $("#research_global_button").val(textTodisplay);			
 			$('.menu_tab').removeClass('active');
 			$('.tab-pane').removeClass('active');
 			$('#par-recherche').addClass('active');				
@@ -844,6 +842,8 @@ function filterCatalogDescriptions() {
 		expandCatalogDescription(course);			
 	}
 	else if (typeof (recherche) !== 'undefined') {
+		//populate the search box
+		$("#research_global_button").val(decodeURIComponent(recherche).replace(/[\+]+/g, " "));
 		launchSearch(recherche);		
 	}
 	else if (isUrlTag("discipline")) {
