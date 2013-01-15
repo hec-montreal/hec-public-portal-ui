@@ -196,9 +196,9 @@ function displayResultCatalogDescriptionSearch(cdList) {
 		//Button HTML
 		 + "<a title=\"" + $('#bundleDiv').data("tooltip_icon_html_course_outline") + "\" class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + cdList[i].courseid + "\')\"><i class=\"icon-star icon_button_img\"></i></a>"
 		//Button PDF
-		+ "<a title=\"" + $('#bundleDiv').data("tooltip_icon_pdf_course_outline") + "\" class=\"btn\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + cdList[i].courseid + "\')\">"
+		+ "<a title=\"" + $('#bundleDiv').data("tooltip_icon_pdf_course_outline") + "\" class=\"btn\" onMouseDown=\"return openCourseOutlinePDF(\'" + cdList[i].courseid + "\')\">"
 		+ "<i class=\"icon-file-pdf icon_button_img\"></i></a>";
-		+ "<a href=\"#\" class=\"button-microapp\" data-original-title=\"\"><i class=\"icon-file-pdf\"></i></a></div></td>";		
+		+ "<a class=\"button-microapp\" data-original-title=\"\"><i class=\"icon-file-pdf\"></i></a></div></td>";		
 		cdRow += "<td class=\"col-department\" data-bundle-key=\"" + department_group_bundle_key + "\">" + cdList[i].department + "</td>";
 		cdRow += "<td class=\"col-career\" data-bundle-key=\"" + career_group_bundle_key + "\">" + cdList[i].career + "</td>";	
 		cdRow += "<td class=\"col-lang\" data-bundle-key=\"" + language_bundle_key + "\">" + getLanguageDescription(cdList[i].language) + "</td>";		
@@ -546,7 +546,7 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 								+ "<i class=\"icon-star icon_header_img\"></i></a>";
 						
 							// Button PDF
-							div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_pdf_course_outline") + "\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\" "
+							div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_pdf_course_outline") + "\" onMouseDown=\"return openCourseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\" "
 								+ "data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf icon_header_img\"></i></a>";
 
 							div += "</div></div></div></div></div>";
@@ -925,7 +925,7 @@ function bindCollapseProcessing() {
 					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.courseId + "\')\"><i class=\"icon-star icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\">" + $('#bundleDiv').data("label_html_course_outline")+ "</span></a>";
 
 					// Button PDF
-					div += "<a class=\"btn\" href=\"#\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.courseId + "\')\">"
+					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.courseId + "\')\">"
 							+ "<i class=\"icon-file-pdf icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_pdf_course_outline\">" + $('#bundleDiv').data("label_pdf_course_outline")+ "</span></a>";
 
 					div += "</div><table class=\"table\"><thead><tr><th class=\"col-co-department\" data-bundle-key=\"label_department\">" + $('#bundleDiv').data("label_department")+ "</th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\">" + $('#bundleDiv').data("label_academic_career")+ "</th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\">" + $('#bundleDiv').data("label_credits")+ "</th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\">" + $('#bundleDiv').data("label_requirements")+ "</th></tr></thead><tbody><tr><td>"
@@ -1004,17 +1004,35 @@ function openCourseOutlineHTML(courseId) {
  * open the pdf for the course outline of the course associated with this catalog description
  */
 function openCourseOutlinePDF(courseId) {
+	// get the url for the pdf from the server
 	$.ajax({
 		url : '/direct/portalManager/' + courseId + '/public_syllabus.json',
 		datatype : 'json',
 		success : function(syllabus_info) {		
 			if (syllabus_info.data["pdf_url"] !== "") {
-				window.open(syllabus_info.data["pdf_url"], '_blank');
+			
+				//use a head call to verify that the pdf url exists
+				// could be simplified if portal manager returned the pdf itself (or we use sdata directly)
+				$.ajax({
+					type : 'HEAD',
+					url : syllabus_info.data["pdf_url"],
+					success : function () {
+						window.open(syllabus_info.data["pdf_url"], '_blank');
+					},
+					statusCode: {
+						404: function() {
+							window.alert($('#bundleDiv').data("message_no_co"));
+						},
+						// if the pdf does not exist, and the user is not logged in, sdata returns 403
+						403: function() {
+							window.alert($('#bundleDiv').data("message_no_co"));
+						}
+					}
+				});
 			}
 			else {
 				window.alert($('#bundleDiv').data("message_no_co"));
 			}
-			return true;
 		},
 		statusCode: {
 			404: function() {
@@ -1023,7 +1041,6 @@ function openCourseOutlinePDF(courseId) {
 		}
 	});
 }
-
 
 /**
  * Script that is executed when the page is loaded
@@ -1052,6 +1069,6 @@ $(document)
  * Afficher qu'un div avec un message d'erreur si un des appels ajax plante
  */ 
 $('#main').ajaxError(function(event, request, settings) {
-	if (request.status != 404)
+	if (request.status != 404 && request.status != 403)
 		$(this).html('<div id="error"><h3>Il y a un problème avec le serveur. Veuillez réessayer plus tard.</h3><h3>We are experiencing technical difficulties. Please try again later.</h3></div>');
 });
