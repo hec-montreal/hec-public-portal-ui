@@ -455,7 +455,7 @@ function getBundle(locale) {
 /**
  * Reload all attributes with internationalized labels from the current locale bundle
  */
-function updateLabelsFromBundle(locale) {
+function updateLabelsFromBundle() {
 	$('[data-bundle-key]').each(function(index, value){
 					var key = $(this).attr('data-bundle-key');
 					var text = $('#bundleDiv').data(key);
@@ -470,7 +470,6 @@ function updateLabelsFromBundle(locale) {
 				});
 				
 	// select the proper banner image
-	window.alert(getLanguage());
 	if (getLanguage() === 'EN') {
 		$('#container_image_portail > img').attr('src', "images/course_portal_directory_960x240.jpg");
 	}
