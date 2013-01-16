@@ -455,7 +455,7 @@ function getBundle(locale) {
 /**
  * Reload all attributes with internationalized labels from the current locale bundle
  */
-function updateLabelsFromBundle() {
+function updateLabelsFromBundle(locale) {
 	$('[data-bundle-key]').each(function(index, value){
 					var key = $(this).attr('data-bundle-key');
 					var text = $('#bundleDiv').data(key);
@@ -468,6 +468,16 @@ function updateLabelsFromBundle() {
 					var url = $('#bundleDiv').data(key);
 					$(this).attr('href', url);
 				});
+				
+	// select the proper banner image
+	window.alert(getLanguage());
+	if (getLanguage() === 'EN') {
+		$('#container_image_portail > img').attr('src', "images/course_portal_directory_960x240.jpg");
+	}
+	else {
+		$('#container_image_portail > img').attr('src', "images/portail-des-cours_hec960x240.jpg");
+	}
+	
 }
 
 
