@@ -1062,16 +1062,18 @@ $(document)
 					$('.collapse').collapse('toggle');
 					$('.dropdown-toggle').dropdown();
 					
-					getBundle(language);
-					bindSearch();		
-					initCourseListing('career',
-							'/direct/portalManager/getCareers/' + language + '.json');
-					initCourseListing('department',
-							'/direct/portalManager/getDepartments/' + language + '.json');										
-					filterCatalogDescriptions();
-					bindChangeLanguage();
-					bindTabsSwitch();
-					updateLabelsFromBundle();
+					if (language !== false) {
+						getBundle(language);
+						bindSearch();		
+						initCourseListing('career',
+								'/direct/portalManager/getCareers/' + language + '.json');
+						initCourseListing('department',
+								'/direct/portalManager/getDepartments/' + language + '.json');										
+						filterCatalogDescriptions();
+						bindChangeLanguage();
+						bindTabsSwitch();
+						updateLabelsFromBundle();
+					}
 				});
 
 /**
