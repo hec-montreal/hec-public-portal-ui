@@ -199,8 +199,8 @@ function displayResultCatalogDescriptionSearch(cdList) {
 		+ "<a title=\"" + $('#bundleDiv').data("tooltip_icon_pdf_course_outline") + "\" class=\"btn\" onMouseDown=\"return openCourseOutlinePDF(\'" + cdList[i].courseid + "\')\">"
 		+ "<i class=\"icon-file-pdf icon_button_img\"></i></a>";
 		+ "<a class=\"button-microapp\" data-original-title=\"\"><i class=\"icon-file-pdf\"></i></a></div></td>";		
-		cdRow += "<td class=\"col-department\" data-bundle-key=\"" + department_group_bundle_key + "\">" + cdList[i].department + "</td>";
-		cdRow += "<td class=\"col-career\" data-bundle-key=\"" + career_group_bundle_key + "\">" + cdList[i].career + "</td>";	
+		cdRow += "<td class=\"col-department\" data-bundle-key=\"" + department_group_bundle_key + "\">" + departmentDescriptionsMap[cdList[i].departmentGroup] + "</td>";
+		cdRow += "<td class=\"col-career\" data-bundle-key=\"" + career_group_bundle_key + "\">" + careerDescriptionsMap[cdList[i].careerGroup] + "</td>";	
 		cdRow += "<td class=\"col-lang\" data-bundle-key=\"" + language_bundle_key + "\">" + getLanguageDescription(cdList[i].language) + "</td>";		
 		$('#searchTable tbody').append(cdRow);
 	}
@@ -242,8 +242,6 @@ function searchCatalogDescription(words) {
 						var cours= new Array();
 						cours["courseid"] = listCourses.catalogDescription_collection[i].courseId;
 						cours["course"] = listCourses.catalogDescription_collection[i].courseId + " - " + listCourses.catalogDescription_collection[i].title;
-						cours["career"] = listCourses.catalogDescription_collection[i].career;
-						cours["department"] = listCourses.catalogDescription_collection[i].department;
 						cours["careerGroup"] = listCourses.catalogDescription_collection[i].careerGroup;
 						cours["departmentGroup"] = listCourses.catalogDescription_collection[i].departmentGroup;
 						cours["language"] = listCourses.catalogDescription_collection[i].lang;
@@ -379,6 +377,16 @@ function initCourseListing(itemName, serviceList) {
 						/* We also populate the Carreer/Department filter boxes*/
 						$(selectorSearchSelectBox).append("<li data-select-option=\"" + itemName + "\" data-select-value=\"" + listItems.portalManager_collection[i].itemGroup + "\" class=\"li_select\"><a data-bundle-key=\"" + item_group_bundle_key + "\" href=\"#dropdown1\" data-toggle=\"tab\">" + listItems.portalManager_collection[i].description + "</a></li>");
 						$(selectorMenuFilterBox).append("<li data-select-option=\"" + itemName + "\" data-select-value=\"" + listItems.portalManager_collection[i].itemGroup + "\" class=\"li_filter_list_by_item\"><a data-bundle-key=\"" + item_group_bundle_key + "\" href=\"#dropdown1\" data-toggle=\"tab\">" + listItems.portalManager_collection[i].description + "</a></li>");						
+						
+						/* and insert the career/department descriptions into the map for use later when displaying the courses*/
+						if (itemName === "career") {
+							careerDescriptionsMap[listItems.portalManager_collection[i].itemGroup] = listItems.portalManager_collection[i].description;
+						} 
+						else if (itemName === "department") {
+							departmentDescriptionsMap[listItems.portalManager_collection[i].itemGroup] = listItems.portalManager_collection[i].description;
+						}
+						
+					
 					}					
 					bindSelectSearchOptions();
 				}
@@ -626,9 +634,9 @@ function expandCatalogDescription(course) {
 
 					div += "</div><table class=\"table\"><thead><tr><th class=\"col-co-department\" data-bundle-key=\"label_department\"></th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\"></th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\"></th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\"></th></tr></thead><tbody><tr><td>"
 							+ "<a data-itemName=\"department\" data-itemGroup=\"" + course.departmentGroup + "\" data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#discipline=" + course.departmentGroup + "\" class=\"linkItemUnicCatalogDescription\">"
-							+ course.department
+							+ departmentDescriptionsMap[course.departmentGroup]
 							+ "</a></td><td><a data-itemName=\"career\" data-itemGroup=\"" + course.careerGroup + "\" data-bundle-key=\"" + career_group_bundle_key + "\" href=\"#programme=" + course.careerGroup + "\" class=\"linkItemUnicCatalogDescription\">"
-							+ course.career
+							+ careerDescriptionsMap[course.careerGroup]
 							+ "</a></td><td>"
 							+ course.credits
 							+ "</td><td>"
@@ -939,9 +947,9 @@ function bindCollapseProcessing() {
 
 					div += "</div><table class=\"table\"><thead><tr><th class=\"col-co-department\" data-bundle-key=\"label_department\">" + $('#bundleDiv').data("label_department")+ "</th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\">" + $('#bundleDiv').data("label_academic_career")+ "</th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\">" + $('#bundleDiv').data("label_credits")+ "</th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\">" + $('#bundleDiv').data("label_requirements")+ "</th></tr></thead><tbody><tr><td>"
 							+ "<a data-itemName=\"department\" data-itemGroup=\"" + course.departmentGroup + "\" data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#discipline=" + course.departmentGroup + "\" class=\"linkItemUnicCatalogDescription\">"
-							+ course.department
+							+ departmentDescriptionsMap[course.departmentGroup]
 							+ "</a></td><td><a data-itemName=\"career\" data-itemGroup=\"" + course.careerGroup + "\" data-bundle-key=\"" + career_group_bundle_key + "\" href=\"#programme=" + course.careerGroup + "\" class=\"linkItemUnicCatalogDescription\">"
-							+ course.career
+							+ careerDescriptionsMap[course.careerGroup]
 							+ "</a></td><td>"
 							+ course.credits
 							+ "</td><td>"
@@ -1050,6 +1058,11 @@ function openCourseOutlinePDF(courseId) {
 		}
 	});
 }
+
+// used to keep the language specific descriptions of the
+// careers/departments for display later
+var careerDescriptionsMap = {};
+var departmentDescriptionsMap = {};
 
 /**
  * Script that is executed when the page is loaded
