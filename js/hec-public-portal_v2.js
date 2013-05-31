@@ -23,8 +23,14 @@ function bindFilerByItem() {
 			$(selectorSpanFilter).attr('data-bundle-key',bundleName);	
 			$(selectorSpanFilter).html(bundleDescription);			
 			$(this).addClass('active');
+			
+			//we refresh the url with an anchor to indicate the item selected
+			var anchor_tab = getUrlAnchorVars();
+			anchor_tab['filtre_' + getParameterForItem($(this).attr('data-select-option'))] = $(this).attr('data-select-value');			
+			refresh_anchors(anchor_tab);			
 		});
 	}	
+
 	
 /**
  * Bind action to execute when we select a filter by language for the list of courses displayed
@@ -36,9 +42,9 @@ function bindFilterLanguage() {
 		if ($(this).attr('data-select-value') == '*'){	
 				var bundleName = 'button_filter_language';
 			}
-			else{
-				var bundleName = $(this).children().attr('data-bundle-key');
-			}			 		
+		else{
+			var bundleName = $(this).children().attr('data-bundle-key');
+		}			 		
 		var bundleDescription = $('#bundleDiv').data(bundleName);
 		$(selectorButtonFilter).attr('data-select-value',$(this).attr('data-select-value'));	
 		applyFilerByItem($(this).attr('data-select-option'));
@@ -47,8 +53,28 @@ function bindFilterLanguage() {
 		$(selectorSpanFilter).attr('data-bundle-key',bundleName);	
 		$(selectorSpanFilter).html(bundleDescription);		
 		$(this).addClass('active');
+
+		//we refresh the url with an anchor to indicate the item selected
+		var anchor_tab = getUrlAnchorVars();
+		anchor_tab['filtre_lang'] = $(this).attr('data-select-value');			
+		refresh_anchors(anchor_tab);
 	});
 }	
+
+/**
+ * Refresh the current url with the anchors associated to the current location
+ */
+function refresh_anchors(anchor_tab) {
+	var filter_anchor = '';
+	for ( var anchor_key in anchor_tab) {			
+		if (anchor_tab[anchor_key] != '*'){	
+				filter_anchor = filter_anchor + '#' + anchor_key + '=' + anchor_tab[anchor_key];
+			}
+		
+	}	
+	var href_without_anchors = $(location).attr('href').substring(0, $(location).attr('href').indexOf('#'));
+	$(location).attr('href', href_without_anchors + filter_anchor);
+}
 
 /**
  * Execute the filtering process of a given tab (itemName="career" for courses by career/itemName="department" for courses by department);
@@ -429,6 +455,36 @@ function getOtherLanguage(itemName) {
 		return "FR";
 	}
 }
+
+/**
+ * Return the correct suffix ("fr" "en" or "es") from the filtre_lang utl anchor (FR,AN,ES) that is used to get the language filter bundle key
+ */
+function getCorrespondingLanguageFilterLocale(itemName) {	
+	if (itemName == "FR"){
+		return "fr";
+	}
+	if (itemName == "AN"){
+		return "en";
+	}
+	if (itemName == "ES"){
+		return "es";
+	}
+	else{
+		return "";
+	}
+}
+
+/**
+ * Return "FR" if we pass "EN" in parameter and vice versa
+ */
+function getOtherLanguage(itemName) {	
+	if (itemName == "FR"){
+		return "EN";
+	}
+	else{
+		return "FR";
+	}
+}
 	
 /**
  * Bind "change language" buttons (french/english) to the 
@@ -487,6 +543,9 @@ function updateLabelsFromBundle() {
 	
 }
 
+function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
+	expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv, null, null, null, null);
+}
 
 /**
  * Expand the catalog descriptions that match the folowing criteria attributes:
@@ -496,7 +555,7 @@ function updateLabelsFromBundle() {
  * that get the catalog descriptions for a specific deparment/career the
  * departments/carrer
  */
-function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
+function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv, filtre_department, filtre_career, filtre_lang, current_tab) {
 
 	var itemCleaned = listId[0].replace(/[^a-z0-9\s]/gi, '');
 	var selectorAccordionCourseDiv = '#accordionCourseSelect_' + itemName;
@@ -574,10 +633,23 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
 					bindFilterLanguage();
 					bindCollapseProcessing();
 
+
+
 					setCurrentBreadCrumb(itemName);
 					updateLabelsFromBundle();	
 					
 					$(selectorAccordionCourseDiv).fadeIn('fast',function() {$(selectorLoader).fadeOut('fast');bindLinkItem();});
+
+					//apply filter from anchor parameters
+					if (typeof (filtre_department) !== 'undefined') {
+						filterBy('department',filtre_department);
+						
+					} 
+					if (typeof (filtre_career) !== 'undefined') {
+						filterBy('career',filtre_career);
+					} 
+					if (typeof (filtre_lang) !== 'undefined') {
+						filterByLangForTab(filtre_lang,current_tab);}
 
 					return false;
 					}
@@ -698,6 +770,15 @@ function initiateFilter(itemName) {
 	$(selectorItemFilter).attr('data-select-value', '*');
 	$(selectorLangFilterSpan).attr('data-bundle-key', 'button_filter_language');
 	$(selectorItemFilterSpan).attr('data-bundle-key', 'button_filter_for_' + itemName);
+	
+	var selecorLiItem = '.li_filter_list_by_item[data-select-option=\'' + getOtherItem(itemName) + '\']';
+	var selecorLiItemDefault = selecorLiItem + '[data-select-value=\'*\']';
+	var selecorLiLanguage = '.li_filter_by_language';
+	var selecorLiLanguageDefault = selecorLiLanguage + '[data-select-value=\'*\']';
+	$(selecorLiItem).removeClass('active');
+	$(selecorLiLanguage).removeClass('active');
+	$(selecorLiItemDefault).addClass('active');
+	$(selecorLiLanguageDefault).addClass('active');
 }
 
 /**
@@ -770,7 +851,6 @@ function getUrlAnchorVars() {
 			window.location.href.indexOf('#') + 1).split('#');
 	for ( var i = 0; i < hashes.length; i++) {
 		hash = hashes[i].split('=');
-		vars.push(hash[0]);
 		vars[hash[0]] = hash[1];
 	}
 	return vars;
@@ -841,18 +921,24 @@ function getLanguage() {
 function filterCatalogDescriptions() {
 	var department = getUrlAnchorVars()["discipline"];
 	var career = getUrlAnchorVars()["programme"];
+	var filtre_department = getUrlAnchorVars()["filtre_discipline"];
+	var filtre_career = getUrlAnchorVars()["filtre_programme"];
+	var filtre_lang = getUrlAnchorVars()["filtre_lang"];
 	var course = getUrlAnchorVars()["cours"];
 	var recherche = getUrlAnchorVars()["recherche"];
+	var current_tab;
 	if (typeof (department) !== 'undefined') {
+		current_tab	= 'department';
 		$('#par-discipline').addClass('active');
 		$('#tab-discipline').addClass('active');
 		select_menuitem('department', department);
-		expandListCatalogDescriptions('department',department.replace(/[\+]+/g, ","), '#listing_department');
+		expandListCatalogDescriptions('department',department.replace(/[\+]+/g, ","), '#listing_department', filtre_department, filtre_career, filtre_lang, current_tab);
 	} else if (typeof (career) !== 'undefined') {
+		current_tab	= 'career';
 		$('#par-programme').addClass('active');
 		$('#tab-programme').addClass('active');	
 		select_menuitem('career', career);
-		expandListCatalogDescriptions('career', career.replace(/[\+]+/g, ","), '#listing_career');
+		expandListCatalogDescriptions('career', career.replace(/[\+]+/g, ","), '#listing_career', filtre_department, filtre_career, filtre_lang, current_tab);
 	} else if (typeof (course) !== 'undefined') {
 		$('#par-programme').removeClass('active');
 		$('#tab-programme').removeClass('active');
@@ -866,14 +952,63 @@ function filterCatalogDescriptions() {
 	else if (isUrlTag("discipline")) {
 		$('#tab-discipline').addClass('active');
 		$('#par-discipline').addClass('active');
-		setCurrentBreadCrumb('department');		
+		setCurrentBreadCrumb('department');	
+		current_tab	= 'department';
 	}
 	else if (isUrlTag("programme")) {
 		$('#tab-programme').addClass('active');	
 		$('#par-programme').addClass('active');			
 		setCurrentBreadCrumb('career');
+		current_tab	= 'career';
 	}
 }
+
+function filterBy(item, value) {
+			var selectorButtonFilter = '#filter_by_' + item;
+			var selectorSpanFilter = selectorButtonFilter + ' span';						
+			if (value == '*'){	
+				var bundleName = 'button_filter_for_' + item;
+			}
+			else{
+				var bundleName = item + '_' + value ;
+			}				
+			var bundleDescription = $('#bundleDiv').data(bundleName);			
+			$(selectorButtonFilter).attr('data-select-value',value);
+
+			var bundleDescription = $('#bundleDiv').data(bundleName);			
+			$(selectorButtonFilter).attr('data-select-value',$(this).attr('data-select-value'));	
+			applyFilerByItem(getOtherItem($(this).attr('data-select-option')));
+			
+
+			applyFilerByItem(getOtherItem(item));
+			var selecorLi = '.li_filter_list_by_item[data-select-option=\'' + item + '\']';
+			var selecorLiFiltered = selecorLi + '[data-select-value=\'' + value + '\']';
+			$(selecorLi).removeClass('active');
+			$(selectorSpanFilter).attr('data-bundle-key',bundleName);	
+			$(selectorSpanFilter).html(bundleDescription);			
+			$(selecorLiFiltered).addClass('active');
+}
+
+function filterByLangForTab(lang, tab) {
+			var selectorButtonFilter = '#filter_by_lang_for_tab_' + tab;
+			var selectorSpanFilter = selectorButtonFilter + ' span';						
+			if (lang == '*'){	
+				var bundleName = 'button_filter_language';
+			}
+			else{
+				var bundleName = 'button_filter_' + getCorrespondingLanguageFilterLocale(lang) ;
+			}				
+			var bundleDescription = $('#bundleDiv').data(bundleName);			
+			$(selectorButtonFilter).attr('data-select-value',lang);
+			applyFilerByItem(tab);
+			var selecorLi = '.li_filter_by_language[data-select-option=\'' + tab + '\']';
+			var selecorLiFiltered = selecorLi + '[data-select-value=\'' + lang + '\']';
+			$(selecorLi).removeClass('active');
+			$(selectorSpanFilter).attr('data-bundle-key',bundleName);	
+			$(selectorSpanFilter).html(bundleDescription);		
+			$(selecorLiFiltered).addClass('active');
+}
+
 
 /**
  * Bind click event on tas in order to change the breadcumb value when we switch tabs
