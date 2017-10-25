@@ -202,7 +202,7 @@ function getFilterSearch(itemName) {
 /**
  * create the search result datatable from the catalog description map passed in parameter 
  */
-function displayResultCatalogDescriptionSearch(cdList) {	
+function displayResultOfficialCourseDescriptionSearch(cdList) {
 	if (cdList.length == 0) {
 		var emptyRow = "<tr class=\"search_row\" >"
 			+ "<td class=\"col-course\" colspan=\"5\">" + $('#bundleDiv').data("message_no_descriptions") + "</td>"
@@ -253,27 +253,27 @@ function getLanguageDescription(code) {
 /**
  * return catalog descriptions associated with the "words" passed in parameter 
  */
-function searchCatalogDescription(words) {
+function searchOfficialCourseDescription(words) {
 	var cdList = new Array();
 	var scope= $('#search_option_scope').attr('data-select-value');
-	var url= '/direct/catalogDescription.json?searchWords=' + encodeURIComponent(words) + '&searchScope=' + scope;
-	
+	var url= '/direct/portalManager/getOfficialCourseDescriptions.json?searchWords=' + encodeURIComponent(words) + '&searchScope=' + scope;
+
 	$.ajax({
 		url : url,
 		datatype : 'json',
 		success : function(listCourses) {
 
-					for ( var i = 0; i < listCourses.catalogDescription_collection.length; i++) {
+					for ( var i = 0; i < listCourses.portalManager_collection.length; i++) {
 					
 						var cours= new Array();
-						cours["courseid"] = listCourses.catalogDescription_collection[i].courseId;
-						cours["course"] = listCourses.catalogDescription_collection[i].courseId + " - " + listCourses.catalogDescription_collection[i].title;
-						cours["careerGroup"] = listCourses.catalogDescription_collection[i].careerGroup;
-						cours["departmentGroup"] = listCourses.catalogDescription_collection[i].departmentGroup;
-						cours["language"] = listCourses.catalogDescription_collection[i].lang;
+						cours["courseid"] = listCourses.portalManager_collection[i].hyphenatedCourseId;
+						cours["course"] = listCourses.portalManager_collection[i].hyphenatedCourseId + " - " + listCourses.portalManager_collection[i].title;
+						cours["careerGroup"] = listCourses.portalManager_collection[i].careerGroup;
+						cours["departmentGroup"] = listCourses.portalManager_collection[i].departmentGroup;
+						cours["language"] = listCourses.portalManager_collection[i].lang;
 						cdList[i] = cours;
 					}								
-				displayResultCatalogDescriptionSearch(cdList);
+				displayResultOfficialCourseDescriptionSearch(cdList);
 				}	
 			});
 	
@@ -327,7 +327,7 @@ function launchSearch(searchText) {
 			$('.tab-pane').removeClass('active');
 			$('#par-recherche').addClass('active');				
 			initiateSearchFilterStatus();
-			searchCatalogDescription(textToSearch);				
+			searchOfficialCourseDescription(textToSearch);
 			setCurrentBreadCrumb('search');
 }
 
@@ -543,8 +543,8 @@ function updateLabelsFromBundle() {
 	
 }
 
-function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
-	expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv, null, null, null, null);
+function expandListOfficialCourseDescriptions(itemName, listId, selectorIdListingDiv) {
+	expandListOfficialCourseDescriptions(itemName, listId, selectorIdListingDiv, null, null, null, null);
 }
 
 /**
@@ -555,7 +555,7 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
  * that get the catalog descriptions for a specific deparment/career the
  * departments/carrer
  */
-function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv, filtre_department, filtre_career, filtre_lang, current_tab) {
+function expandListOfficialCourseDescriptions(itemName, listId, selectorIdListingDiv, filtre_department, filtre_career, filtre_lang, current_tab) {
 
 	var itemCleaned = listId[0].replace(/[^a-z0-9\s]/gi, '');
 	var selectorAccordionCourseDiv = '#accordionCourseSelect_' + itemName;
@@ -568,14 +568,14 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv, f
 			$(selectorLoader).fadeIn('fast',function(){
 							
 			$.ajax({
-				url : '/direct/catalogDescription.json?' + itemName + '=' + listId,
+				url : '/direct/portalManager/getOfficialCourseDescriptions.json?' + itemName + '=' + listId,
 				datatype : 'json',
 				success : function(listCourses) {
 					$(selectorAccordionCourseDiv).html("");
 
 					var div = "";
 
-					if (listCourses.catalogDescription_collection.length == 0)
+					if (listCourses.portalManager_collection.length == 0)
 					{
 						div += "<div class=\"accordion-group courseToFilter list_by_" + itemName
 								+ "\"><div class=\"accordion-heading row\"><div class=\"span5\"><a class=\"accordion-toggle\" style=\"cursor:auto\" >"
@@ -583,26 +583,26 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv, f
 								+ "</a></div></div>";
 					}
 					else {
-						for ( var i = 0; i < listCourses.catalogDescription_collection.length; i++) {
-							var departmentGroup = listCourses.catalogDescription_collection[i].departmentGroup;
-							var careerGroup = listCourses.catalogDescription_collection[i].careerGroup;
+						for ( var i = 0; i < listCourses.portalManager_collection.length; i++) {
+							var departmentGroup = listCourses.portalManager_collection[i].departmentGroup;
+							var careerGroup = listCourses.portalManager_collection[i].careerGroup;
 							var department_group_bundle_key = 'department_' + departmentGroup;
 							var career_group_bundle_key = 'career_' + careerGroup;
 						
-							if(listCourses.catalogDescription_collection[i].description==null){
-								listCourses.catalogDescription_collection[i].description="<span data-bundle-key=\"label_no_description\"></span>";
+							if(listCourses.portalManager_collection[i].description==null){
+								listCourses.portalManager_collection[i].description="<span data-bundle-key=\"label_no_description\"></span>";
 							}
-							if(listCourses.catalogDescription_collection[i].requirements==null){
-								listCourses.catalogDescription_collection[i].requirements="<span data-bundle-key=\"label_no_requirement\"></span>";
+							if(listCourses.portalManager_collection[i].requirements==null){
+								listCourses.portalManager_collection[i].requirements="<span data-bundle-key=\"label_no_requirement\"></span>";
 							}									
 									
 							div += "<div id=\"\" data-courseId=\""
-								+ listCourses.catalogDescription_collection[i].courseId
+								+ listCourses.portalManager_collection[i].courseId
 								+ "\" data-title=\""
-								+ listCourses.catalogDescription_collection[i].title								
-								+ "\" data-career=\"" + listCourses.catalogDescription_collection[i].careerGroup 
-								+ "\" data-department=\"" + listCourses.catalogDescription_collection[i].departmentGroup
-								+ "\" data-lang=\"" + listCourses.catalogDescription_collection[i].lang
+								+ listCourses.portalManager_collection[i].title
+								+ "\" data-career=\"" + listCourses.portalManager_collection[i].careerGroup
+								+ "\" data-department=\"" + listCourses.portalManager_collection[i].departmentGroup
+								+ "\" data-lang=\"" + listCourses.portalManager_collection[i].lang
 								+ "\" class=\"accordion-group courseToFilter list_by_" + itemName
 								+ "\"><div class=\"accordion-heading row\"><div class=\"span5\"><a class=\"accordion-toggle\" data-toggle=\"collapse\" href=\"#collapseCourse"
 								+ "_"
@@ -612,17 +612,17 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv, f
 								+ "\"data-parent=\"#accordionCourseSelect_"
 								+ itemName
 								+ "\">"
-								+ listCourses.catalogDescription_collection[i].courseId
+								+ listCourses.portalManager_collection[i].hyphenatedCourseId
 								+ " - "
-								+ listCourses.catalogDescription_collection[i].title
+								+ listCourses.portalManager_collection[i].title
 								+ "</a><div class=\"toolsWrapper\">";
 						
 							//Button HTML
-							div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_html_course_outline") + "\" class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" onMouseDown=\"return openCourseOutlineHTML(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\">"
+							div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_html_course_outline") + "\" class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" onMouseDown=\"return openCourseOutlineHTML(\'" + listCourses.portalManager_collection[i].hyphenatedCourseId + "\')\">"
 								+ "<i class=\"icon-star icon_header_img\"></i></a>";
 						
 							// Button PDF
-							div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_pdf_course_outline") + "\" onMouseDown=\"return openCourseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\" "
+							div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_pdf_course_outline") + "\" onMouseDown=\"return openCourseOutlinePDF(\'" + listCourses.portalManager_collection[i].hyphenatedCourseId + "\')\" "
 								+ "data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf icon_header_img\"></i></a>";
 
 							div += "</div></div></div></div></div>";
@@ -661,10 +661,10 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv, f
 /**
  * Expand the catalog description that match the course id passed in parameter
  */
-function expandCatalogDescription(course) {
+function expandOfficialCourseDescription(course) {
 
 	$.ajax({
-				url : '/direct/catalogDescription/' + course + '.json',
+				url : '/direct/portalManager/getOfficialCourseDescriptions.json?courseId=' + course,
 				datatype : 'json',
 				success : function(course) {
 				
@@ -679,16 +679,16 @@ function expandCatalogDescription(course) {
 					}
 
 					var div = "<div id=\"direct_course_div\" class=\"accordion-group \"><div class=\"accordion-heading row\"><div class=\"span5\"><a class=\"accordion-toggle\" data-toggle=\"collapse\" href=\"#collapseCourse\"data-parent=\"#accordionCourseSelect\">"
-							+ course.courseId
+							+ course.hyphanatedCourseId
 							+ " - "
 							+ course.title
 							+ "</a><div class=\"toolsWrapper\">";
 
 					//Button HTML
-					div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_html_course_outline") + "\" class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.courseId + "\')\"><i class=\"icon-star icon_header_img\"></i></a>";
+					div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_html_course_outline") + "\" class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.hyphanatedCourseId + "\')\"><i class=\"icon-star icon_header_img\"></i></a>";
 							
 					//Button PDF
-					div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_pdf_course_outline") + "\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.courseId + "\')\" "
+					div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_pdf_course_outline") + "\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.hyphanatedCourseId + "\')\" "
 							+ "data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf\"></i></a>";
 
 					div += "<a class=\"icon-button-right button-microapp\" data-original-title=\"cours archivé\" data-toggle=\"\" href=\"archive.html\"></a></div></div></div><div id=\"collapseCourse\" class=\"accordion-body in collapse\"><div class=\"accordion-inner\"><h4 data-bundle-key=\"label_description\"></h4>"
@@ -698,16 +698,16 @@ function expandCatalogDescription(course) {
 							+ "<div class=\"btn-toolbar\">";
 
 					// Button HTML
-					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.courseId + "\')\"><i class=\"icon-star icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\"></span></a>";
+					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.hyphanatedCourseId + "\')\"><i class=\"icon-star icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\"></span></a>";
 
 					// Button PDF
-					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.courseId + "\')\">"
+					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.hyphanatedCourseId + "\')\">"
 							+ "<i class=\"icon-file-pdf icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_pdf_course_outline\"></span></a>";
 
 					div += "</div><table class=\"table\"><thead><tr><th class=\"col-co-department\" data-bundle-key=\"label_department\"></th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\"></th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\"></th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\"></th></tr></thead><tbody><tr><td>"
-							+ "<a data-itemName=\"department\" data-itemGroup=\"" + course.departmentGroup + "\" data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#discipline=" + course.departmentGroup + "\" class=\"linkItemUnicCatalogDescription\">"
+							+ "<a data-itemName=\"department\" data-itemGroup=\"" + course.departmentGroup + "\" data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#discipline=" + course.departmentGroup + "\" class=\"linkItemUnicOfficialCourseDescription\">"
 							+ departmentDescriptionsMap[course.departmentGroup]
-							+ "</a></td><td><a data-itemName=\"career\" data-itemGroup=\"" + course.careerGroup + "\" data-bundle-key=\"" + career_group_bundle_key + "\" href=\"#programme=" + course.careerGroup + "\" class=\"linkItemUnicCatalogDescription\">"
+							+ "</a></td><td><a data-itemName=\"career\" data-itemGroup=\"" + course.careerGroup + "\" data-bundle-key=\"" + career_group_bundle_key + "\" href=\"#programme=" + course.careerGroup + "\" class=\"linkItemUnicOfficialCourseDescription\">"
 							+ careerDescriptionsMap[course.careerGroup]
 							+ "</a></td><td>"
 							+ course.credits
@@ -716,8 +716,8 @@ function expandCatalogDescription(course) {
 							+ "</td></tr></tbody></table></div></div></div>";
 
 					$('#my-tab-content').append(div);	
-					bindLinkItemUnicCatalogDescription();					
-					$('#current_breadcrumb').html(course.courseId);
+					bindLinkItemUnicOfficialCourseDescription();
+					$('#current_breadcrumb').html(course.hyphanatedCourseId);
 					updateLabelsFromBundle();					
 					return false;
 				},
@@ -748,7 +748,7 @@ function bindItem(itemName, idDiv, itemGroup, selectorIdListingDiv) {
 	$(idDiv).click(
 			function() {								
 				initiateFilter(itemName);
-				expandListCatalogDescriptions(itemName, itemGroup.replace(/[\+]+/g, ","), selectorIdListingDiv);
+				expandListOfficialCourseDescriptions(itemName, itemGroup.replace(/[\+]+/g, ","), selectorIdListingDiv);
 				var selectorMenuItem = '#div_' + itemName + ' .menuitem';
 				$(selectorMenuItem).removeClass('selected_menuitem');
 				$(this).addClass('selected_menuitem');
@@ -799,8 +799,8 @@ function bindLinkItem() {
  * Bind the clik event on the links displayed within the catalog description information table (displaying Department/Career/Credits/Requirements)
  * when the catalog description is theonly one displayed in the page (direct access to a specific catalog description)
  */
-function bindLinkItemUnicCatalogDescription() {
-	$('.linkItemUnicCatalogDescription').click(
+function bindLinkItemUnicOfficialCourseDescription() {
+	$('.linkItemUnicOfficialCourseDescription').click(
 			function() {
 				var itemName = $(this).attr('data-itemName');
 				var dataItemGroup = $(this).attr('data-itemGroup');
@@ -824,7 +824,7 @@ function processLinkItem(itemName, href, dataItemGroup) {
 				var selectorOtherPar = '#par-' + getParameterForItem(otherItem);
 				var selectorOtherTab = '#tab-' + getParameterForItem(otherItem); 
 				var selectorIdListingDiv = '#' + 'listing_' + itemName;
-				expandListCatalogDescriptions(itemName, dataItemGroup.replace(/[\+]+/g, ","), selectorIdListingDiv);
+				expandListOfficialCourseDescriptions(itemName, dataItemGroup.replace(/[\+]+/g, ","), selectorIdListingDiv);
 				var selectorMenuItem = '#div_' + itemName + ' .menuitem';
 				var selectorMenuItemToSelect = selectorMenuItem + '[href=\"' +  href + '\"]';
 				$(selectorMenuItem).removeClass('selected_menuitem');
@@ -918,7 +918,7 @@ function getLanguage() {
  * specific department/career/course and display catalog descriptions according
  * to the GET attributes passed into the url.
  */
-function filterCatalogDescriptions() {
+function filterOfficialCourseDescriptions() {
 	var department = getUrlAnchorVars()["discipline"];
 	var career = getUrlAnchorVars()["programme"];
 	var filtre_department = getUrlAnchorVars()["filtre_discipline"];
@@ -932,17 +932,17 @@ function filterCatalogDescriptions() {
 		$('#par-discipline').addClass('active');
 		$('#tab-discipline').addClass('active');
 		select_menuitem('department', department);
-		expandListCatalogDescriptions('department',department.replace(/[\+]+/g, ","), '#listing_department', filtre_department, filtre_career, filtre_lang, current_tab);
+		expandListOfficialCourseDescriptions('department',department.replace(/[\+]+/g, ","), '#listing_department', filtre_department, filtre_career, filtre_lang, current_tab);
 	} else if (typeof (career) !== 'undefined') {
 		current_tab	= 'career';
 		$('#par-programme').addClass('active');
 		$('#tab-programme').addClass('active');	
 		select_menuitem('career', career);
-		expandListCatalogDescriptions('career', career.replace(/[\+]+/g, ","), '#listing_career', filtre_department, filtre_career, filtre_lang, current_tab);
+		expandListOfficialCourseDescriptions('career', career.replace(/[\+]+/g, ","), '#listing_career', filtre_department, filtre_career, filtre_lang, current_tab);
 	} else if (typeof (course) !== 'undefined') {
 		$('#par-programme').removeClass('active');
 		$('#tab-programme').removeClass('active');
-		expandCatalogDescription(course);			
+		expandOfficialCourseDescription(course);
 	}
 	else if (typeof (recherche) !== 'undefined') {
 		//populate the search box
@@ -1054,7 +1054,7 @@ function bindCollapseProcessing() {
 				var courseid = $(this).parent().parent().parent().attr("data-courseid");
 					var courseHeader = $(this).parent().parent();	
 					$.ajax({
-				url : '/direct/catalogDescription/' + courseid + '.json',
+				url : '/direct/portalManager/getOfficialCourseDescriptions.json?courseId=' + courseid ,
 				datatype : 'json',
 				success : function(course) {
 					var department_group_bundle_key = 'department_' + course.departmentGroup;
@@ -1074,16 +1074,16 @@ function bindCollapseProcessing() {
 							+ "<div class=\"btn-toolbar\">";
 
 					// Button HTML
-					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.courseId + "\')\"><i class=\"icon-star icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\">" + $('#bundleDiv').data("label_html_course_outline")+ "</span></a>";
+					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.hyphanatedCourseId + "\')\"><i class=\"icon-star icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\">" + $('#bundleDiv').data("label_html_course_outline")+ "</span></a>";
 
 					// Button PDF
-					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.courseId + "\')\">"
+					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.hyphanatedCourseId + "\')\">"
 							+ "<i class=\"icon-file-pdf icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_pdf_course_outline\">" + $('#bundleDiv').data("label_pdf_course_outline")+ "</span></a>";
 
 					div += "</div><table class=\"table\"><thead><tr><th class=\"col-co-department\" data-bundle-key=\"label_department\">" + $('#bundleDiv').data("label_department")+ "</th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\">" + $('#bundleDiv').data("label_academic_career")+ "</th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\">" + $('#bundleDiv').data("label_credits")+ "</th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\">" + $('#bundleDiv').data("label_requirements")+ "</th></tr></thead><tbody><tr><td>"
-							+ "<a data-itemName=\"department\" data-itemGroup=\"" + course.departmentGroup + "\" data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#discipline=" + course.departmentGroup + "\" class=\"linkItemUnicCatalogDescription\">"
+							+ "<a data-itemName=\"department\" data-itemGroup=\"" + course.departmentGroup + "\" data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#discipline=" + course.departmentGroup + "\" class=\"linkItemUnicOfficialCourseDescription\">"
 							+ departmentDescriptionsMap[course.departmentGroup]
-							+ "</a></td><td><a data-itemName=\"career\" data-itemGroup=\"" + course.careerGroup + "\" data-bundle-key=\"" + career_group_bundle_key + "\" href=\"#programme=" + course.careerGroup + "\" class=\"linkItemUnicCatalogDescription\">"
+							+ "</a></td><td><a data-itemName=\"career\" data-itemGroup=\"" + course.careerGroup + "\" data-bundle-key=\"" + career_group_bundle_key + "\" href=\"#programme=" + course.careerGroup + "\" class=\"linkItemUnicOfficialCourseDescription\">"
 							+ careerDescriptionsMap[course.careerGroup]
 							+ "</a></td><td>"
 							+ course.credits
@@ -1091,7 +1091,7 @@ function bindCollapseProcessing() {
 							+ course.requirements
 							+ "</td></tr></tbody></table></div>";
 						courseHeader.after(div);
-						bindLinkItemUnicCatalogDescription();
+						bindLinkItemUnicOfficialCourseDescription();
 					
 					return false;
 				},
@@ -1217,7 +1217,7 @@ $(document)
 								'/direct/portalManager/getCareers/' + language + '.json');
 						initCourseListing('department',
 								'/direct/portalManager/getDepartments/' + language + '.json');										
-						filterCatalogDescriptions();
+						filterOfficialCourseDescriptions();
 						bindChangeLanguage();
 						bindTabsSwitch();
 						updateLabelsFromBundle();
