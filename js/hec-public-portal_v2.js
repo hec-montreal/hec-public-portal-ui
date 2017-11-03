@@ -693,8 +693,13 @@ function expandOfficialCourseDescription(course) {
 
 					div += "<a class=\"icon-button-right button-microapp\" data-original-title=\"cours archivé\" data-toggle=\"\" href=\"archive.html\"></a></div></div></div><div id=\"collapseCourse\" class=\"accordion-body in collapse\"><div class=\"accordion-inner\"><h4 data-bundle-key=\"label_description\"></h4>"
 							+"<br>"
+                            + course.shortDescription
+                            +"<br><br>"
 							+ course.description
 							+"<br><br>"
+							+ "<h4 data-bundle-key=\"label_theme\">" + $('#bundleDiv').data("label_theme")+ "</h4>"
+							+ course.themes
+							+ "<br><br>"
 							+ "<div class=\"btn-toolbar\">";
 
 					// Button HTML
@@ -1069,7 +1074,12 @@ function bindCollapseProcessing() {
 
 					var div = "<div id=\"collapseCourse\" class=\"accordion-body in collapse\"><div class=\"accordion-inner\"><h4 data-bundle-key=\"label_description\">" + $('#bundleDiv').data("label_description")+ "</h4>"
 							+"<br>"
-							+ course.description
+							+ course.shortDescription
+                            +"<br><br>"
+                            + course.description
+                            +"<br><br>"
+                            + "<h4 data-bundle-key=\"label_theme\">" + $('#bundleDiv').data("label_theme")+ "</h4>"
+                            + course.themes
 							+"<br><br>"
 							+ "<div class=\"btn-toolbar\">";
 
