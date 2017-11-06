@@ -696,13 +696,13 @@ function expandOfficialCourseDescription(course) {
 					if (course.shortDescription != null)
                            div += course.shortDescription
                             +"<br><br>";
-                    if (course.shortDescription != null)
+                    if (course.description != null)
                            div += course.description
 							+"<br><br>";
                    if (course.themes != null)
                            div +=
 							+ "<h4 data-bundle-key=\"label_theme\">" + $('#bundleDiv').data("label_theme")+ "</h4>"
-							+ course.themes
+							+"<br>" + course.themes
 							+ "<br><br>"
 							+ "<div class=\"btn-toolbar\">";
 
@@ -1081,12 +1081,12 @@ function bindCollapseProcessing() {
                     if (course.shortDescription != null)
                           div += course.shortDescription
                            +"<br><br>";
-                   if (course.shortDescription != null)
+                   if (course.description != null)
                           div += course.description
                         +"<br><br>";
                     if (course.themes != null)
                             div += "<h4 data-bundle-key=\"label_theme\">" + $('#bundleDiv').data("label_theme")+ "</h4>"
-                            + course.themes
+                            +"<br>" + course.themes
 							+"<br><br>"
 							+ "<div class=\"btn-toolbar\">";
 
