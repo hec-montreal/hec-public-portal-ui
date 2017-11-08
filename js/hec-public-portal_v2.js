@@ -692,9 +692,17 @@ function expandCatalogDescription(course) {
 							+ "data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf\"></i></a>";
 
 					div += "<a class=\"icon-button-right button-microapp\" data-original-title=\"cours archivé\" data-toggle=\"\" href=\"archive.html\"></a></div></div></div><div id=\"collapseCourse\" class=\"accordion-body in collapse\"><div class=\"accordion-inner\"><h4 data-bundle-key=\"label_description\"></h4>"
-							+"<br>"
-							+ course.description
-							+"<br><br>"
+							+"<br>";
+					if (course.shortDescription != null)
+                           div += course.shortDescription
+                            +"<br><br>";
+                    if (course.description != null)
+                           div += course.description
+							+"<br><br>";
+                   if (course.themes != null)
+                           div += "<h4 data-bundle-key=\"label_theme\">" + $('#bundleDiv').data("label_theme")+ "</h4>"
+							+"<br>" + course.themes
+							+ "<br><br>"
 							+ "<div class=\"btn-toolbar\">";
 
 					// Button HTML
@@ -1068,8 +1076,16 @@ function bindCollapseProcessing() {
 					}
 
 					var div = "<div id=\"collapseCourse\" class=\"accordion-body in collapse\"><div class=\"accordion-inner\"><h4 data-bundle-key=\"label_description\">" + $('#bundleDiv').data("label_description")+ "</h4>"
-							+"<br>"
-							+ course.description
+							+"<br>";
+                    if (course.shortDescription != null)
+                          div += course.shortDescription
+                           +"<br><br>";
+                   if (course.description != null)
+                          div += course.description
+                        +"<br><br>";
+                    if (course.themes != null)
+                            div += "<h4 data-bundle-key=\"label_theme\">" + $('#bundleDiv').data("label_theme")+ "</h4>"
+                            +"<br>" + course.themes
 							+"<br><br>"
 							+ "<div class=\"btn-toolbar\">";
 
