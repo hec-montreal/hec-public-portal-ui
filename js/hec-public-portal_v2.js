@@ -202,7 +202,7 @@ function getFilterSearch(itemName) {
 /**
  * create the search result datatable from the catalog description map passed in parameter 
  */
-function displayResultCatalogDescriptionSearch(cdList) {	
+function displayResultOfficialCourseDescriptionSearch(cdList) {
 	if (cdList.length == 0) {
 		var emptyRow = "<tr class=\"search_row\" >"
 			+ "<td class=\"col-course\" colspan=\"5\">" + $('#bundleDiv').data("message_no_descriptions") + "</td>"
@@ -215,22 +215,22 @@ function displayResultCatalogDescriptionSearch(cdList) {
 		var department_group_bundle_key = 'department_' + cdList[i].departmentGroup;
 		var career_group_bundle_key = 'career_' + cdList[i].careerGroup;
 		var language_bundle_key = 'label_description_' + cdList[i].language.toLowerCase();
-						
-		var cdRow = "<tr class=\"search_row\" data-career=\"" + cdList[i].careerGroup + "\" data-department=\"" + cdList[i].departmentGroup + "\" data-language=\"" + cdList[i].language + "\">";		
+
+		var cdRow = "<tr class=\"search_row\" data-career=\"" + cdList[i].careerGroup + "\" data-department=\"" + cdList[i].departmentGroup + "\" data-language=\"" + cdList[i].language + "\">";
 		cdRow += "<td class=\"col-course\">" + cdList[i].course + "</td>";
 		cdRow += "<td class=\"col-co\" style=\"text-align:center\"><div class=\"btn-toolbar\">"
 		//Button HTML
-		 + "<a title=\"" + $('#bundleDiv').data("tooltip_icon_html_course_outline") + "\" class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + cdList[i].courseid + "\')\"><i class=\"icon-star icon_button_img\"></i></a>"
+		 + "<a title=\"" + $('#bundleDiv').data("tooltip_icon_html_course_outline") + "\" class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + cdList[i].hyphenatedCourseId + "\')\"><i class=\"icon-star icon_button_img\"></i></a>"
 		//Button PDF
-		+ "<a title=\"" + $('#bundleDiv').data("tooltip_icon_pdf_course_outline") + "\" class=\"btn\" onMouseDown=\"return openCourseOutlinePDF(\'" + cdList[i].courseid + "\')\">"
+		+ "<a title=\"" + $('#bundleDiv').data("tooltip_icon_pdf_course_outline") + "\" class=\"btn\" onMouseDown=\"return openCourseOutlinePDF(\'" + cdList[i].hyphenatedCourseId + "\')\">"
 		+ "<i class=\"icon-file-pdf icon_button_img\"></i></a>";
-		+ "<a class=\"button-microapp\" data-original-title=\"\"><i class=\"icon-file-pdf\"></i></a></div></td>";		
+		+ "<a class=\"button-microapp\" data-original-title=\"\"><i class=\"icon-file-pdf\"></i></a></div></td>";
 		cdRow += "<td class=\"col-department\" data-bundle-key=\"" + department_group_bundle_key + "\">" + departmentDescriptionsMap[cdList[i].departmentGroup] + "</td>";
-		cdRow += "<td class=\"col-career\" data-bundle-key=\"" + career_group_bundle_key + "\">" + careerDescriptionsMap[cdList[i].careerGroup] + "</td>";	
-		cdRow += "<td class=\"col-lang\" data-bundle-key=\"" + language_bundle_key + "\">" + getLanguageDescription(cdList[i].language) + "</td>";		
+		cdRow += "<td class=\"col-career\" data-bundle-key=\"" + career_group_bundle_key + "\">" + careerDescriptionsMap[cdList[i].careerGroup] + "</td>";
+		cdRow += "<td class=\"col-lang\" data-bundle-key=\"" + language_bundle_key + "\">" + getLanguageDescription(cdList[i].language) + "</td>";
 		$('#searchTable tbody').append(cdRow);
 	}
-	
+
 	$('#loader-container_search').fadeOut('fast');
 	if ($.browser.mozilla) {
 		$('#searchTable').addClass("isfirefox");
@@ -238,7 +238,7 @@ function displayResultCatalogDescriptionSearch(cdList) {
 }
 
 /**
- * Get the language description from the language code (AN/FR/ES) 
+ * Get the language description from the language code (AN/FR/ES)
  */
 function getLanguageDescription(code) {
 	var bundleName = "label_description_" + code.toLowerCase();
@@ -248,57 +248,57 @@ function getLanguageDescription(code) {
 	}
 	else{
 		return $('#bundleDiv').data("label_description_unknown");
-	}	
+	}
 }
 /**
- * return catalog descriptions associated with the "words" passed in parameter 
+ * return catalog descriptions associated with the "words" passed in parameter
  */
-function searchCatalogDescription(words) {
+function searchOfficialCourseDescription(words) {
 	var cdList = new Array();
 	var scope= $('#search_option_scope').attr('data-select-value');
-	var url= '/direct/catalogDescription.json?searchWords=' + encodeURIComponent(words) + '&searchScope=' + scope;
-	
+	var url= '/direct/portalManager/getOfficialCourseDescriptions.json?searchWords=' + encodeURIComponent(words) + '&searchScope=' + scope;
+
 	$.ajax({
 		url : url,
 		datatype : 'json',
 		success : function(listCourses) {
 
-					for ( var i = 0; i < listCourses.catalogDescription_collection.length; i++) {
-					
+					for ( var i = 0; i < listCourses.portalManager_collection.length; i++) {
+
 						var cours= new Array();
-						cours["courseid"] = listCourses.catalogDescription_collection[i].courseId;
-						cours["course"] = listCourses.catalogDescription_collection[i].courseId + " - " + listCourses.catalogDescription_collection[i].title;
-						cours["careerGroup"] = listCourses.catalogDescription_collection[i].careerGroup;
-						cours["departmentGroup"] = listCourses.catalogDescription_collection[i].departmentGroup;
-						cours["language"] = listCourses.catalogDescription_collection[i].lang;
+						cours["courseid"] = listCourses.portalManager_collection[i].hyphenatedCourseId;
+						cours["course"] = listCourses.portalManager_collection[i].hyphenatedCourseId + " - " + listCourses.portalManager_collection[i].title;
+						cours["careerGroup"] = listCourses.portalManager_collection[i].careerGroup;
+						cours["departmentGroup"] = listCourses.portalManager_collection[i].departmentGroup;
+						cours["language"] = listCourses.portalManager_collection[i].lang;
 						cdList[i] = cours;
-					}								
-				displayResultCatalogDescriptionSearch(cdList);
-				}	
+					}
+				displayResultOfficialCourseDescriptionSearch(cdList);
+				}
 			});
-	
+
 }
 
 /**
  * Bind the clik event on search buttons to the corresponding functions
  */
 function bindSearch() {
-			
-	/* click on the search button on the header, visible in all tabs*/		
+
+	/* click on the search button on the header, visible in all tabs*/
 	$("#research_global_button").keypress(function(e) {
-        if(e.which == 13) {	
+        if(e.which == 13) {
 			$('#direct_course_div').remove();
 			$(location).attr('href',getSearchHref());
-			launchSearch(getSearchWords());				
-            return false;	
+			launchSearch(getSearchWords());
+            return false;
         }
     });
-	$("#hLoupe").click(function() {	
+	$("#hLoupe").click(function() {
 			$('#direct_course_div').remove();
 			$(location).attr('href',getSearchHref());
-			launchSearch(getSearchWords());	
-			
-            return false;	
+			launchSearch(getSearchWords());
+
+            return false;
 		});
 }
 
@@ -307,14 +307,14 @@ function bindSearch() {
  */
  function getSearchWords() {
 			var searchString = $.trim($("#research_global_button").val());
-			var words= searchString.replace(/[\']+/g, " ").replace(/[ ,]+/g, "+");	
+			var words= searchString.replace(/[\']+/g, " ").replace(/[ ,]+/g, "+");
 			return words;
 }
 
 /**
  * Return the url parameter to set in order to make the search
  */
- function getSearchHref() {	
+ function getSearchHref() {
 			return	'#recherche=' + encodeURIComponent(getSearchWords());
 }
 
@@ -325,15 +325,15 @@ function launchSearch(searchText) {
 			var textToSearch = searchText.replace(/[\+]+/g, ",");
 			$('.menu_tab').removeClass('active');
 			$('.tab-pane').removeClass('active');
-			$('#par-recherche').addClass('active');				
+			$('#par-recherche').addClass('active');
 			initiateSearchFilterStatus();
-			searchCatalogDescription(textToSearch);				
+			searchOfficialCourseDescription(textToSearch);
 			setCurrentBreadCrumb('search');
 }
 
-/***************************** END "Search tab" specific functions *******************************/		
+/***************************** END "Search tab" specific functions *******************************/
 
-/***************************** Other functions *******************************/	
+/***************************** Other functions *******************************/
 
 /**
  * Get a catalog description and initialize the editor dialog box attributes:
@@ -351,16 +351,16 @@ function initCourseListing(itemName, serviceList) {
 	var idListingSearchLi = 'li_' + itemName;
 	var selectorIdListingDiv = '#' + idListingDiv;
 	var selectorSearchSelectBox = 	'#dropdown-menu_' + itemName;
-	var selectorMenuFilterBox = 	'#dropdown_filter_' + getOtherItem(itemName); 
-	
-	
+	var selectorMenuFilterBox = 	'#dropdown_filter_' + getOtherItem(itemName);
+
+
 
 	var div = "<div id=\""
 			+ idListingDiv
 			+ "\" class=\" in \" style=\"display: none; \">"
 			+ "<div class=\"filter_bar  navbar\"><div class=\"btn-group \" style=\"\"><div class=\"dropdown\"><a href=\"#\"  data-toggle=\"dropdown\" class=\"dropdown-toggle\"  id=\"filter_by_" + getOtherItem(itemName) + "\" data-select-value=\"*\">"
 			+ "<span data-bundle-key=\"button_filter_for_" + itemName + "\"></span><b class=\"caret\"></b></a><ul class=\"dropdown-menu pull-right\" id=\"dropdown_filter_" + itemName + "\">"
-			+ "<li data-select-option=\"" + getOtherItem(itemName) + "\" data-select-value=\"*\" class=\"li_filter_list_by_item active\"><a href=\"#dropdown1\" data-toggle=\"tab\" data-bundle-key=\"label_filter_all_" +  getOtherItem(itemName) + "\"></a></li>"	
+			+ "<li data-select-option=\"" + getOtherItem(itemName) + "\" data-select-value=\"*\" class=\"li_filter_list_by_item active\"><a href=\"#dropdown1\" data-toggle=\"tab\" data-bundle-key=\"label_filter_all_" +  getOtherItem(itemName) + "\"></a></li>"
 			+"</ul></div></div>"
 			+ "<div class=\"btn-group \" style=\"\"><div class=\"dropdown\"><a href=\"#\"  data-toggle=\"dropdown\" class=\"dropdown-toggle \" id=\"filter_by_lang_for_tab_" + itemName + "\" data-select-value=\"*\"><span data-bundle-key=\"button_filter_language\"></span><b class=\"caret\"></b></a><ul class=\"dropdown-menu\">"
 			+ "<li class=\"li_filter_by_language active\" data-select-value=\"*\" data-select-option=\"" + itemName + "\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"label_filter_all_language\"></a></li>"
@@ -368,25 +368,25 @@ function initCourseListing(itemName, serviceList) {
 			+ "<li class=\"li_filter_by_language\" data-select-value=\"AN\" data-select-option=\"" + itemName + "\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"button_filter_en\"></a></li>"
 			+ "<li class=\"li_filter_by_language\" data-select-value=\"ES\" data-select-option=\"" + itemName + "\"><a href=\"#dropdown2\" data-toggle=\"tab\"  data-bundle-key=\"button_filter_es\"></a></li>"
 			+ "</ul></div></div></div><!--  courses --><div class=\"accordion \" id=\"accordionCourseSelect_"	+ itemName + "\"></div><!-- loader --><div id=\"loader-container_" + itemName + "\" class=\"loader-container\"><span data-bundle-key=\"message_loading\"></span><i class=\"icon-loader\"></i></div>";
-			
+
 	$(selectorIdMainDiv).html(div);
 
 	$.ajax({
 				url : serviceList,
 				datatype : 'json',
-				success : function(listItems) {				
+				success : function(listItems) {
 					for ( var i = 0; i < listItems.portalManager_collection.length; i++) {
 						var itemGroup = listItems.portalManager_collection[i].itemGroup;
 						var id = itemName + "_" + i;
 						var href= '#' + getParameterForItem(itemName) + "=" + itemGroup;
 						var item_group_bundle_key = itemName + '_' + itemGroup;
-						
+
 						/* If we filter items from the url (?programme=/?discipline=), we need to select it in the menu*/
 						var classSelected='';
 						if ($('#dataDiv').data("selected_menu") ==  item_group_bundle_key){
-							classSelected='selected_menuitem';							
+							classSelected='selected_menuitem';
 						};
-						
+
 						var div = "<li class=\"\"><a id=\""
 								+ id
 								+ "\"data-toggle=\"collapse\" data-target=\""
@@ -396,24 +396,24 @@ function initCourseListing(itemName, serviceList) {
 								+ listItems.portalManager_collection[i].description
 								+ "</a></li>";
 						$(selectorIdTabDiv).append(div);
-						
+
 						var idDiv = '#' + id;
 						bindItem(itemName, idDiv, itemGroup, selectorIdListingDiv);
-						
+
 						/* We also populate the Carreer/Department filter boxes*/
 						$(selectorSearchSelectBox).append("<li data-select-option=\"" + itemName + "\" data-select-value=\"" + listItems.portalManager_collection[i].itemGroup + "\" class=\"li_select\"><a data-bundle-key=\"" + item_group_bundle_key + "\" href=\"#dropdown1\" data-toggle=\"tab\">" + listItems.portalManager_collection[i].description + "</a></li>");
-						$(selectorMenuFilterBox).append("<li data-select-option=\"" + itemName + "\" data-select-value=\"" + listItems.portalManager_collection[i].itemGroup + "\" class=\"li_filter_list_by_item\"><a data-bundle-key=\"" + item_group_bundle_key + "\" href=\"#dropdown1\" data-toggle=\"tab\">" + listItems.portalManager_collection[i].description + "</a></li>");						
-						
+						$(selectorMenuFilterBox).append("<li data-select-option=\"" + itemName + "\" data-select-value=\"" + listItems.portalManager_collection[i].itemGroup + "\" class=\"li_filter_list_by_item\"><a data-bundle-key=\"" + item_group_bundle_key + "\" href=\"#dropdown1\" data-toggle=\"tab\">" + listItems.portalManager_collection[i].description + "</a></li>");
+
 						/* and insert the career/department descriptions into the map for use later when displaying the courses*/
 						if (itemName === "career") {
 							careerDescriptionsMap[listItems.portalManager_collection[i].itemGroup] = listItems.portalManager_collection[i].description;
-						} 
+						}
 						else if (itemName === "department") {
 							departmentDescriptionsMap[listItems.portalManager_collection[i].itemGroup] = listItems.portalManager_collection[i].description;
 						}
-						
-					
-					}					
+
+
+					}
 					bindSelectSearchOptions();
 				}
 			});
@@ -422,20 +422,20 @@ function initCourseListing(itemName, serviceList) {
 /**
  * Return "career" if we pass "department" in parameter and vice versa
  */
-function getOtherItem(itemName) {	
+function getOtherItem(itemName) {
 	if (itemName == "career"){
 		return "department";
 	}
 	else{
 		return "career";
 	}
-}	
+}
 
 
 /**
  * Return the parameter we use for the specific item ("programme" for career and "discipline" for department)
  */
-function getParameterForItem(itemName) {	
+function getParameterForItem(itemName) {
 	if (itemName == "career"){
 		return "programme";
 	}
@@ -447,7 +447,7 @@ function getParameterForItem(itemName) {
 /**
  * Return "FR" if we pass "EN" in parameter and vice versa
  */
-function getOtherLanguage(itemName) {	
+function getOtherLanguage(itemName) {
 	if (itemName == "FR"){
 		return "EN";
 	}
@@ -459,7 +459,7 @@ function getOtherLanguage(itemName) {
 /**
  * Return the correct suffix ("fr" "en" or "es") from the filtre_lang utl anchor (FR,AN,ES) that is used to get the language filter bundle key
  */
-function getCorrespondingLanguageFilterLocale(itemName) {	
+function getCorrespondingLanguageFilterLocale(itemName) {
 	if (itemName == "FR"){
 		return "fr";
 	}
@@ -477,7 +477,7 @@ function getCorrespondingLanguageFilterLocale(itemName) {
 /**
  * Return "FR" if we pass "EN" in parameter and vice versa
  */
-function getOtherLanguage(itemName) {	
+function getOtherLanguage(itemName) {
 	if (itemName == "FR"){
 		return "EN";
 	}
@@ -485,9 +485,9 @@ function getOtherLanguage(itemName) {
 		return "FR";
 	}
 }
-	
+
 /**
- * Bind "change language" buttons (french/english) to the 
+ * Bind "change language" buttons (french/english) to the
  * "change local" behaviour : all attributes with internationalized labels are reloaded in the new language.
  */
 function bindChangeLanguage() {
@@ -510,9 +510,9 @@ function getBundle(locale) {
 		url : '/direct/portalManager/getBundles/' + locale + '.json',
 		datatype : 'json',
 		success : function(msgsBundle) {
-			$('#bundleDiv').data(msgsBundle.data);	
+			$('#bundleDiv').data(msgsBundle.data);
 			updateLabelsFromBundle();
-		}		
+		}
 	});
 }
 
@@ -525,14 +525,14 @@ function updateLabelsFromBundle() {
 					var text = $('#bundleDiv').data(key);
 					$(this).text(text);
 				});
-				
+
 	// set the urls depending on the language
 	$('[data-bundle-url-key]').each(function(index, value){
 					var key = $(this).attr('data-bundle-url-key');
 					var url = $('#bundleDiv').data(key);
 					$(this).attr('href', url);
 				});
-				
+
 	// select the proper banner image
 	if (getLanguage() === 'EN') {
 		$('#container_image_portail > img').attr('src', "images/course_portal_directory_960x240.jpg");
@@ -540,11 +540,11 @@ function updateLabelsFromBundle() {
 	else {
 		$('#container_image_portail > img').attr('src', "images/portail-des-cours_hec960x240.jpg");
 	}
-	
+
 }
 
-function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
-	expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv, null, null, null, null);
+function expandListOfficialCourseDescriptions(itemName, listId, selectorIdListingDiv) {
+	expandListOfficialCourseDescriptions(itemName, listId, selectorIdListingDiv, null, null, null, null);
 }
 
 /**
@@ -555,27 +555,27 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv) {
  * that get the catalog descriptions for a specific deparment/career the
  * departments/carrer
  */
-function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv, filtre_department, filtre_career, filtre_lang, current_tab) {
+function expandListOfficialCourseDescriptions(itemName, listId, selectorIdListingDiv, filtre_department, filtre_career, filtre_lang, current_tab) {
 
 	var itemCleaned = listId[0].replace(/[^a-z0-9\s]/gi, '');
 	var selectorAccordionCourseDiv = '#accordionCourseSelect_' + itemName;
-	var selectorLoader = '#loader-container_' + itemName;	
+	var selectorLoader = '#loader-container_' + itemName;
 	$(selectorIdListingDiv).fadeIn('fast');
-	
+
 	//first we hide the list of courses and we display the loader bar
-	$(selectorAccordionCourseDiv).fadeOut('fast', 
+	$(selectorAccordionCourseDiv).fadeOut('fast',
 		function() {
 			$(selectorLoader).fadeIn('fast',function(){
-							
+
 			$.ajax({
-				url : '/direct/catalogDescription.json?' + itemName + '=' + listId,
+				url : '/direct/portalManager/getOfficialCourseDescriptions.json?' + itemName + '=' + listId,
 				datatype : 'json',
 				success : function(listCourses) {
 					$(selectorAccordionCourseDiv).html("");
 
 					var div = "";
 
-					if (listCourses.catalogDescription_collection.length == 0)
+					if (listCourses.portalManager_collection.length == 0)
 					{
 						div += "<div class=\"accordion-group courseToFilter list_by_" + itemName
 								+ "\"><div class=\"accordion-heading row\"><div class=\"span5\"><a class=\"accordion-toggle\" style=\"cursor:auto\" >"
@@ -583,26 +583,26 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv, f
 								+ "</a></div></div>";
 					}
 					else {
-						for ( var i = 0; i < listCourses.catalogDescription_collection.length; i++) {
-							var departmentGroup = listCourses.catalogDescription_collection[i].departmentGroup;
-							var careerGroup = listCourses.catalogDescription_collection[i].careerGroup;
+						for ( var i = 0; i < listCourses.portalManager_collection.length; i++) {
+							var departmentGroup = listCourses.portalManager_collection[i].departmentGroup;
+							var careerGroup = listCourses.portalManager_collection[i].careerGroup;
 							var department_group_bundle_key = 'department_' + departmentGroup;
 							var career_group_bundle_key = 'career_' + careerGroup;
-						
-							if(listCourses.catalogDescription_collection[i].description==null){
-								listCourses.catalogDescription_collection[i].description="<span data-bundle-key=\"label_no_description\"></span>";
+
+							if(listCourses.portalManager_collection[i].description==null){
+								listCourses.portalManager_collection[i].description="<span data-bundle-key=\"label_no_description\"></span>";
 							}
-							if(listCourses.catalogDescription_collection[i].requirements==null){
-								listCourses.catalogDescription_collection[i].requirements="<span data-bundle-key=\"label_no_requirement\"></span>";
-							}									
-									
+							if(listCourses.portalManager_collection[i].requirements==null){
+								listCourses.portalManager_collection[i].requirements="<span data-bundle-key=\"label_no_requirement\"></span>";
+							}
+
 							div += "<div id=\"\" data-courseId=\""
-								+ listCourses.catalogDescription_collection[i].courseId
+								+ listCourses.portalManager_collection[i].courseId
 								+ "\" data-title=\""
-								+ listCourses.catalogDescription_collection[i].title								
-								+ "\" data-career=\"" + listCourses.catalogDescription_collection[i].careerGroup 
-								+ "\" data-department=\"" + listCourses.catalogDescription_collection[i].departmentGroup
-								+ "\" data-lang=\"" + listCourses.catalogDescription_collection[i].lang
+								+ listCourses.portalManager_collection[i].title
+								+ "\" data-career=\"" + listCourses.portalManager_collection[i].careerGroup
+								+ "\" data-department=\"" + listCourses.portalManager_collection[i].departmentGroup
+								+ "\" data-lang=\"" + listCourses.portalManager_collection[i].lang
 								+ "\" class=\"accordion-group courseToFilter list_by_" + itemName
 								+ "\"><div class=\"accordion-heading row\"><div class=\"span5\"><a class=\"accordion-toggle\" data-toggle=\"collapse\" href=\"#collapseCourse"
 								+ "_"
@@ -612,23 +612,23 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv, f
 								+ "\"data-parent=\"#accordionCourseSelect_"
 								+ itemName
 								+ "\">"
-								+ listCourses.catalogDescription_collection[i].courseId
+								+ listCourses.portalManager_collection[i].hyphenatedCourseId
 								+ " - "
-								+ listCourses.catalogDescription_collection[i].title
+								+ listCourses.portalManager_collection[i].title
 								+ "</a><div class=\"toolsWrapper\">";
-						
+
 							//Button HTML
-							div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_html_course_outline") + "\" class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" onMouseDown=\"return openCourseOutlineHTML(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\">"
+							div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_html_course_outline") + "\" class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" onMouseDown=\"return openCourseOutlineHTML(\'" + listCourses.portalManager_collection[i].hyphenatedCourseId + "\')\">"
 								+ "<i class=\"icon-star icon_header_img\"></i></a>";
-						
+
 							// Button PDF
-							div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_pdf_course_outline") + "\" onMouseDown=\"return openCourseOutlinePDF(\'" + listCourses.catalogDescription_collection[i].courseId + "\')\" "
+							div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_pdf_course_outline") + "\" onMouseDown=\"return openCourseOutlinePDF(\'" + listCourses.portalManager_collection[i].hyphenatedCourseId + "\')\" "
 								+ "data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf icon_header_img\"></i></a>";
 
 							div += "</div></div></div></div></div>";
 					}}
-					
-					$(selectorAccordionCourseDiv).html(div);										
+
+					$(selectorAccordionCourseDiv).html(div);
 					bindFilerByItem();
 					bindFilterLanguage();
 					bindCollapseProcessing();
@@ -636,41 +636,41 @@ function expandListCatalogDescriptions(itemName, listId, selectorIdListingDiv, f
 
 
 					setCurrentBreadCrumb(itemName);
-					updateLabelsFromBundle();	
-					
+					updateLabelsFromBundle();
+
 					$(selectorAccordionCourseDiv).fadeIn('fast',function() {$(selectorLoader).fadeOut('fast');bindLinkItem();});
 
 					//apply filter from anchor parameters
 					if (typeof (filtre_department) !== 'undefined') {
 						filterBy('department',filtre_department);
-						
-					} 
+
+					}
 					if (typeof (filtre_career) !== 'undefined') {
 						filterBy('career',filtre_career);
-					} 
+					}
 					if (typeof (filtre_lang) !== 'undefined') {
 						filterByLangForTab(filtre_lang,current_tab);}
 
 					return false;
 					}
-				});		
-			});		
-		});	
+				});
+			});
+		});
 }
 
 /**
  * Expand the catalog description that match the course id passed in parameter
  */
-function expandCatalogDescription(course) {
+function expandOfficialCourseDescription(course) {
 
 	$.ajax({
-				url : '/direct/catalogDescription/' + course + '.json',
+				url : '/direct/portalManager/getOfficialCourseDescription.json?courseId=' + course,
 				datatype : 'json',
 				success : function(course) {
-				
+
 					var department_group_bundle_key = 'department_' + course.departmentGroup;
-					var career_group_bundle_key = 'career_' + course.careerGroup;						
-					
+					var career_group_bundle_key = 'career_' + course.careerGroup;
+
 					if(course.description==null){
 						course.description="<span data-bundle-key=\"label_no_description\"></span>";
 					}
@@ -679,16 +679,16 @@ function expandCatalogDescription(course) {
 					}
 
 					var div = "<div id=\"direct_course_div\" class=\"accordion-group \"><div class=\"accordion-heading row\"><div class=\"span5\"><a class=\"accordion-toggle\" data-toggle=\"collapse\" href=\"#collapseCourse\"data-parent=\"#accordionCourseSelect\">"
-							+ course.courseId
+							+ course.hyphenatedCourseId
 							+ " - "
 							+ course.title
 							+ "</a><div class=\"toolsWrapper\">";
 
 					//Button HTML
-					div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_html_course_outline") + "\" class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.courseId + "\')\"><i class=\"icon-star icon_header_img\"></i></a>";
-							
+					div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_html_course_outline") + "\" class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.hyphenatedCourseId + "\')\"><i class=\"icon-star icon_header_img\"></i></a>";
+
 					//Button PDF
-					div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_pdf_course_outline") + "\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.courseId + "\')\" "
+					div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_pdf_course_outline") + "\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.hyphenatedCourseId + "\')\" "
 							+ "data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf\"></i></a>";
 
 					div += "<a class=\"icon-button-right button-microapp\" data-original-title=\"cours archivé\" data-toggle=\"\" href=\"archive.html\"></a></div></div></div><div id=\"collapseCourse\" class=\"accordion-body in collapse\"><div class=\"accordion-inner\"><h4 data-bundle-key=\"label_description\"></h4>"
@@ -706,16 +706,16 @@ function expandCatalogDescription(course) {
 							+ "<div class=\"btn-toolbar\">";
 
 					// Button HTML
-					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.courseId + "\')\"><i class=\"icon-star icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\"></span></a>";
+					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.hyphenatedCourseId + "\')\"><i class=\"icon-star icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\"></span></a>";
 
 					// Button PDF
-					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.courseId + "\')\">"
+					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.hyphenatedCourseId + "\')\">"
 							+ "<i class=\"icon-file-pdf icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_pdf_course_outline\"></span></a>";
 
 					div += "</div><table class=\"table\"><thead><tr><th class=\"col-co-department\" data-bundle-key=\"label_department\"></th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\"></th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\"></th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\"></th></tr></thead><tbody><tr><td>"
-							+ "<a data-itemName=\"department\" data-itemGroup=\"" + course.departmentGroup + "\" data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#discipline=" + course.departmentGroup + "\" class=\"linkItemUnicCatalogDescription\">"
+							+ "<a data-itemName=\"department\" data-itemGroup=\"" + course.departmentGroup + "\" data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#discipline=" + course.departmentGroup + "\" class=\"linkItemUnicOfficialCourseDescription\">"
 							+ departmentDescriptionsMap[course.departmentGroup]
-							+ "</a></td><td><a data-itemName=\"career\" data-itemGroup=\"" + course.careerGroup + "\" data-bundle-key=\"" + career_group_bundle_key + "\" href=\"#programme=" + course.careerGroup + "\" class=\"linkItemUnicCatalogDescription\">"
+							+ "</a></td><td><a data-itemName=\"career\" data-itemGroup=\"" + course.careerGroup + "\" data-bundle-key=\"" + career_group_bundle_key + "\" href=\"#programme=" + course.careerGroup + "\" class=\"linkItemUnicOfficialCourseDescription\">"
 							+ careerDescriptionsMap[course.careerGroup]
 							+ "</a></td><td>"
 							+ course.credits
@@ -723,10 +723,10 @@ function expandCatalogDescription(course) {
 							+ course.requirements
 							+ "</td></tr></tbody></table></div></div></div>";
 
-					$('#my-tab-content').append(div);	
-					bindLinkItemUnicCatalogDescription();					
-					$('#current_breadcrumb').html(course.courseId);
-					updateLabelsFromBundle();					
+					$('#my-tab-content').append(div);
+					bindLinkItemUnicOfficialCourseDescription();
+					$('#current_breadcrumb').html(course.hyphenatedCourseId);
+					updateLabelsFromBundle();
 					return false;
 				},
 				statusCode: {
@@ -734,10 +734,10 @@ function expandCatalogDescription(course) {
 						var div = "<div id=\"direct_course_div\" class=\"accordion-group \"><div class=\"accordion-heading row\"><div class=\"span5\"><a class=\"accordion-toggle\" style=\"cursor:auto\">"
 							+ $('#bundleDiv').data("label_no_description")
 							+ "</a></div></div></div>";
-						
-						$('#my-tab-content').append(div);	
+
+						$('#my-tab-content').append(div);
 						$('#current_breadcrumb').html(course);
-						updateLabelsFromBundle();					
+						updateLabelsFromBundle();
 						return false;
 					}
 				}
@@ -754,31 +754,31 @@ function expandCatalogDescription(course) {
  */
 function bindItem(itemName, idDiv, itemGroup, selectorIdListingDiv) {
 	$(idDiv).click(
-			function() {								
+			function() {
 				initiateFilter(itemName);
-				expandListCatalogDescriptions(itemName, itemGroup.replace(/[\+]+/g, ","), selectorIdListingDiv);
+				expandListOfficialCourseDescriptions(itemName, itemGroup.replace(/[\+]+/g, ","), selectorIdListingDiv);
 				var selectorMenuItem = '#div_' + itemName + ' .menuitem';
 				$(selectorMenuItem).removeClass('selected_menuitem');
 				$(this).addClass('selected_menuitem');
 				var href= '#' + getParameterForItem(itemName) + "=" + itemGroup;
-				$(location).attr('href',href); 
+				$(location).attr('href',href);
 			});
 }
 
 /**
  * Reinitiate the filter (used when we click on a menu link).
  * parameter: -itemName: carrer or department
- */	
-function initiateFilter(itemName) {	
+ */
+function initiateFilter(itemName) {
 	var selectorLangFilter = '#filter_by_lang_for_tab_' + itemName;
 	var selectorItemFilter = '#filter_by_' + getOtherItem(itemName);
 	var selectorLangFilterSpan = selectorLangFilter + ' span';
-	var selectorItemFilterSpan = selectorItemFilter + ' span';		
+	var selectorItemFilterSpan = selectorItemFilter + ' span';
 	$(selectorLangFilter).attr('data-select-value', '*');
 	$(selectorItemFilter).attr('data-select-value', '*');
 	$(selectorLangFilterSpan).attr('data-bundle-key', 'button_filter_language');
 	$(selectorItemFilterSpan).attr('data-bundle-key', 'button_filter_for_' + itemName);
-	
+
 	var selecorLiItem = '.li_filter_list_by_item[data-select-option=\'' + getOtherItem(itemName) + '\']';
 	var selecorLiItemDefault = selecorLiItem + '[data-select-value=\'*\']';
 	var selecorLiLanguage = '.li_filter_by_language';
@@ -807,8 +807,8 @@ function bindLinkItem() {
  * Bind the clik event on the links displayed within the catalog description information table (displaying Department/Career/Credits/Requirements)
  * when the catalog description is theonly one displayed in the page (direct access to a specific catalog description)
  */
-function bindLinkItemUnicCatalogDescription() {
-	$('.linkItemUnicCatalogDescription').click(
+function bindLinkItemUnicOfficialCourseDescription() {
+	$('.linkItemUnicOfficialCourseDescription').click(
 			function() {
 				var itemName = $(this).attr('data-itemName');
 				var dataItemGroup = $(this).attr('data-itemGroup');
@@ -820,19 +820,19 @@ function bindLinkItemUnicCatalogDescription() {
 
 /**
  * Execute the processing when we clik on a link displayed within the catalog description information table (displaying Department/Career/Credits/Requirements)
- * attributes: 
+ * attributes:
  * -itemName: carrer or department
- * -href: href of the link 
+ * -href: href of the link
  * -data-itemGroup: id of department/career regroupment associated to the div
  */
 function processLinkItem(itemName, href, dataItemGroup) {
 				var otherItem = getOtherItem(itemName);
 				var selectorPar = '#par-' + getParameterForItem(itemName);
-				var selectorTab = '#tab-' + getParameterForItem(itemName); 
+				var selectorTab = '#tab-' + getParameterForItem(itemName);
 				var selectorOtherPar = '#par-' + getParameterForItem(otherItem);
-				var selectorOtherTab = '#tab-' + getParameterForItem(otherItem); 
+				var selectorOtherTab = '#tab-' + getParameterForItem(otherItem);
 				var selectorIdListingDiv = '#' + 'listing_' + itemName;
-				expandListCatalogDescriptions(itemName, dataItemGroup.replace(/[\+]+/g, ","), selectorIdListingDiv);
+				expandListOfficialCourseDescriptions(itemName, dataItemGroup.replace(/[\+]+/g, ","), selectorIdListingDiv);
 				var selectorMenuItem = '#div_' + itemName + ' .menuitem';
 				var selectorMenuItemToSelect = selectorMenuItem + '[href=\"' +  href + '\"]';
 				$(selectorMenuItem).removeClass('selected_menuitem');
@@ -892,15 +892,15 @@ function isUrlTag(tag) {
 }
 
 /**
- * Get the language we use for portail labels (default is french) 
+ * Get the language we use for portail labels (default is french)
  */
 function getLanguage() {
 	var language = getUrlLang();
 	if (language.length === 2) {
-		$('#switch_language').attr('data-select-value', getOtherLanguage(language));	
+		$('#switch_language').attr('data-select-value', getOtherLanguage(language));
 		return language;
-	}	
-	else{	
+	}
+	else{
 		var hrefsplitted = $(location).attr('href').split('#');
 		var contextHref = hrefsplitted[0];
 		if (typeof (hrefsplitted[1]) !== 'undefined'){
@@ -926,7 +926,7 @@ function getLanguage() {
  * specific department/career/course and display catalog descriptions according
  * to the GET attributes passed into the url.
  */
-function filterCatalogDescriptions() {
+function filterOfficialCourseDescriptions() {
 	var department = getUrlAnchorVars()["discipline"];
 	var career = getUrlAnchorVars()["programme"];
 	var filtre_department = getUrlAnchorVars()["filtre_discipline"];
@@ -940,32 +940,32 @@ function filterCatalogDescriptions() {
 		$('#par-discipline').addClass('active');
 		$('#tab-discipline').addClass('active');
 		select_menuitem('department', department);
-		expandListCatalogDescriptions('department',department.replace(/[\+]+/g, ","), '#listing_department', filtre_department, filtre_career, filtre_lang, current_tab);
+		expandListOfficialCourseDescriptions('department',department.replace(/[\+]+/g, ","), '#listing_department', filtre_department, filtre_career, filtre_lang, current_tab);
 	} else if (typeof (career) !== 'undefined') {
 		current_tab	= 'career';
 		$('#par-programme').addClass('active');
-		$('#tab-programme').addClass('active');	
+		$('#tab-programme').addClass('active');
 		select_menuitem('career', career);
-		expandListCatalogDescriptions('career', career.replace(/[\+]+/g, ","), '#listing_career', filtre_department, filtre_career, filtre_lang, current_tab);
+		expandListOfficialCourseDescriptions('career', career.replace(/[\+]+/g, ","), '#listing_career', filtre_department, filtre_career, filtre_lang, current_tab);
 	} else if (typeof (course) !== 'undefined') {
 		$('#par-programme').removeClass('active');
 		$('#tab-programme').removeClass('active');
-		expandCatalogDescription(course);			
+		expandOfficialCourseDescription(course);
 	}
 	else if (typeof (recherche) !== 'undefined') {
 		//populate the search box
 		$("#research_global_button").val(decodeURIComponent(recherche).replace(/[\+]+/g, " "));
-		launchSearch(recherche);		
+		launchSearch(recherche);
 	}
 	else if (isUrlTag("discipline")) {
 		$('#tab-discipline').addClass('active');
 		$('#par-discipline').addClass('active');
-		setCurrentBreadCrumb('department');	
+		setCurrentBreadCrumb('department');
 		current_tab	= 'department';
 	}
 	else if (isUrlTag("programme")) {
-		$('#tab-programme').addClass('active');	
-		$('#par-programme').addClass('active');			
+		$('#tab-programme').addClass('active');
+		$('#par-programme').addClass('active');
 		setCurrentBreadCrumb('career');
 		current_tab	= 'career';
 	}
@@ -973,47 +973,47 @@ function filterCatalogDescriptions() {
 
 function filterBy(item, value) {
 			var selectorButtonFilter = '#filter_by_' + item;
-			var selectorSpanFilter = selectorButtonFilter + ' span';						
-			if (value == '*'){	
+			var selectorSpanFilter = selectorButtonFilter + ' span';
+			if (value == '*'){
 				var bundleName = 'button_filter_for_' + item;
 			}
 			else{
 				var bundleName = item + '_' + value ;
-			}				
-			var bundleDescription = $('#bundleDiv').data(bundleName);			
+			}
+			var bundleDescription = $('#bundleDiv').data(bundleName);
 			$(selectorButtonFilter).attr('data-select-value',value);
 
-			var bundleDescription = $('#bundleDiv').data(bundleName);			
-			$(selectorButtonFilter).attr('data-select-value',$(this).attr('data-select-value'));	
+			var bundleDescription = $('#bundleDiv').data(bundleName);
+			$(selectorButtonFilter).attr('data-select-value',$(this).attr('data-select-value'));
 			applyFilerByItem(getOtherItem($(this).attr('data-select-option')));
-			
+
 
 			applyFilerByItem(getOtherItem(item));
 			var selecorLi = '.li_filter_list_by_item[data-select-option=\'' + item + '\']';
 			var selecorLiFiltered = selecorLi + '[data-select-value=\'' + value + '\']';
 			$(selecorLi).removeClass('active');
-			$(selectorSpanFilter).attr('data-bundle-key',bundleName);	
-			$(selectorSpanFilter).html(bundleDescription);			
+			$(selectorSpanFilter).attr('data-bundle-key',bundleName);
+			$(selectorSpanFilter).html(bundleDescription);
 			$(selecorLiFiltered).addClass('active');
 }
 
 function filterByLangForTab(lang, tab) {
 			var selectorButtonFilter = '#filter_by_lang_for_tab_' + tab;
-			var selectorSpanFilter = selectorButtonFilter + ' span';						
-			if (lang == '*'){	
+			var selectorSpanFilter = selectorButtonFilter + ' span';
+			if (lang == '*'){
 				var bundleName = 'button_filter_language';
 			}
 			else{
 				var bundleName = 'button_filter_' + getCorrespondingLanguageFilterLocale(lang) ;
-			}				
-			var bundleDescription = $('#bundleDiv').data(bundleName);			
+			}
+			var bundleDescription = $('#bundleDiv').data(bundleName);
 			$(selectorButtonFilter).attr('data-select-value',lang);
 			applyFilerByItem(tab);
 			var selecorLi = '.li_filter_by_language[data-select-option=\'' + tab + '\']';
 			var selecorLiFiltered = selecorLi + '[data-select-value=\'' + lang + '\']';
 			$(selecorLi).removeClass('active');
-			$(selectorSpanFilter).attr('data-bundle-key',bundleName);	
-			$(selectorSpanFilter).html(bundleDescription);		
+			$(selectorSpanFilter).attr('data-bundle-key',bundleName);
+			$(selectorSpanFilter).html(bundleDescription);
 			$(selecorLiFiltered).addClass('active');
 }
 
@@ -1030,11 +1030,11 @@ function bindTabsSwitch() {
 				var href= '#' + getParameterForItem(itemName);
 				var selectorTabMenuSelectedItem = '#div_' + itemName + ' .menuitem.selected_menuitem';
 				var hrefSelectedMenuItem = $(selectorTabMenuSelectedItem).attr('href');
-				
+
 				if (typeof (hrefSelectedMenuItem) !== 'undefined') {
 					href = hrefSelectedMenuItem;
 				}
-				
+
 				$(location).attr('href',href);
 			});
 }
@@ -1044,30 +1044,30 @@ function bindTabsSwitch() {
  */
 function bindCollapseProcessing() {
 	$('.accordion-heading.row > .span5 > .accordion-toggle').click(
-			function() {				
-					
+			function() {
+
 				if ($(this).parent().parent().next().hasClass('in')){
 					$(this).parent().parent().next().remove();
 					$(this).parent().parent().removeClass("collapsedRow");
 					$(this).parent().removeClass("collapsedRow");
-			
+
 			}
 				else{
 					$(this).parents('.span9').find('.accordion-body.in.collapse').remove();
 					$(this).parents('.span9').find('.collapsedRow').removeClass("collapsedRow");
 					$(this).parent().parent().addClass("collapsedRow");
 					$(this).parent().addClass("collapsedRow");
-					
-					
+
+
 				var courseid = $(this).parent().parent().parent().attr("data-courseid");
-					var courseHeader = $(this).parent().parent();	
+					var courseHeader = $(this).parent().parent();
 					$.ajax({
-				url : '/direct/catalogDescription/' + courseid + '.json',
+				url : '/direct/portalManager/getOfficialCourseDescription.json?courseId=' + courseid ,
 				datatype : 'json',
 				success : function(course) {
 					var department_group_bundle_key = 'department_' + course.departmentGroup;
-					var career_group_bundle_key = 'career_' + course.careerGroup;						
-					
+					var career_group_bundle_key = 'career_' + course.careerGroup;
+
 					if(course.description==null){
 						course.description="<span data-bundle-key=\"label_no_description\">" + $('#bundleDiv').data("label_no_description")+ "</span>";
 					}
@@ -1090,16 +1090,16 @@ function bindCollapseProcessing() {
 							+ "<div class=\"btn-toolbar\">";
 
 					// Button HTML
-					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.courseId + "\')\"><i class=\"icon-star icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\">" + $('#bundleDiv').data("label_html_course_outline")+ "</span></a>";
+					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.hyphenatedCourseId + "\')\"><i class=\"icon-star icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\">" + $('#bundleDiv').data("label_html_course_outline")+ "</span></a>";
 
 					// Button PDF
-					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.courseId + "\')\">"
+					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.hyphenatedCourseId + "\')\">"
 							+ "<i class=\"icon-file-pdf icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_pdf_course_outline\">" + $('#bundleDiv').data("label_pdf_course_outline")+ "</span></a>";
 
 					div += "</div><table class=\"table\"><thead><tr><th class=\"col-co-department\" data-bundle-key=\"label_department\">" + $('#bundleDiv').data("label_department")+ "</th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\">" + $('#bundleDiv').data("label_academic_career")+ "</th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\">" + $('#bundleDiv').data("label_credits")+ "</th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\">" + $('#bundleDiv').data("label_requirements")+ "</th></tr></thead><tbody><tr><td>"
-							+ "<a data-itemName=\"department\" data-itemGroup=\"" + course.departmentGroup + "\" data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#discipline=" + course.departmentGroup + "\" class=\"linkItemUnicCatalogDescription\">"
+							+ "<a data-itemName=\"department\" data-itemGroup=\"" + course.departmentGroup + "\" data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#discipline=" + course.departmentGroup + "\" class=\"linkItemUnicOfficialCourseDescription\">"
 							+ departmentDescriptionsMap[course.departmentGroup]
-							+ "</a></td><td><a data-itemName=\"career\" data-itemGroup=\"" + course.careerGroup + "\" data-bundle-key=\"" + career_group_bundle_key + "\" href=\"#programme=" + course.careerGroup + "\" class=\"linkItemUnicCatalogDescription\">"
+							+ "</a></td><td><a data-itemName=\"career\" data-itemGroup=\"" + course.careerGroup + "\" data-bundle-key=\"" + career_group_bundle_key + "\" href=\"#programme=" + course.careerGroup + "\" class=\"linkItemUnicOfficialCourseDescription\">"
 							+ careerDescriptionsMap[course.careerGroup]
 							+ "</a></td><td>"
 							+ course.credits
@@ -1107,7 +1107,7 @@ function bindCollapseProcessing() {
 							+ course.requirements
 							+ "</td></tr></tbody></table></div>";
 						courseHeader.after(div);
-						bindLinkItemUnicCatalogDescription();
+						bindLinkItemUnicOfficialCourseDescription();
 					
 					return false;
 				},
@@ -1233,7 +1233,7 @@ $(document)
 								'/direct/portalManager/getCareers/' + language + '.json');
 						initCourseListing('department',
 								'/direct/portalManager/getDepartments/' + language + '.json');										
-						filterCatalogDescriptions();
+						filterOfficialCourseDescriptions();
 						bindChangeLanguage();
 						bindTabsSwitch();
 						updateLabelsFromBundle();
