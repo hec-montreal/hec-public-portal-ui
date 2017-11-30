@@ -1069,10 +1069,10 @@ function bindCollapseProcessing() {
 					var career_group_bundle_key = 'career_' + course.careerGroup;
 
 					if(course.description==null){
-						course.description="<span data-bundle-key=\"label_no_description\">" + $('#bundleDiv').data("label_no_description")+ "</span>";
+						course.description="<span data-bundle-key=\"label_no_description\"></span>";
 					}
 					if(course.requirements==null){
-						course.requirements="<span data-bundle-key=\"label_no_requirement\">" + $('#bundleDiv').data("label_no_requirement")+ "</span>";
+						course.requirements="<span data-bundle-key=\"label_no_requirement\"></span>";
 					}
 
 					var div = "<div id=\"collapseCourse\" class=\"accordion-body in collapse\"><div class=\"accordion-inner\"><h4 data-bundle-key=\"label_description\">" + $('#bundleDiv').data("label_description")+ "</h4>"
