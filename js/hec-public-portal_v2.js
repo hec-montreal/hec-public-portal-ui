@@ -693,9 +693,12 @@ function expandOfficialCourseDescription(course) {
 
 					div += "<a class=\"icon-button-right button-microapp\" data-original-title=\"cours archivé\" data-toggle=\"\" href=\"archive.html\"></a></div></div></div><div id=\"collapseCourse\" class=\"accordion-body in collapse\"><div class=\"accordion-inner\"><h4 data-bundle-key=\"label_description\"></h4>"
 							+"<br>";
-					if (course.shortDescription != null)
+					if (course.shortDescription != null){
                            div += course.shortDescription
                             +"<br><br>";
+                    }else {
+                        div +=  $('#bundleDiv').data("label_no_description") +"<br><br>";
+                    }
                     if (course.description != null)
                            div += course.description
 							+"<br><br>";
@@ -1077,10 +1080,13 @@ function bindCollapseProcessing() {
 
 					var div = "<div id=\"collapseCourse\" class=\"accordion-body in collapse\"><div class=\"accordion-inner\"><h4 data-bundle-key=\"label_description\">" + $('#bundleDiv').data("label_description")+ "</h4>"
 							+"<br>";
-                    if (course.shortDescription != null)
+                    if (course.shortDescription != null){
                           div += course.shortDescription
                            +"<br><br>";
-                   if (course.description != null)
+                    }else {
+                        div +=  $('#bundleDiv').data("label_no_description") +"<br><br>";
+                    }
+                    if (course.description != null)
                           div += course.description
                         +"<br><br>";
                     if (course.themes != null)
