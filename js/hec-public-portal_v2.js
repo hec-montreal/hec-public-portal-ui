@@ -671,13 +671,6 @@ function expandOfficialCourseDescription(course) {
 					var department_group_bundle_key = 'department_' + course.departmentGroup;
 					var career_group_bundle_key = 'career_' + course.careerGroup;
 
-					if(course.description==null){
-						course.description="<span data-bundle-key=\"label_no_description\"></span>";
-					}
-					if(course.requirements==null){
-						course.requirements="<span data-bundle-key=\"label_no_requirement\"></span>";
-					}
-
 					var div = "<div id=\"direct_course_div\" class=\"accordion-group \"><div class=\"accordion-heading row\"><div class=\"span5\"><a class=\"accordion-toggle\" data-toggle=\"collapse\" href=\"#collapseCourse\"data-parent=\"#accordionCourseSelect\">"
 							+ course.hyphenatedCourseId
 							+ " - "
@@ -1070,13 +1063,6 @@ function bindCollapseProcessing() {
 				success : function(course) {
 					var department_group_bundle_key = 'department_' + course.departmentGroup;
 					var career_group_bundle_key = 'career_' + course.careerGroup;
-
-					if(course.description==null){
-						course.description="<span data-bundle-key=\"label_no_description\"></span>";
-					}
-					if(course.requirements==null){
-						course.requirements="<span data-bundle-key=\"label_no_requirement\"></span>";
-					}
 
 					var div = "<div id=\"collapseCourse\" class=\"accordion-body in collapse\"><div class=\"accordion-inner\"><h4 data-bundle-key=\"label_description\">" + $('#bundleDiv').data("label_description")+ "</h4>"
 							+"<br>";
