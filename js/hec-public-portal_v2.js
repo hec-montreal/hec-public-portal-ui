@@ -266,7 +266,8 @@ function searchOfficialCourseDescription(words) {
 					for ( var i = 0; i < listCourses.portalManager_collection.length; i++) {
 
 						var cours= new Array();
-						cours["courseid"] = listCourses.portalManager_collection[i].hyphenatedCourseId;
+						cours["courseid"] = listCourses.portalManager_collection[i].courseId;
+						cours["hyphenatedCourseId"] = listCourses.portalManager_collection[i].hyphenatedCourseId;
 						cours["course"] = listCourses.portalManager_collection[i].hyphenatedCourseId + " - " + listCourses.portalManager_collection[i].title;
 						cours["careerGroup"] = listCourses.portalManager_collection[i].careerGroup;
 						cours["departmentGroup"] = listCourses.portalManager_collection[i].departmentGroup;
