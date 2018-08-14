@@ -349,7 +349,7 @@ width: 100%;
 	table-layout:fixed;
 }
 
-#searchTable  thead tr th {
+#searchTable thead tr th {
 	background-color: rgb(0, 172, 236); /* alternative solide for IE8 */
 	filter: alpha(opacity=80);
 	background-color: rgba(0, 172, 236, 0.8);	
@@ -359,10 +359,11 @@ width: 100%;
 	width: 100%;	
 }
 #searchTable  thead tr {
-	width: 100%;	
+	width: 100%;
 }
 .search_row  td{
 	border-bottom: solid 1px #D0D1D3;
+	height: 50px;
 }
 
 

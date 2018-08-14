@@ -218,13 +218,6 @@ function displayResultOfficialCourseDescriptionSearch(cdList) {
 
 		var cdRow = "<tr class=\"search_row\" data-career=\"" + cdList[i].careerGroup + "\" data-department=\"" + cdList[i].departmentGroup + "\" data-language=\"" + cdList[i].language + "\">";
 		cdRow += "<td class=\"col-course\">" + cdList[i].course + "</td>";
-		cdRow += "<td class=\"col-co\" style=\"text-align:center\"><div class=\"btn-toolbar\">"
-		//Button HTML
-		 + "<a title=\"" + $('#bundleDiv').data("tooltip_icon_html_course_outline") + "\" class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + cdList[i].hyphenatedCourseId + "\')\"><i class=\"icon-star icon_button_img\"></i></a>"
-		//Button PDF
-		+ "<a title=\"" + $('#bundleDiv').data("tooltip_icon_pdf_course_outline") + "\" class=\"btn\" onMouseDown=\"return openCourseOutlinePDF(\'" + cdList[i].hyphenatedCourseId + "\')\">"
-		+ "<i class=\"icon-file-pdf icon_button_img\"></i></a>";
-		+ "<a class=\"button-microapp\" data-original-title=\"\"><i class=\"icon-file-pdf\"></i></a></div></td>";
 		cdRow += "<td class=\"col-department\" data-bundle-key=\"" + department_group_bundle_key + "\">" + departmentDescriptionsMap[cdList[i].departmentGroup] + "</td>";
 		cdRow += "<td class=\"col-career\" data-bundle-key=\"" + career_group_bundle_key + "\">" + careerDescriptionsMap[cdList[i].careerGroup] + "</td>";
 		cdRow += "<td class=\"col-lang\" data-bundle-key=\"" + language_bundle_key + "\">" + getLanguageDescription(cdList[i].language) + "</td>";
@@ -616,17 +609,9 @@ function expandListOfficialCourseDescriptions(itemName, listId, selectorIdListin
 								+ listCourses.portalManager_collection[i].hyphenatedCourseId
 								+ " - "
 								+ listCourses.portalManager_collection[i].title
-								+ "</a><div class=\"toolsWrapper\">";
+								+ "</a>";
 
-							//Button HTML
-							div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_html_course_outline") + "\" class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" onMouseDown=\"return openCourseOutlineHTML(\'" + listCourses.portalManager_collection[i].hyphenatedCourseId + "\')\">"
-								+ "<i class=\"icon-star icon_header_img\"></i></a>";
-
-							// Button PDF
-							div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_pdf_course_outline") + "\" onMouseDown=\"return openCourseOutlinePDF(\'" + listCourses.portalManager_collection[i].hyphenatedCourseId + "\')\" "
-								+ "data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf icon_header_img\"></i></a>";
-
-							div += "</div></div></div></div></div>";
+							div += "</div></div></div></div>";
 					}}
 
 					$(selectorAccordionCourseDiv).html(div);
@@ -678,13 +663,6 @@ function expandOfficialCourseDescription(course) {
 							+ course.title
 							+ "</a><div class=\"toolsWrapper\">";
 
-					//Button HTML
-					div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_html_course_outline") + "\" class=\"icon-button-right button-microapp\" data-original-title=\" Plan de cours enrichi\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.hyphenatedCourseId + "\')\"><i class=\"icon-star icon_header_img\"></i></a>";
-
-					//Button PDF
-					div += "<a title=\"" + $('#bundleDiv').data("tooltip_icon_pdf_course_outline") + "\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.hyphenatedCourseId + "\')\" "
-							+ "data-original-title=\"Plan de cours\" class=\"button-microapp icon-button-right\"><i class=\"icon-file-pdf\"></i></a>";
-
 					div += "<a class=\"icon-button-right button-microapp\" data-original-title=\"cours archivé\" data-toggle=\"\" href=\"archive.html\"></a></div></div></div><div id=\"collapseCourse\" class=\"accordion-body in collapse\"><div class=\"accordion-inner\"><h4 data-bundle-key=\"label_description\"></h4>"
 							+"<br>";
 					if (course.shortDescription != null){
@@ -702,14 +680,7 @@ function expandOfficialCourseDescription(course) {
 							+ "<br><br>"
 							+ "<div class=\"btn-toolbar\">";
 
-					// Button HTML
-					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.hyphenatedCourseId + "\')\"><i class=\"icon-star icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\"></span></a>";
-
-					// Button PDF
-					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.hyphenatedCourseId + "\')\">"
-							+ "<i class=\"icon-file-pdf icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_pdf_course_outline\"></span></a>";
-
-					div += "</div><table class=\"table\"><thead><tr><th class=\"col-co-department\" data-bundle-key=\"label_department\"></th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\"></th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\"></th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\"></th></tr></thead><tbody><tr><td>"
+					div += "<table class=\"table\"><thead><tr><th class=\"col-co-department\" data-bundle-key=\"label_department\"></th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\"></th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\"></th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\"></th></tr></thead><tbody><tr><td>"
 							+ "<a data-itemName=\"department\" data-itemGroup=\"" + course.departmentGroup + "\" data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#discipline=" + course.departmentGroup + "\" class=\"linkItemUnicOfficialCourseDescription\">"
 							+ departmentDescriptionsMap[course.departmentGroup]
 							+ "</a></td><td><a data-itemName=\"career\" data-itemGroup=\"" + course.careerGroup + "\" data-bundle-key=\"" + career_group_bundle_key + "\" href=\"#programme=" + course.careerGroup + "\" class=\"linkItemUnicOfficialCourseDescription\">"
@@ -718,7 +689,7 @@ function expandOfficialCourseDescription(course) {
 							+ course.credits
 							+ "</td><td>"
 							+ course.requirements
-							+ "</td></tr></tbody></table></div></div></div>";
+							+ "</td></tr></tbody></table></div></div></div></div>";
 
 					$('#my-tab-content').append(div);
 					bindLinkItemUnicOfficialCourseDescription();
@@ -1082,14 +1053,7 @@ function bindCollapseProcessing() {
 							+"<br><br>"
 							+ "<div class=\"btn-toolbar\">";
 
-					// Button HTML
-					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlineHTML(\'" + course.hyphenatedCourseId + "\')\"><i class=\"icon-star icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_html_course_outline\">" + $('#bundleDiv').data("label_html_course_outline")+ "</span></a>";
-
-					// Button PDF
-					div += "<a class=\"btn\" onMouseDown=\"return openCourseOutlinePDF(\'" + course.hyphenatedCourseId + "\')\">"
-							+ "<i class=\"icon-file-pdf icon_button_img\"></i> <span class=\"icon_button_label\" data-bundle-key=\"label_pdf_course_outline\">" + $('#bundleDiv').data("label_pdf_course_outline")+ "</span></a>";
-
-					div += "</div><table class=\"table\"><thead><tr><th class=\"col-co-department\" data-bundle-key=\"label_department\">" + $('#bundleDiv').data("label_department")+ "</th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\">" + $('#bundleDiv').data("label_academic_career")+ "</th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\">" + $('#bundleDiv').data("label_credits")+ "</th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\">" + $('#bundleDiv').data("label_requirements")+ "</th></tr></thead><tbody><tr><td>"
+					div += "<table class=\"table\"><thead><tr><th class=\"col-co-department\" data-bundle-key=\"label_department\">" + $('#bundleDiv').data("label_department")+ "</th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\">" + $('#bundleDiv').data("label_academic_career")+ "</th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\">" + $('#bundleDiv').data("label_credits")+ "</th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\">" + $('#bundleDiv').data("label_requirements")+ "</th></tr></thead><tbody><tr><td>"
 							+ "<a data-itemName=\"department\" data-itemGroup=\"" + course.departmentGroup + "\" data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#discipline=" + course.departmentGroup + "\" class=\"linkItemUnicOfficialCourseDescription\">"
 							+ departmentDescriptionsMap[course.departmentGroup]
 							+ "</a></td><td><a data-itemName=\"career\" data-itemGroup=\"" + course.careerGroup + "\" data-bundle-key=\"" + career_group_bundle_key + "\" href=\"#programme=" + course.careerGroup + "\" class=\"linkItemUnicOfficialCourseDescription\">"
@@ -1098,7 +1062,7 @@ function bindCollapseProcessing() {
 							+ course.credits
 							+ "</td><td>"
 							+ course.requirements
-							+ "</td></tr></tbody></table></div>";
+							+ "</td></tr></tbody></table></div></div>";
 						courseHeader.after(div);
 						bindLinkItemUnicOfficialCourseDescription();
 					
@@ -1138,69 +1102,6 @@ function setCurrentBreadCrumb(itemName) {
 	var bundle_current_breadcumb = 'label_breadcumb_hec_course_by_' + itemName;
 	$('#current_breadcrumb').html($('#bundleDiv').data(bundle_current_breadcumb));
 	$('#current_breadcrumb').attr('data-bundle-key',bundle_current_breadcumb);
-}
-
-
-/**
- * open the html version of the course outline, otherwise popup an error
- * use a HEAD request to verify that the syllabus exists
- */
-function openCourseOutlineHTML(courseId) {
-	var url = '/direct/portalManager/' + courseId + '/public_syllabus.html';
-	$.ajax({
-		type : 'HEAD',
-		url : url,
-		success : function () {
-			window.open(url, '_blank');
-		},
-		statusCode: {
-			404: function() {
-				window.alert($('#bundleDiv').data("message_no_co"));
-			}
-		}
-	});
-}
-
-/**
- * open the pdf for the course outline of the course associated with this catalog description
- */
-function openCourseOutlinePDF(courseId) {
-	// get the url for the pdf from the server
-	$.ajax({
-		url : '/direct/portalManager/' + courseId + '/public_syllabus.json',
-		datatype : 'json',
-		success : function(syllabus_info) {		
-			if (syllabus_info.data["pdf_url"] !== "") {
-			
-				//use a head call to verify that the pdf url exists
-				// could be simplified if portal manager returned the pdf itself (or we use sdata directly)
-				$.ajax({
-					type : 'HEAD',
-					url : syllabus_info.data["pdf_url"],
-					success : function () {
-						window.open(syllabus_info.data["pdf_url"], '_blank');
-					},
-					statusCode: {
-						404: function() {
-							window.alert($('#bundleDiv').data("message_no_co"));
-						},
-						// if the pdf does not exist, and the user is not logged in, sdata returns 403
-						403: function() {
-							window.alert($('#bundleDiv').data("message_no_co"));
-						}
-					}
-				});
-			}
-			else {
-				window.alert($('#bundleDiv').data("message_no_co"));
-			}
-		},
-		statusCode: {
-			404: function() {
-				window.alert($('#bundleDiv').data("message_no_co"));			
-			}
-		}
-	});
 }
 
 // used to keep the language specific descriptions of the
