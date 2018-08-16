@@ -678,7 +678,6 @@ function expandOfficialCourseDescription(course) {
                            div += "<h4 data-bundle-key=\"label_theme\">" + $('#bundleDiv').data("label_theme")+ "</h4>"
 							+"<br>" + course.themes
 							+ "<br><br>"
-							+ "<div class=\"btn-toolbar\">";
 
 					div += "<table class=\"table\"><thead><tr><th class=\"col-co-department\" data-bundle-key=\"label_department\"></th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\"></th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\"></th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\"></th></tr></thead><tbody><tr><td>"
 							+ "<a data-itemName=\"department\" data-itemGroup=\"" + course.departmentGroup + "\" data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#discipline=" + course.departmentGroup + "\" class=\"linkItemUnicOfficialCourseDescription\">"
@@ -689,7 +688,7 @@ function expandOfficialCourseDescription(course) {
 							+ course.credits
 							+ "</td><td>"
 							+ course.requirements
-							+ "</td></tr></tbody></table></div></div></div></div>";
+							+ "</td></tr></tbody></table></div></div></div>";
 
 					$('#my-tab-content').append(div);
 					bindLinkItemUnicOfficialCourseDescription();
@@ -1051,7 +1050,6 @@ function bindCollapseProcessing() {
                             div += "<h4 data-bundle-key=\"label_theme\">" + $('#bundleDiv').data("label_theme")+ "</h4>"
                             +"<br>" + course.themes
 							+"<br><br>"
-							+ "<div class=\"btn-toolbar\">";
 
 					div += "<table class=\"table\"><thead><tr><th class=\"col-co-department\" data-bundle-key=\"label_department\">" + $('#bundleDiv').data("label_department")+ "</th><th class=\"col-co-career\" data-bundle-key=\"label_academic_career\">" + $('#bundleDiv').data("label_academic_career")+ "</th><th class=\"col-co-credits\" data-bundle-key=\"label_credits\">" + $('#bundleDiv').data("label_credits")+ "</th><th class=\"col-co-requirements\" data-bundle-key=\"label_requirements\">" + $('#bundleDiv').data("label_requirements")+ "</th></tr></thead><tbody><tr><td>"
 							+ "<a data-itemName=\"department\" data-itemGroup=\"" + course.departmentGroup + "\" data-bundle-key=\"" + department_group_bundle_key + "\" href=\"#discipline=" + course.departmentGroup + "\" class=\"linkItemUnicOfficialCourseDescription\">"
@@ -1062,7 +1060,7 @@ function bindCollapseProcessing() {
 							+ course.credits
 							+ "</td><td>"
 							+ course.requirements
-							+ "</td></tr></tbody></table></div></div>";
+							+ "</td></tr></tbody></table></div>";
 						courseHeader.after(div);
 						bindLinkItemUnicOfficialCourseDescription();
 					
